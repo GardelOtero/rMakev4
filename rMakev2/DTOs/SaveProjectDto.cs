@@ -16,15 +16,15 @@ namespace rMakev2.DTOs
         public string Id { get; set; }
         public string DataToken { get; set; }
         public List<ProjectDTO> Projects { get; set; }
-        public UIDto Ui { get; set; }
+        //public UIDto Ui { get; set; }
 
     }
 
-    public class UIDto
+    /*public class UIDto
     {
         public string IdSelectedProject { get; set; }
         public string IdSelectedDocument { get; set; }
-    }
+    }*/
 
     public class ProjectDTO
     {
@@ -44,12 +44,12 @@ namespace rMakev2.DTOs
         public string Content { get; set; }
         public DateTime CreationDate { get; set; }
         public int Order { get; set; }
-       /* public List<ElementDTO> Elements { get; set; }*/
+        public List<ElementDTO> Elements { get; set; }
         public string ProjectId { get; set; }
         public string ParentDocumentId { get; set; }
 
     }
-    /*
+    
     public class ElementDTO
     {
         [JsonProperty(PropertyName = "id")]
@@ -62,5 +62,5 @@ namespace rMakev2.DTOs
         public string Hash { get; set; }
 
 
-    }*/
+    }
 }

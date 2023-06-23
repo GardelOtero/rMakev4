@@ -10,7 +10,7 @@ namespace rMakev2.Models
     {
         public Document()
         {
-           //Elements = new List<Element>();
+           Elements = new List<Element>();
         }
         public Document(Project project)
         {
@@ -19,27 +19,27 @@ namespace rMakev2.Models
             Name = "";
             CreationDate = DateTime.Now;
             Order = Project.Documents.Count() + 1;
-            //Elements = new List<Element>();
+            Elements = new List<Element>();
             Content = "";
             Project = project;
             ProjectId = project.Id;
-            //AddElement(this);
+            AddElement(this);
 
         }
         public string Id { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public int Order { get; set; }
-        //public List<Element> Elements { get; set; }
+        public List<Element> Elements { get; set; }
         [JsonIgnore]
         public Project Project { get; set; }
         public string Content { get; set; }
         public string ProjectId { get; set; }
         public string ParentDocumentId { get; set; }
-        //public bool IsOrdered { get; set; } = false;
+        public bool IsOrdered { get; set; } = false;
 
         
-        /*public Element AddElement(Document document)
+        public Element AddElement(Document document)
         {
             Element newElement = new Element(document);            
             return newElement;
@@ -169,6 +169,6 @@ namespace rMakev2.Models
 
             Content = ContentString;
 
-        }*/
+        }
     }
 }

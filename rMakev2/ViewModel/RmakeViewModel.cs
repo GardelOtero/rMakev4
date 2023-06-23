@@ -31,14 +31,14 @@ namespace rMakev2.ViewModel
             this._navigationManager = navigationManager;
             this._aiChat = aiChat;
 
-            InitializeData();
+            InitializePortfolio();
             _navigationManager = navigationManager;
         }
 
         public RmakeViewModel()
         {
 
-            InitializeData();
+            InitializePortfolio();
         }
         private Models.App app;
         public Models.App App
@@ -50,7 +50,7 @@ namespace rMakev2.ViewModel
                 OnPropertyChanged();
             }
         }
-        private Ui ui;
+       /* private Ui ui;
         public Ui Ui
         {
             get { return ui; }
@@ -59,18 +59,18 @@ namespace rMakev2.ViewModel
                 ui = value;
                 OnPropertyChanged();
             }
-        }
+        }*/
 
         public List<Item> ListaOraciones = new List<Item>();
-        public void InitializeData()
+        public void InitializePortfolio()
         {
             App = new Models.App("Rebel", "codename-rebel-creator");
 
-            Ui = new Models.Ui(App);
-            App.Data.Projects.Add(new Project(App.Data));
-            var ProjectZero = App.Data.Projects.First();
-            Ui.SelectedProject = ProjectZero;
-            Ui.SelectedDocument = ProjectZero.Documents.First();
+            //Ui = new Models.Ui(App);
+            App.Portfolio.Projects.Add(new Project(App.Portfolio));
+            var ProjectZero = App.Portfolio.Projects.First();
+            //Ui.SelectedProject = ProjectZero;
+            //Ui.SelectedDocument = ProjectZero.Documents.First();
 
             Thread p1;
             p1 = new Thread(new ThreadStart(Save));
@@ -100,7 +100,7 @@ namespace rMakev2.ViewModel
         }
 
 
-        public void HideSaveModal()
+        /*public void HideSaveModal()
         {
             App.Ui.SaveModal.Hide();
         }
@@ -135,11 +135,11 @@ namespace rMakev2.ViewModel
         public void ShowLoadModal()
         {
             App.Ui.LoadModal.Show();
-        }
-        public void EventSelectProject(ChangeEventArgs e)
+        }*/
+        /*public void EventSelectProject(ChangeEventArgs e)
         {
             string projectId = e.Value.ToString();
-            Project project = Ui.SelectedProject = App.Data.Projects.Where(w => w.Id == projectId).SingleOrDefault();
+            Project project = Ui.SelectedProject = App.Portfolio.Projects.Where(w => w.Id == projectId).SingleOrDefault();
             Ui.SelectProject(project);
             this._toastService.ShowInfo("You have changed the project to " + project.Name);
         }
@@ -164,11 +164,11 @@ namespace rMakev2.ViewModel
         {
             Ui.SelectDocument(document);
 
-        }
-        public void NewProject()
+        }*/
+       /* public void NewProject()
         {
-            SelectProject(App.Data.AddProject());
-            SelectDocument(Ui.SelectedProject.Documents.FirstOrDefault());
+            SelectProject(App.Portfolio.AddProject());
+            //SelectDocument(Ui.SelectedProject.Documents.FirstOrDefault());
 
 
 
@@ -181,36 +181,36 @@ namespace rMakev2.ViewModel
             var content = element.Content;
             element.AIContent= await _aiChat.UseChatService("Improve and expand this text: " + content);
             
-        }*/
+        }
         public void DeleteProject()
         {
 
-            if (App.Data.Projects.Count() >= 1)
+            if (App.Portfolio.Projects.Count() >= 1)
             {
-                App.Data.RemoveProject(Ui.SelectedProject);
-                SelectProject(App.Data.Projects.First());
+                App.Portfolio.RemoveProject(Ui.SelectedProject);
+                SelectProject(App.Portfolio.Projects.First());
                 //this._toastService.ShowSuccess("Project eliminated");
             }
             else
             {
-                App.Data.RemoveProject(Ui.SelectedProject);
+                App.Portfolio.RemoveProject(Ui.SelectedProject);
                 this._toastService.ShowSuccess("Project eliminated");
                 NewProject();
             }
         }
         public void DeleteProjectMenu(Project project)
         {
-            if (App.Data.Projects.Count() > 1)
+            if (App.Portfolio.Projects.Count() > 1)
             {
-                App.Data.RemoveProject(project);
-                SelectProject(App.Data.Projects.First());
+                App.Portfolio.RemoveProject(project);
+                SelectProject(App.Portfolio.Projects.First());
                 SelectDocument(Ui.SelectedProject.Documents.First());
 
             }
 
-            else if (App.Data.Projects.Count() == 1)
+            else if (App.Portfolio.Projects.Count() == 1)
             {
-                App.Data.RemoveProject(project);
+                App.Portfolio.RemoveProject(project);
                 NewProject();
                 SelectDocument(Ui.SelectedProject.Documents.First());
             }
@@ -218,7 +218,7 @@ namespace rMakev2.ViewModel
 
         public void ForkProject()
         {
-            SelectProject(App.Data.ForkProject(Ui.SelectedProject));
+            SelectProject(App.Portfolio.ForkProject(Ui.SelectedProject));
 
             this._toastService.ShowSuccess("Project Forked");
         }
@@ -240,7 +240,7 @@ namespace rMakev2.ViewModel
 
         public void UpdateDocumentMenu(Document document)
         {
-            App.Data.Projects.Where(x => x.Id == document.Project.Id).Select(x => x.Documents.Where(d => d.Id == document.Id)).FirstOrDefault().Select(x => { x.Name = document.Name; return x; });
+            App.Portfolio.Projects.Where(x => x.Id == document.Project.Id).Select(x => x.Documents.Where(d => d.Id == document.Id)).FirstOrDefault().Select(x => { x.Name = document.Name; return x; });
         }
 
         public void DeleteDocument()
@@ -281,7 +281,7 @@ namespace rMakev2.ViewModel
                 NewDocumentMenu(project);
             }
 
-        }
+        }*/
 
         
         public async Task SaveContentAsync()
@@ -292,14 +292,14 @@ namespace rMakev2.ViewModel
         }
         public void SwitchProjectName()
         {
-            Ui.SwitchEditName();
+           // Ui.SwitchEditName();
 
 
         }
 
         public void DisplayMenu()
         {
-            Ui.ShowMenu();
+           // Ui.ShowMenu();
         }
         public void Enter(KeyboardEventArgs e)
         {
@@ -316,7 +316,7 @@ namespace rMakev2.ViewModel
         /*public void HashMyContent()
         {
 
-            foreach (var project in App.Data.Projects)
+            foreach (var project in App.Portfolio.Projects)
             {
                 foreach (var document in project.Documents)
                 {
@@ -327,7 +327,7 @@ namespace rMakev2.ViewModel
                 }
             }
         }*/
-        public void BlockRTAFocus()
+        /*public void BlockRTAFocus()
         {
 
 
@@ -340,7 +340,7 @@ namespace rMakev2.ViewModel
 
             Ui.BlockRTAFocus = false;
 
-        }
+        }*/
         public string HashString(string text, string salt)
         {
             if (String.IsNullOrEmpty(text))
@@ -379,9 +379,9 @@ namespace rMakev2.ViewModel
                 return;
             }
 
-            //app = new Models.App(savedContent.Id, savedContent.DataToken);
+            //app = new Models.App(savedContent.Id, savedContent.PortfolioToken);
 
-            App.Data.Id = savedContent.Id;
+            App.Portfolio.Id = savedContent.Id;
 
 
             foreach (var proj in savedContent.Projects)
@@ -390,15 +390,15 @@ namespace rMakev2.ViewModel
                 p.Name = proj.Name;
                 p.Id = proj.Id;
                 p.CreationDate = proj.CreationDate;
-                p.Data = app.Data;
-                p.DataId = app.Data.Id;
+                p.Portfolio = app.Portfolio;
+                p.PortfolioId = app.Portfolio.Id;
                 p.ParentProjectId = proj.ParentProjectId;
-                this.App.Data.Projects.Add(p);
+                this.App.Portfolio.Projects.Add(p);
 
 
                 foreach (var doc in proj.Documents)
                 {
-                    var Pro = app.Data.Projects.Where(x => x.Id == proj.Id).FirstOrDefault();
+                    var Pro = app.Portfolio.Projects.Where(x => x.Id == proj.Id).FirstOrDefault();
                     Document d = new Document();
                     d.Name = doc.Name;
                     d.Id = doc.Id;
@@ -410,9 +410,9 @@ namespace rMakev2.ViewModel
                     d.ParentDocumentId = doc.ParentDocumentId;
                     Pro.Documents.Add(d);
 
-                    /*foreach (var ele in doc.Elements)
+                    foreach (var ele in doc.Elements)
                     {
-                        var Proj = app.Data.Projects.Where(x => x.Id == proj.Id).FirstOrDefault();
+                        var Proj = app.Portfolio.Projects.Where(x => x.Id == proj.Id).FirstOrDefault();
                         var docum = Proj.Documents.Where(x => x.Id == doc.Id).FirstOrDefault();
                         Element e = new Element();
                         e.Id = ele.Id;
@@ -425,27 +425,27 @@ namespace rMakev2.ViewModel
                         e.Hash = ele.Hash;
                         docum.Elements.Add(e);
 
-                    }*/
+                    }
 
                 }
 
 
             }
-            app.Ui.SaveModal = app.Ui.SaveModal;
+           // app.Ui.SaveModal = app.Ui.SaveModal;
 
 
-            //App.Data.RemoveProject(app.Ui.SelectedProject);
-            //app.Ui.SelectedProject = app.Data.Projects.Where(x => x.Id == savedContent.Ui.IdSelectedProject).FirstOrDefault();
+            //App.Portfolio.RemoveProject(app.Ui.SelectedProject);
+            //app.Ui.SelectedProject = app.Portfolio.Projects.Where(x => x.Id == savedContent.Ui.IdSelectedProject).FirstOrDefault();
             //app.Ui.SelectedDocument = app.Ui.SelectedProject.Documents.Where(x => x.Id == savedContent.Ui.IdSelectedDocument).FirstOrDefault();
 
 
 
         }
 
-        public void ShowAreaComment()
+        /*public void ShowAreaComment()
         {
             App.Ui.DisplayComents = App.Ui.DisplayComents == true ? false : true;
-        }
+        }*/
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged()

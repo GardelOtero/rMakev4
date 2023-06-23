@@ -10,15 +10,15 @@ namespace Domain.DTOs
         public string id { get; set; }
         public string DataToken { get; set; }
         public List<ProjectDTO> Projects { get; set; }
-        public UIDto Ui { get; set; }
+       // public UIDto Ui { get; set; }
 
     }
 
-    public class UIDto
+    /*public class UIDto
     {
         public string IdSelectedProject { get; set; }
         public string IdSelectedDocument { get; set; }
-    }
+    }*/
 
     public class ProjectDTO
     {
@@ -43,15 +43,15 @@ namespace Domain.DTOs
 
     }
 
-    //public class ElementDTO
-    //{
-        
-    //    public string id { get; set; }
-    //    public string Content { get; set; }
-    //    public int Order { get; set; }
-    //    public string Ideary { get; set; }
-    //    public string DocumentId { get; set; }
-    //    public string ParentElementId { get; set; }
+    public class ElementDTO
+    {
 
-    //}
+        public string id { get; set; }
+        public string Content { get; set; }
+        public int Order { get; set; }
+        public string Ideary { get; set; }
+        public string DocumentId { get; set; }
+        public string ParentElementId { get; set; }
+
+    }
 }

@@ -4,16 +4,16 @@ using System.Data;
 using System.Text.Json.Serialization;
 namespace rMakev2.Models
 {
-    public class Data
+    public class Portfolio
     {
-        public Data(App app) {
+        public Portfolio(App app) {
 
             Id = Guid.NewGuid().ToString();
             App = app ?? throw new Exceptions("app is null");            
             Projects = new List<Project>();
             App = app;
             AppId = app.Id;
-            app.Data = this;   
+            app.Portfolio = this;   
         }
         
         public string Id { get; set; }

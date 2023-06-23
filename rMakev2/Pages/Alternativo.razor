@@ -212,48 +212,48 @@
                     <li class="spacer">
                     </li>
                     <li class="nav-item active projectName">
-                        <input Id="ProjectName" @bind="@vm.Ui.SelectedProject.Name" class="form-control-plaintext small text-left" style=" font-size:16px; margin-left:10px; margin-top:-5px; !important; " placeholder="Project Name" autofocus @onclick="vm.BlockRTAFocus" />
-
+@*                        <input Id="ProjectName" @bind="@vm.Ui.SelectedProject.Name" class="form-control-plaintext small text-left" style=" font-size:16px; margin-left:10px; margin-top:-5px; !important; " placeholder="Project Name" autofocus @onclick="vm.BlockRTAFocus" />
+*@
                     </li>
                     <li>
-                        <a class="barItems" @onclick="NewProj"><img src="svgs/Plus.svg" title="Create Project" /> </a>
+                        @*<a class="barItems" @onclick="NewProj"><img src="svgs/Plus.svg" title="Create Project" /> </a>*@
                     </li>
                     <li class="nav-item">
-                        <a class="barItems" @onclick="() => vm.DeleteProjectMenu(vm.Ui.SelectedProject)"><img src="svgs/Delete.svg" title="Delete Project" /> </a>
-                    </li>
+@*                        <a class="barItems" @onclick="() => vm.DeleteProjectMenu(vm.Ui.SelectedProject)"><img src="svgs/Delete.svg" title="Delete Project" /> </a>
+*@                    </li>
                     <li class="nav-item">
-                        <a class="barItems" @onclick=" vm.ShowSaveModal"><img src="svgs/asset 1.svg" title="Save Project" /> </a>
-                    </li>
+@*                        <a class="barItems" @onclick=" vm.ShowSaveModal"><img src="svgs/asset 1.svg" title="Save Project" /> </a>
+*@                    </li>
                     <li class="nav-item" >
-                        <a class="barItems" @onclick=" vm.ShowLoadModal"><img src="svgs/File icon.svg" title="Load" /> </a>
-                    </li>
+@*                        <a class="barItems" @onclick=" vm.ShowLoadModal"><img src="svgs/File icon.svg" title="Load" /> </a>
+*@                    </li>
                     <li class="nav-item" style="padding-right: 25px; margin-right: 15px; border-right: 1px solid #f1f1f1;">
-                        <a class="barItems" @onclick=" vm.ShowPublishModal"><img src="svgs/asset 3.svg" title="Publish" /> </a>
-                    </li>
+@*                        <a class="barItems" @onclick=" vm.ShowPublishModal"><img src="svgs/asset 3.svg" title="Publish" /> </a>
+*@                    </li>
                     <li class="nav-item">
-                        <a class="barItems" @onclick="vm.ForkProject"><img src="svgs/Fork.svg" title="Fork Project" /> </a>
-                    </li>
+@*                        <a class="barItems" @onclick="vm.ForkProject"><img src="svgs/Fork.svg" title="Fork Project" /> </a>
+*@                    </li>
                     <li class="nav-item" style="padding-right: 25px; margin-right: 15px; border-right: 1px solid #f1f1f1;">
-                        <a class="barItems" @onclick="vm.ForkProject"><img src="svgs/Merge.svg" title="Merge Projects" /> </a>
-                    </li>
+@*                        <a class="barItems" @onclick="vm.ForkProject"><img src="svgs/Merge.svg" title="Merge Projects" /> </a>
+*@                    </li>
                     <li class="nav-item">
-                        <a class="barItems" @onclick="vm.ShowJsonModal"><img src="svgs/json view.svg" title="Json View" /> </a>
-                    </li>
+@*                        <a class="barItems" @onclick="vm.ShowJsonModal"><img src="svgs/json view.svg" title="Json View" /> </a>
+*@                    </li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <section>
-        <div class="row mt-15 pt-15">
+@*    <section>
+*@        @*<div class="row mt-15 pt-15">*@
             @*menu*@
             <i @onclick="vm.DisplayMenu" class="small mb-1 pl-4 position-fixed"><img src="svgs/Menu Bar.svg" title="Publish" class="menuBarsIcon" /></i>
-            @if (vm.Ui.DisplayMenu == true)
+@*            @if (vm.Ui.DisplayMenu == true)
             {
                 <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2 mt-6 p-1 pl-1 ml-3 position-fixed">
                     <div class="card mt-3">
                         <div class="card-body minH-500 maxH-500 overflow-auto">
-                            @foreach (var project in vm.App.Data.Projects)
+                            @foreach (var project in vm.App.Portfolio.Projects)
                             {
                                 <div class="w-100" style="background-color: rgba(0,0,0,.125)">
                                     @if (project.Name == "")
@@ -289,25 +289,26 @@
                     </div>
                 </div>
             }
-            @*/menu*@
+*@            @*/menu*@
 
 
             @*working area*@
-            <div class="col-sm-12 col-md-7 col-lg-7 col-xl-8 mt-5 pl-6" style="margin-left: @(vm.Ui.DisplayMenu? "20%" : "5%")">
-
-                @if (vm.Ui.DisplayDocumentMenu == true)
+@*            <div class="col-sm-12 col-md-7 col-lg-7 col-xl-8 mt-5 pl-6" style="margin-left: @(vm.Ui.DisplayMenu? "20%" : "5%")">
+*@
+@*                @if (vm.Ui.DisplayDocumentMenu == true)
                 {
                     <div class="spacer">
 
-                        <div class="documentMenu mb-2">
-                            <a @onclick="vm.DeleteDocument"><img src="svgs/Delete.svg" title="Delete Document" class="m-1 smallIcon" /></a>
-                            <a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
-                            <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
+            <div class="documentMenu mb-2">*@
+@*                            <a @onclick="vm.DeleteDocument"><img src="svgs/Delete.svg" title="Delete Document" class="m-1 smallIcon" /></a>
+*@                           
+@*<a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
+*@                            <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
                             @*<a @onclick="vm.orderElements"><img src="svgs/Elements .svg" title="Sort Elements" Class="smallIcon" /></a>*@
                         </div>
-                    </div>
-                }
-                else
+@*                    </div>
+*@                }
+                @*else*@
                 {
                     <div class="spacer"></div>
 
@@ -317,11 +318,11 @@
 
                 <div style="width:20px; float:left; margin-top:15px;">
                     <a>
-                        <img src="svgs/3 dots.svg" title="Document Menu" class="dots " @onclick="vm.DocumentMenu" />
-                    </a>
+@*                        <img src="svgs/3 dots.svg" title="Document Menu" class="dots " @onclick="vm.DocumentMenu" />
+*@                    </a>
                 </div>
 
-                <div style="width:90%; float:left;">
+@*                <div style="width:90%; float:left;">
 
                     <textarea  @bind="@vm.Ui.SelectedDocument.Name" 
                             @bind:event="oninput" 
@@ -344,17 +345,17 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Ui.DisplayJson? "d-block" : "d-none" )">
-            <textarea readonly style="color:#0f0; width:100%; margin:auto; font-size:10px; background-color:#000; border-radius:0px; height:100%; text-align:left;">
-                @vm.Ui.JsonFn();
-            </textarea>
-        </div>
+        </div>*@
+@*        <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Ui.DisplayJson? "d-block" : "d-none" )">
+*@            <textarea readonly style="color:#0f0; width:100%; margin:auto; font-size:10px; background-color:#000; border-radius:0px; height:100%; text-align:left;">
+@*                @vm.Ui.JsonFn();
+*@            </textarea>
+@*        </div>
     </section>
-</div>
+</div>*@
 
 
-<Modal @ref="vm.App.Ui.SaveModal" class="half-modal fade">
+@*<Modal @ref="vm.App.Ui.SaveModal" class="half-modal fade">
     <ModalContent Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideSaveModal">
@@ -364,8 +365,8 @@
                 <div class="w-100 h-50">
                     <h2>Choose your server</h2>
                     <p>Save your token to retrive your content</p>
-                    <h5> @vm.App.Data.Id</h5>
-                    <Button @onclick="@(() => clipboard(vm.App.Data.Id))">Copy Hash</Button>
+                    <h5> @vm.App.Portfolio.Id</h5>
+                    <Button @onclick="@(() => clipboard(vm.App.Portfolio.Id))">Copy Hash</Button>
                     <div class="form-check p-3">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
@@ -378,8 +379,8 @@
         </ModalBody>
     </ModalContent>
 </Modal>
-
-<Modal @ref="vm.App.Ui.LoadModal" class="half-modal fade">
+*@
+@*<Modal @ref="vm.App.Ui.LoadModal" class="half-modal fade">
     <ModalContent Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideLoadModal">
@@ -395,8 +396,8 @@
         </ModalBody>
     </ModalContent>
 </Modal>
-
-<Modal @ref="vm.App.Ui.PublishModal" class="half-modal fade">
+*@
+@*<Modal @ref="vm.App.Ui.PublishModal" class="half-modal fade">
     <ModalContent Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideSaveModal">
@@ -437,8 +438,8 @@
         </ModalBody>
     </ModalContent>
 </Modal>
-
-<Modal @ref="vm.App.Ui.MergeModal" class="half-modal fade">
+*@
+@*<Modal @ref="vm.App.Ui.MergeModal" class="half-modal fade">
     <ModalContent Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideSaveModal">
@@ -453,7 +454,7 @@
         </ModalBody>
     </ModalContent>
 </Modal>
-
+*@
 @code {
     bool _isExpanded = true;
     MudListItem selectedItem;
@@ -493,14 +494,14 @@
 
 
             //await localStorage.ClearAsync();
-            if (vm.Ui.SelectedDocument == null)
+            //if (vm.Ui.SelectedDocument == null)
             {
                 //vm.Ui.SelectedDocument = new Document();
                 //await localStorage.SetItemAsync(vm.Ui.SelectedProject.Id, vm.Ui.SelectedProject);
-                await newDoc(vm.Ui.SelectedProject);
+              //  await newDoc(vm.Ui.SelectedProject);
             }
         }
-        if (vm.Ui.EditProjectName == true && vm.Ui.EditedProjectName == false)
+        /*if (vm.Ui.EditProjectName == true && vm.Ui.EditedProjectName == false)
         {
             await jsRuntime.InvokeVoidAsync("focusInput");
             vm.Ui.EditedProjectName = true;
@@ -508,7 +509,7 @@
         else if (vm.Ui.EditProjectName == false && vm.Ui.EditedProjectName == true)
         {
             vm.Ui.EditedProjectName = false;
-        }
+        }*/
     }
 
     async void navigate()
@@ -542,12 +543,12 @@
             if (key == "i18nextLng")
                 continue;
 
-            Project newProj = new Project(vm.App.Data);
+            Project newProj = new Project(vm.App.Portfolio);
             storageProj = await localStorage.GetItemAsync<Project>(key);
             newProj.Id = storageProj.Id;
             newProj.Name = storageProj.Name;
             newProj.CreationDate = storageProj.CreationDate;
-            newProj.DataId = storageProj.DataId;
+            newProj.PortfolioId = storageProj.PortfolioId;
             newProj.Documents = storageProj.Documents;
 
 
@@ -559,12 +560,12 @@
 
         }
 
-        vm.App.Data.Projects.AddRange(projects);
-        vm.DeleteProjectMenu(vm.Ui.SelectedProject);
+        vm.App.Portfolio.Projects.AddRange(projects);
+        //vm.DeleteProjectMenu(vm.Ui.SelectedProject);
 
-        if(vm.Ui.SelectedDocument.Content != "")
+        //if(vm.Ui.SelectedDocument.Content != "")
         {
-            await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Ui.SelectedDocument.Content);
+            //await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Ui.SelectedDocument.Content);
         }
 
     }
@@ -575,15 +576,15 @@
         loaded = true;
         //vm.DeleteProjectMenu(vm.Ui.SelectedProject);
 
-        await ChangeContent(vm.Ui.SelectedDocument);
+       // await ChangeContent(vm.Ui.SelectedDocument);
     }
 
     [JSInvokable]
     public async Task SaveStorage()
     {
-        await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
+        //await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
 
-        //foreach (var project in vm.App.Data.Projects)
+        //foreach (var project in vm.App.Portfolio.Projects)
          
         //    foreach (var document in project.Documents)
         //    {
@@ -601,12 +602,12 @@
 
     public async Task NewSave()
     {
-        await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
+       // await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
 
         List<Project> projects = new List<Project>();
         List<Document> docs = new List<Document>();
 
-        foreach (var project in vm.App.Data.Projects)
+        foreach (var project in vm.App.Portfolio.Projects)
         {
             docs.AddRange(project.Documents);
         }
@@ -615,9 +616,9 @@
         {
             if (!await localStorage.ContainKeyAsync(document.Id)){ continue; }
 
-            if(document.Id == vm.Ui.SelectedDocument.Id)
+           // if(document.Id == vm.Ui.SelectedDocument.Id)
             {
-                vm.Ui.SelectedDocument.Name = document.Name;
+             //   vm.Ui.SelectedDocument.Name = document.Name;
             }
 
             Document newDoc = await localStorage.GetItemAsync<Document>(document.Id);
@@ -641,7 +642,7 @@
     [JSInvokable]
     public async Task SaveContent(string content, Document doc)
     {
-        Project project = vm.App.Data.Projects.Where(x => x.Id == doc.ProjectId).FirstOrDefault();
+        Project project = vm.App.Portfolio.Projects.Where(x => x.Id == doc.ProjectId).FirstOrDefault();
         Document document = project.Documents.Where(x => x.Id == doc.Id).FirstOrDefault();
         document.Content = content;
         await localStorage.SetItemAsync(doc.ProjectId, project);
@@ -649,12 +650,12 @@
 
     public async Task ChangeContent(Document newDoc)
     {
-        await jsRuntime.InvokeAsync<string>("changeContent", objRef, vm.Ui.SelectedDocument, newDoc);
+        //await jsRuntime.InvokeAsync<string>("changeContent", objRef, vm.Ui.SelectedDocument, newDoc);
     }
 
     public async Task ChangeProject(Project project)
     {
-        await jsRuntime.InvokeVoidAsync("changeProj", objRef, vm.Ui.SelectedDocument, project.Documents.FirstOrDefault());
+        //await jsRuntime.InvokeVoidAsync("changeProj", objRef, vm.Ui.SelectedDocument, project.Documents.FirstOrDefault());
     }
 
     [JSInvokable]
@@ -667,7 +668,7 @@
         else
             newDoc = proj.Documents.Where(x => x.Id == document.Id).FirstOrDefault();
 
-        var projects = vm.App.Data.Projects.Where(x => x.Id == document.ProjectId).FirstOrDefault();
+        var projects = vm.App.Portfolio.Projects.Where(x => x.Id == document.ProjectId).FirstOrDefault();
         var oldDoc = projects.Documents.Where(x => x.Id == document.Id).FirstOrDefault();
 
         if (newDoc != null)
@@ -679,7 +680,7 @@
         else if (document.Content != null)
             await jsRuntime.InvokeVoidAsync("loadContent", objRef, document.Content);
 
-        vm.SelectProject(projects);
+        //vm.SelectProject(projects);
         StateHasChanged();
     }
 
@@ -694,7 +695,7 @@
         else
             newDoc = proj.Documents.Where(x => x.Id == document.Id).FirstOrDefault();
 
-        var projects = vm.App.Data.Projects.Where(x => x.Id == document.ProjectId).FirstOrDefault();
+        var projects = vm.App.Portfolio.Projects.Where(x => x.Id == document.ProjectId).FirstOrDefault();
         var oldDoc = projects.Documents.Where(x => x.Id == document.Id).FirstOrDefault();
 
         if(newDoc != null)
@@ -706,7 +707,7 @@
         else if (document.Content != null)
             await jsRuntime.InvokeVoidAsync("loadContent", objRef, document.Content);
 
-        vm.EventSelectDocumentMenu(oldDoc);
+       // vm.EventSelectDocumentMenu(oldDoc);
 
         StateHasChanged();
     }
@@ -721,18 +722,18 @@
 
     public async Task newDoc(Project project)
     {
-        await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
+        //await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
 
-        vm.NewDocumentMenu(project);
+        //vm.NewDocumentMenu(project);
 
         await jsRuntime.InvokeAsync<string>("ClearEditor");
     }
 
     public async Task NewProj()
     {
-        await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
+        //await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
 
-        vm.NewProject();
+        //vm.NewProject();
 
         await jsRuntime.InvokeAsync<string>("ClearEditor");
     }   

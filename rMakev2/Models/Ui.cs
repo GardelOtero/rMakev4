@@ -5,7 +5,7 @@ using Blazorise;
 
 namespace rMakev2.Models
 {
-    public class Ui : INotifyPropertyChanged
+   /* public class Ui : INotifyPropertyChanged
     {
         public Ui(Models.App app)
         {
@@ -47,7 +47,7 @@ namespace rMakev2.Models
                 selectedElement = value;
                 OnPropertyChanged();
             }
-        }*/
+        }
 
 
         [JsonIgnore]
@@ -130,7 +130,7 @@ namespace rMakev2.Models
 
             }
             
-        }*/
+        }
 
         public void ShowMenu()
         {
@@ -174,6 +174,6 @@ namespace rMakev2.Models
             JsonFn();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
         }
-    }
+    }*/
 
 }

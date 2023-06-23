@@ -8,16 +8,16 @@ namespace rMakev2.Models
         {
             Documents = new List<Document>();
         }
-        public Project(Data data)
+        public Project(Portfolio portfolio)
         {
-            Data = data ?? throw new Exceptions("Data is null");
+            Portfolio = portfolio ?? throw new Exceptions("Data is null");
             Id = Guid.NewGuid().ToString();
             Name = "";
             //Name = "Project ("+data.Projects.Count() +")";
             CreationDate = DateTime.Now;
             Documents = new List<Document>();
-            Data = data;
-            DataId = data.Id;
+            Portfolio = portfolio;
+            PortfolioId = portfolio.Id;
             AddDocument(this);
 
 
@@ -28,8 +28,8 @@ namespace rMakev2.Models
         public DateTime CreationDate { get; set; }
         public List<Document> Documents { get; set; }
         [JsonIgnore]
-        public Data Data { get; set; }
-        public string DataId { get; set; }
+        public Portfolio Portfolio { get; set; }
+        public string PortfolioId { get; set; }
         public string ParentProjectId { get; set; }
 
                 
