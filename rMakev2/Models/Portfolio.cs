@@ -6,13 +6,17 @@ namespace rMakev2.Models
 {
     public class Portfolio
     {
-        public Portfolio(App app) {
+        public Portfolio(App app, string dataToken) {
 
             Id = Guid.NewGuid().ToString();
             App = app ?? throw new Exceptions("app is null");            
             Projects = new List<Project>();
             App = app;
             AppId = app.Id;
+            if (dataToken == null)
+                dataToken = Guid.NewGuid().ToString();
+            else
+                DataToken = dataToken;
             app.Portfolio = this;   
         }
         
@@ -22,6 +26,7 @@ namespace rMakev2.Models
         public App App { get; set; }
         public string AppId { get; set; }
 
+        public string DataToken { get; set; }
         public Project AddProject()
         {
             Project newProject = new Project(this);

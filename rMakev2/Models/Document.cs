@@ -18,6 +18,8 @@ namespace rMakev2.Models
             Id = Guid.NewGuid().ToString();
             Name = "";
             CreationDate = DateTime.Now;
+            Author = "";
+            PathPreviewImage = "";
             Order = Project.Documents.Count() + 1;
             Elements = new List<Element>();
             Content = "";
@@ -29,11 +31,13 @@ namespace rMakev2.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
+        public string Author { get; set; }
+        public string PathPreviewImage { get; set; }
         public int Order { get; set; }
         public List<Element> Elements { get; set; }
         [JsonIgnore]
         public Project Project { get; set; }
-        public string Content { get; set; }
+        public string Content { get; set; } //documento tendra contenido? si ya tiene elementos
         public string ProjectId { get; set; }
         public string ParentDocumentId { get; set; }
         public bool IsOrdered { get; set; } = false;

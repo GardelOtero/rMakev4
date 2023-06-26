@@ -15,6 +15,7 @@ namespace rMakev2.Models
             Document = document ?? throw new Exceptions("Document is null");
             Id = Guid.NewGuid().ToString();
             Content = "";
+            Author = "";
             Order = Document.Elements.Count() + 1;
             EditItem = true;
             DocumentId = document.Id;
@@ -27,6 +28,7 @@ namespace rMakev2.Models
             Document = document ?? throw new Exceptions("Document is null");
             Id = Guid.NewGuid().ToString();
             Content = "";
+            Author = "";
             EditItem = false;
             Order = previousElement + 1;
             foreach (var item in Document.Elements.Where(w => w.Order > previousElement+1))
@@ -39,6 +41,7 @@ namespace rMakev2.Models
         }
         public string Id { get; set; }
         public string Content { get; set; }
+        public string Author { get; set; }
         public string AIContent { get; set; }
         public int Order { get; set; }
         public int AppearingOrder { get; set; }

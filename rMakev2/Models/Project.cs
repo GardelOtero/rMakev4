@@ -15,6 +15,8 @@ namespace rMakev2.Models
             Name = "";
             //Name = "Project ("+data.Projects.Count() +")";
             CreationDate = DateTime.Now;
+            Author = "";
+            PathPreviewImage = "";
             Documents = new List<Document>();
             Portfolio = portfolio;
             PortfolioId = portfolio.Id;
@@ -26,6 +28,8 @@ namespace rMakev2.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
+        public string Author { get; set; }
+        public string PathPreviewImage { get; set; }
         public List<Document> Documents { get; set; }
         [JsonIgnore]
         public Portfolio Portfolio { get; set; }

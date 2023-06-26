@@ -2,19 +2,15 @@
 {
     public class App
     {
-        public App(string appId, string dataToken)
+        public App(string appId)
         {
             appId = appId ?? throw new Exceptions("App Key is required");
             Id = appId;
-            Portfolio = new Portfolio(this);
+            Portfolio = new Portfolio(this, "codename-rebel-creator");
+
             //Ui = new Ui(this);
-            if (dataToken == null)
-                dataToken = Guid.NewGuid().ToString();
-            else
-                DataToken = dataToken;
         }
         public string Id { get; set; }
-        public string DataToken;
         public Portfolio Portfolio { get; set; }
         //public Ui Ui { get; set; }
 

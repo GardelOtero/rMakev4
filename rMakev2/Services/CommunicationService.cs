@@ -14,7 +14,7 @@ namespace rMakev2.Services
         {
             var save = new SaveProjectDto();
             save.Id = App.Portfolio.Id;
-            save.DataToken = App.DataToken;
+            //save.DataToken = App.DataToken;
             save.Projects = new List<ProjectDTO>();
            // save.Ui = new UIDto();
 

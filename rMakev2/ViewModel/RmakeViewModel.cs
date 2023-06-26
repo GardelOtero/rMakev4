@@ -64,7 +64,7 @@ namespace rMakev2.ViewModel
         public List<Item> ListaOraciones = new List<Item>();
         public void InitializePortfolio()
         {
-            App = new Models.App("Rebel", "codename-rebel-creator");
+           // App = new Models.App;
 
             //Ui = new Models.Ui(App);
             App.Portfolio.Projects.Add(new Project(App.Portfolio));
