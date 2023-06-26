@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Components;
 using rMakev2.Models;
 using rMakev2.Services;
 using rMakev2.DTOs;
-
-
+using System.ComponentModel;
 
 namespace rMakev2.ViewModel
 {
@@ -23,20 +22,10 @@ namespace rMakev2.ViewModel
             this._navigationManager = navigationManager;
             this._aiChat = aiChat;
 
-            InitializePortfolio();
             _navigationManager = navigationManager;
         }
         public Portfolio Portfolio { get; set; }
-        public Models.App App { get; set; }
-
-        public void InitializePortfolio()
-        {
-            App = new Models.App("rebel");
-            Portfolio = App.Portfolio;
-        }
-
-
-
+     
         public void NewProject()
         {
             Portfolio.AddProject();
@@ -48,9 +37,14 @@ namespace rMakev2.ViewModel
             Portfolio.RemoveProject(project);
         }
 
+        public void LoadDocuments(Project project)
+        {
+            _navigationManager.NavigateTo("/app/"/*, project*/);
+        }
+
         public async Task LoadProyectAsync(string token)
         {
-
+            Portfolio = new Portfolio(Portfolio.App, "codename-rebel-creator");
             
             SaveProjectDto savedContent = await _communicationService.LoadAsync(token);
 
@@ -62,7 +56,7 @@ namespace rMakev2.ViewModel
 
             //app = new Models.App(savedContent.Id, savedContent.PortfolioToken);
 
-            App.Portfolio.GUID = savedContent.Id;
+            Portfolio.GUID = savedContent.Id;
 
 
             foreach (var proj in savedContent.Projects)
@@ -74,7 +68,7 @@ namespace rMakev2.ViewModel
                 p.Portfolio = Portfolio;
                 p.PortfolioId = Portfolio.GUID;
                 p.ParentProjectId = proj.ParentProjectId;
-                this.App.Portfolio.Projects.Add(p);
+                this.Portfolio.Projects.Add(p);
 
 
                 foreach (var doc in proj.Documents)

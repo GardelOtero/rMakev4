@@ -37,6 +37,8 @@ namespace rMakev2.Models
         public Project AddProject()
         {
             Project newProject = new Project(this);
+            newProject.Name = "Project Name";
+
             Projects.Add(newProject);
             return newProject;
         }

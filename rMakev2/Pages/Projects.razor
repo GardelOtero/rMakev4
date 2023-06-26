@@ -7,23 +7,38 @@
 @inject ProjectViewModel PVm;
 
 <style>
-    .projectList{
-        display:flex;
-        flex-direction:column;
+    .projectList {
+        display: flex;
+        flex-direction: column;
     }
 
+    .projectContainer {
+        border: solid black 1px;
+        border-radius: 5px;
+        padding: 5px;
+        margin-top: 10px;
+    }
+
+    .createButton{
+        border: solid black 1px;
+        border-radius: 5px;
+        padding: 5px;
+    }
 
 </style>
 
 <div>
-    <button onclick="@PVm.NewProject">New project</button>
+    <button @onclick="PVm.NewProject" class="createButton">Create project</button>
 
     <div class="projectList">
 
 
-        @foreach(var project in PVm.Portfolio.Projects)
+        @foreach (var project in PVm.Portfolio.Projects)
         {
-            <button>@project.Name</button>
+            <div class="projectContainer">
+                <button @onclick="() => PVm.LoadDocuments(project)">@project.Name</button>
+                <button @onclick="() => PVm.DeleteProject(project)">Borrar</button>
+            </div>
         }
 
     </div>
@@ -38,9 +53,11 @@
 
     protected override async Task OnInitializedAsync()
     {
+        PVm.Portfolio = vm.App.Portfolio;
+
         try
         {
-            if (token != "")
+            if (token != null)
             {
                 await PVm.LoadProyectAsync(token);
             }
@@ -51,7 +68,7 @@
         }
     }
 
-    
+
 
 
 }
