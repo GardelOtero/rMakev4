@@ -11,22 +11,30 @@ namespace rMakev2.Models
         public Project(Portfolio portfolio)
         {
             Portfolio = portfolio ?? throw new Exceptions("Data is null");
-            Id = Guid.NewGuid().ToString();
+            GUID = Guid.NewGuid().ToString();
             Name = "";
+            Labels = new List<string>();
+            Versions = new List<string>();
+            IsPublic = false;
+            IsWebsite = false;
             //Name = "Project ("+data.Projects.Count() +")";
             CreationDate = DateTime.Now;
             Author = "";
             PathPreviewImage = "";
             Documents = new List<Document>();
             Portfolio = portfolio;
-            PortfolioId = portfolio.Id;
+            PortfolioId = portfolio.GUID;
             AddDocument(this);
 
 
         }
-        
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public string GUID { get; set; }
         public string Name { get; set; }
+        public List<string> Labels { get; set; }
+        public List<string> Versions { get; set; }
+        public bool IsPublic { get; set; }
+        public bool IsWebsite { get; set; }
         public DateTime CreationDate { get; set; }
         public string Author { get; set; }
         public string PathPreviewImage { get; set; }
@@ -56,14 +64,14 @@ namespace rMakev2.Models
 
         public void UpdateDocument(Document document)
         {
-            Documents.Where(x => x.Id == document.Id).Select(x => { x.Name = document.Name; x.Content = document.Content; return x; });
+            Documents.Where(x => x.GUID == document.GUID).Select(x => { x.Name = document.Name; x.Content = document.Content; return x; });
         }
 
         internal Document CloneDocument(Document document)
         {
             Document newDocument = new Document(document.Project);
             newDocument.Name = document.Name + "(Cloned)";
-            newDocument.ParentDocumentId = document.Id;
+            newDocument.ParentDocumentId = document.GUID;
             newDocument.Content = document.Content;
             Documents.Add(newDocument);            
 

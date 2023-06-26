@@ -20,6 +20,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<RmakeViewModel>();
 builder.Services.AddScoped<RobinVM>();
 builder.Services.AddScoped<AIChat>();
+builder.Services.AddScoped<ProjectViewModel>();
 
 builder.Services.AddBlazoredToast();
 builder.Services

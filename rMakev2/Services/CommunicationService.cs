@@ -13,7 +13,7 @@ namespace rMakev2.Services
         public async Task SaveAsync(Models.App App)
         {
             var save = new SaveProjectDto();
-            save.Id = App.Portfolio.Id;
+            save.Id = App.Portfolio.GUID;
             //save.DataToken = App.DataToken;
             save.Projects = new List<ProjectDTO>();
            // save.Ui = new UIDto();
@@ -24,7 +24,7 @@ namespace rMakev2.Services
             foreach (var item in App.Portfolio.Projects)
             {
                 ProjectDTO project = new ProjectDTO();
-                project.Id = item.Id;
+                project.Id = item.GUID;
                 project.Name = item.Name;
                 project.CreationDate = item.CreationDate;
                 project.Documents = new List<DocumentDTO>();
@@ -34,7 +34,7 @@ namespace rMakev2.Services
                 foreach (var itemDoc in item.Documents)
                 {
                     DocumentDTO document = new DocumentDTO();
-                    document.Id = itemDoc.Id;
+                    document.Id = itemDoc.GUID;
                     document.Name = itemDoc.Name;
                     document.CreationDate = itemDoc.CreationDate;
                     document.Order = itemDoc.Order;

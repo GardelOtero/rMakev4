@@ -614,14 +614,14 @@
 
         foreach (var document in docs)
         {
-            if (!await localStorage.ContainKeyAsync(document.Id)){ continue; }
+            if (!await localStorage.ContainKeyAsync(document.GUID)){ continue; }
 
            // if(document.Id == vm.Ui.SelectedDocument.Id)
             {
              //   vm.Ui.SelectedDocument.Name = document.Name;
             }
 
-            Document newDoc = await localStorage.GetItemAsync<Document>(document.Id);
+            Document newDoc = await localStorage.GetItemAsync<Document>(document.GUID);
             document.Name = newDoc.Name;
             document.Content = newDoc.Content;  
         }
@@ -642,8 +642,8 @@
     [JSInvokable]
     public async Task SaveContent(string content, Document doc)
     {
-        Project project = vm.App.Portfolio.Projects.Where(x => x.Id == doc.ProjectId).FirstOrDefault();
-        Document document = project.Documents.Where(x => x.Id == doc.Id).FirstOrDefault();
+        Project project = vm.App.Portfolio.Projects.Where(x => x.GUID == doc.ProjectId).FirstOrDefault();
+        Document document = project.Documents.Where(x => x.GUID == doc.GUID).FirstOrDefault();
         document.Content = content;
         await localStorage.SetItemAsync(doc.ProjectId, project);
     }
@@ -666,10 +666,10 @@
         if (proj == null)
             newDoc = null;
         else
-            newDoc = proj.Documents.Where(x => x.Id == document.Id).FirstOrDefault();
+            newDoc = proj.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
 
-        var projects = vm.App.Portfolio.Projects.Where(x => x.Id == document.ProjectId).FirstOrDefault();
-        var oldDoc = projects.Documents.Where(x => x.Id == document.Id).FirstOrDefault();
+        var projects = vm.App.Portfolio.Projects.Where(x => x.GUID == document.ProjectId).FirstOrDefault();
+        var oldDoc = projects.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
 
         if (newDoc != null)
         {
@@ -695,8 +695,8 @@
         else
             newDoc = proj.Documents.Where(x => x.Id == document.Id).FirstOrDefault();
 
-        var projects = vm.App.Portfolio.Projects.Where(x => x.Id == document.ProjectId).FirstOrDefault();
-        var oldDoc = projects.Documents.Where(x => x.Id == document.Id).FirstOrDefault();
+        var projects = vm.App.Portfolio.Projects.Where(x => x.GUID == document.ProjectId).FirstOrDefault();
+        var oldDoc = projects.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
 
         if(newDoc != null)
         {

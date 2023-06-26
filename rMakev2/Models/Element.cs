@@ -13,20 +13,25 @@ namespace rMakev2.Models
         public Element(Document document)
         {
             Document = document ?? throw new Exceptions("Document is null");
-            Id = Guid.NewGuid().ToString();
+            GUID = Guid.NewGuid().ToString();
             Content = "";
             Author = "";
             Order = Document.Elements.Count() + 1;
             EditItem = true;
-            DocumentId = document.Id;
+            DocumentId = document.GUID;
             Document = document;
             Document.Elements.Add(this);
+            CreationDate = DateTime.Now;
+            ParentGuid = "";
+            OrderParentId = 0;
+            Authors = new List<string>();
 
         }
         public Element(Document document, int previousElement)
         {
             Document = document ?? throw new Exceptions("Document is null");
-            Id = Guid.NewGuid().ToString();
+            GUID = Guid.NewGuid().ToString();
+            Id = 0;
             Content = "";
             Author = "";
             EditItem = false;
@@ -35,11 +40,16 @@ namespace rMakev2.Models
             {
                 item.Order = item.Order + 1;
             }
-            DocumentId = document.Id;
+            DocumentId = document.GUID;
             Document = document;
             Document.Elements.Add(this);
+            CreationDate = DateTime.Now;
+            ParentGuid = "";
+            OrderParentId = 0;
+            Authors = new List<string>();
         }
-        public string Id { get; set; }
+        public string GUID { get; set; }
+        public int Id { get; set; }
         public string Content { get; set; }
         public string Author { get; set; }
         public string AIContent { get; set; }
@@ -53,7 +63,10 @@ namespace rMakev2.Models
         public bool IsValid { get; set; }
         public string ParentElementId { get; set; }
         public bool EditItem { get; set; }
-
+        public DateTime CreationDate { get; set; }
+        public string ParentGuid { get; set; }
+        public int OrderParentId { get; set; }
+        public List<string> Authors { get; set; }
         public void AddIdea(string Idea)
         {
             Ideary = Idea;

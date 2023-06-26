@@ -15,24 +15,27 @@ namespace rMakev2.Models
         public Document(Project project)
         {
             Project = project ?? throw new Exceptions("Project is null");
-            Id = Guid.NewGuid().ToString();
+            GUID = Guid.NewGuid().ToString();
             Name = "";
             CreationDate = DateTime.Now;
             Author = "";
             PathPreviewImage = "";
+            IsPublic = false;
             Order = Project.Documents.Count() + 1;
             Elements = new List<Element>();
             Content = "";
             Project = project;
-            ProjectId = project.Id;
+            ProjectId = project.GUID;
             AddElement(this);
 
         }
-        public string Id { get; set; }
+        public int Id { get; set; }
+        public string GUID { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public string Author { get; set; }
         public string PathPreviewImage { get; set; }
+        public bool IsPublic { get; set; }
         public int Order { get; set; }
         public List<Element> Elements { get; set; }
         [JsonIgnore]
@@ -61,7 +64,7 @@ namespace rMakev2.Models
 
         public void ChangeOrder(Element element, int order)
         {
-            Element current = Elements.Where(w => w.Id == element.Id).SingleOrDefault();
+            Element current = Elements.Where(w => w.GUID == element.GUID).SingleOrDefault();
             current.Order = order;
             current.Content = order.ToString();
         }

@@ -108,7 +108,7 @@
     {
 
         tokenstring = "";
-        url = "/App/" + tokenstring;
+        url = "/projects/" + tokenstring;
 
 
 
@@ -118,7 +118,7 @@
     async void newSession()
     {
         await localStorage.ClearAsync();
-        NavigationManager.NavigateTo("/App/", forceLoad: true);
+        NavigationManager.NavigateTo("/projects/", forceLoad: true);
     }
 
     async void navigate()
@@ -126,7 +126,7 @@
         if (tokenstring != "")
         {
             await localStorage.ClearAsync();
-            NavigationManager.NavigateTo("/App/" + tokenstring, forceLoad: true);
+            NavigationManager.NavigateTo("/projects/" + tokenstring, forceLoad: true);
         }
     }
 
@@ -135,7 +135,7 @@
         if (tokenstring != "" && (e.Code == "Enter" || e.Code == "NumpadEnter"))
         {
             await localStorage.ClearAsync();
-            NavigationManager.NavigateTo("/App/" + tokenstring, forceLoad: true);
+            NavigationManager.NavigateTo("/projects/" + tokenstring, forceLoad: true);
         }
     }
 }
