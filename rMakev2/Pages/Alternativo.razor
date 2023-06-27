@@ -2,6 +2,7 @@
 @page "/app/{token}"
 @using rMakev2.ViewModel;
 @inject RmakeViewModel vm;
+@inject ProjectViewModel PVm;
 @inject IJSRuntime jsRuntime;
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
@@ -462,6 +463,7 @@
     string tokenstring;
     private DotNetObjectReference<Alternativo>? objRef;
     bool loaded = false;
+    Project project = new Project();
 
     [Parameter]
     public string token { get; set; }
@@ -472,9 +474,12 @@
     {
         try
         {
+
             if (token != "")
             {
-                await LoadContent();
+                //await LoadContent();
+                project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+
             }
         }
         catch

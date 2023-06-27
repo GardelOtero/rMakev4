@@ -9,14 +9,21 @@
 <style>
     .projectList {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        height: 80%;
+        flex-wrap: wrap;
+        padding: 5px;
+        width: 100%;
     }
 
     .projectContainer {
         border: solid black 1px;
         border-radius: 5px;
         padding: 5px;
-        margin-top: 10px;
+        margin: 10px;
+        width: 10%;
+        height: 20%;
+        
     }
 
     .createButton{
@@ -25,9 +32,15 @@
         padding: 5px;
     }
 
+    .mainContainer{
+        height: 80%;
+        width: 100%;
+        padding: 10px;
+    }
+
 </style>
 
-<div>
+<div class="mainContainer">
     <button @onclick="PVm.NewProject" class="createButton">Create project</button>
 
     <div class="projectList">
@@ -37,7 +50,7 @@
         {
             <div class="projectContainer">
                 <button @onclick="() => PVm.LoadDocuments(project)">@project.Name</button>
-                <button @onclick="() => PVm.DeleteProject(project)">Borrar</button>
+                <button @onclick="() => PVm.DeleteProject(project)" class="createButton">Delete</button>
             </div>
         }
 
@@ -53,14 +66,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        PVm.Portfolio = vm.App.Portfolio;
 
         try
         {
-            if (token != null)
-            {
-                await PVm.LoadProyectAsync(token);
-            }
+            await PVm.InitializeProjects(vm.App, token);
         }
         catch
         {

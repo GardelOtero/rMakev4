@@ -32,6 +32,14 @@ namespace rMakev2.ViewModel
 
         }
 
+        public async Task InitializeProjects(Models.App app, string? token)
+        {
+            Portfolio = app.Portfolio;
+
+            if(token != null)
+                await LoadProyectAsync(token);
+        }
+
         public void DeleteProject(Project project)
         {
             Portfolio.RemoveProject(project);
@@ -39,7 +47,7 @@ namespace rMakev2.ViewModel
 
         public void LoadDocuments(Project project)
         {
-            _navigationManager.NavigateTo("/app/"/*, project*/);
+            _navigationManager.NavigateTo("/app/" + project.GUID);
         }
 
         public async Task LoadProyectAsync(string token)
