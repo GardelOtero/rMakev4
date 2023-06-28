@@ -45,6 +45,11 @@ namespace rMakev2.ViewModel
             Portfolio.RemoveProject(project);
         }
 
+        public void RenameProject(Project projext)
+        {
+
+        }
+
         public void LoadDocuments(Project project)
         {
             _navigationManager.NavigateTo("/app/" + project.GUID);

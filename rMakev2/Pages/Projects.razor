@@ -2,6 +2,7 @@
 @page "/projects/{token}"
 @using System.ComponentModel.DataAnnotations;
 @using rMakev2.ViewModel;
+@using rMakev2.Components;
 @using rMakev2.Services;
 @inject RmakeViewModel vm;
 @inject ProjectViewModel PVm;
@@ -23,16 +24,28 @@
         margin: 10px;
         width: 10%;
         height: 20%;
-        
     }
 
-    .createButton{
+    .createButton {
         border: solid black 1px;
         border-radius: 5px;
         padding: 5px;
     }
 
-    .mainContainer{
+    .projectInput {
+        height: 2rem;
+        width: 90%;
+        margin: 5px;
+        margin-bottom: 5px;
+        padding: 2px;
+    }
+
+        .projectInput:focus {
+            border: solid black 1px;
+            border-radius: 5px;
+        }
+
+    .mainContainer {
         height: 80%;
         width: 100%;
         padding: 10px;
@@ -49,8 +62,10 @@
         @foreach (var project in PVm.Portfolio.Projects)
         {
             <div class="projectContainer">
-                <button @onclick="() => PVm.LoadDocuments(project)">@project.Name</button>
+                <input @bind="@project.Name" class="projectInput"></input>
                 <button @onclick="() => PVm.DeleteProject(project)" class="createButton">Delete</button>
+                <button @onclick="() => PVm.LoadDocuments(project)" class="createButton">Load</button>
+
             </div>
         }
 

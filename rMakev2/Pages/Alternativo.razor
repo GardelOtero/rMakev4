@@ -479,6 +479,10 @@
             {
                 //await LoadContent();
                 project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+                if(project.Documents.Count() == 0)
+                {
+                    project.AddDocument(project);
+                }
 
             }
         }
