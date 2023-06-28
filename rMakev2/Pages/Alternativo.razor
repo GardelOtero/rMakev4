@@ -213,61 +213,69 @@
                     <li class="spacer">
                     </li>
                     <li class="nav-item active projectName">
-@*                        <input Id="ProjectName" @bind="@vm.Ui.SelectedProject.Name" class="form-control-plaintext small text-left" style=" font-size:16px; margin-left:10px; margin-top:-5px; !important; " placeholder="Project Name" autofocus @onclick="vm.BlockRTAFocus" />
-*@
+                        <p class="form-control-plaintext small text-left" style=" font-size:16px; margin-left:10px; margin-top:-5px;"> @vm.Project.Name</p>
+                        @*                        <input Id="ProjectName" @bind="@vm.Ui.SelectedProject.Name" class="form-control-plaintext small text-left" style=" font-size:16px; margin-left:10px; margin-top:-5px; !important; " placeholder="Project Name" autofocus @onclick="vm.BlockRTAFocus" />
+                        *@
                     </li>
                     <li>
                         @*<a class="barItems" @onclick="NewProj"><img src="svgs/Plus.svg" title="Create Project" /> </a>*@
                     </li>
                     <li class="nav-item">
-@*                        <a class="barItems" @onclick="() => vm.DeleteProjectMenu(vm.Ui.SelectedProject)"><img src="svgs/Delete.svg" title="Delete Project" /> </a>
-*@                    </li>
+                        @*                        <a class="barItems" @onclick="() => vm.DeleteProjectMenu(vm.Ui.SelectedProject)"><img src="svgs/Delete.svg" title="Delete Project" /> </a>
+                        *@
+                    </li>
                     <li class="nav-item">
-@*                        <a class="barItems" @onclick=" vm.ShowSaveModal"><img src="svgs/asset 1.svg" title="Save Project" /> </a>
-*@                    </li>
-                    <li class="nav-item" >
-@*                        <a class="barItems" @onclick=" vm.ShowLoadModal"><img src="svgs/File icon.svg" title="Load" /> </a>
-*@                    </li>
+                        @*                        <a class="barItems" @onclick=" vm.ShowSaveModal"><img src="svgs/asset 1.svg" title="Save Project" /> </a>
+                        *@
+                    </li>
+                    <li class="nav-item">
+                        @*                        <a class="barItems" @onclick=" vm.ShowLoadModal"><img src="svgs/File icon.svg" title="Load" /> </a>
+                        *@
+                    </li>
                     <li class="nav-item" style="padding-right: 25px; margin-right: 15px; border-right: 1px solid #f1f1f1;">
-@*                        <a class="barItems" @onclick=" vm.ShowPublishModal"><img src="svgs/asset 3.svg" title="Publish" /> </a>
-*@                    </li>
+                        @*                        <a class="barItems" @onclick=" vm.ShowPublishModal"><img src="svgs/asset 3.svg" title="Publish" /> </a>
+                        *@
+                    </li>
                     <li class="nav-item">
-@*                        <a class="barItems" @onclick="vm.ForkProject"><img src="svgs/Fork.svg" title="Fork Project" /> </a>
-*@                    </li>
+                        @*                        <a class="barItems" @onclick="vm.ForkProject"><img src="svgs/Fork.svg" title="Fork Project" /> </a>
+                        *@
+                    </li>
                     <li class="nav-item" style="padding-right: 25px; margin-right: 15px; border-right: 1px solid #f1f1f1;">
-@*                        <a class="barItems" @onclick="vm.ForkProject"><img src="svgs/Merge.svg" title="Merge Projects" /> </a>
-*@                    </li>
+                        @*                        <a class="barItems" @onclick="vm.ForkProject"><img src="svgs/Merge.svg" title="Merge Projects" /> </a>
+                        *@
+                    </li>
                     <li class="nav-item">
-@*                        <a class="barItems" @onclick="vm.ShowJsonModal"><img src="svgs/json view.svg" title="Json View" /> </a>
-*@                    </li>
+                        @*                        <a class="barItems" @onclick="vm.ShowJsonModal"><img src="svgs/json view.svg" title="Json View" /> </a>
+                        *@
+                    </li>
                 </ul>
             </div>
         </nav>
     </header>
 
-@*    <section>
-*@        @*<div class="row mt-15 pt-15">*@
-            @*menu*@
-            <i @onclick="vm.DisplayMenu" class="small mb-1 pl-4 position-fixed"><img src="svgs/Menu Bar.svg" title="Publish" class="menuBarsIcon" /></i>
-@*            @if (vm.Ui.DisplayMenu == true)
-            {
-                <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2 mt-6 p-1 pl-1 ml-3 position-fixed">
-                    <div class="card mt-3">
-                        <div class="card-body minH-500 maxH-500 overflow-auto">
-                            @foreach (var project in vm.App.Portfolio.Projects)
+    <section>
+        <div class="row mt-15 pt-15">
+            <menu>
+                <i @onclick="vm.DisplayMenu" class="small mb-1 pl-4 position-fixed"><img src="svgs/Menu Bar.svg" title="Publish" class="menuBarsIcon" /></i>
+                @if (vm.Project.DisplayMenu == true)
+                {
+                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2 mt-6 p-1 pl-1 ml-3 position-fixed">
+                        <div class="card mt-3">
+                            <div class="card-body minH-500 maxH-500 overflow-auto">
+                                @*@foreach (var project in vm.App.Portfolio.Projects)
                             {
-                                <div class="w-100" style="background-color: rgba(0,0,0,.125)">
-                                    @if (project.Name == "")
-                                    {
-                                        <p @onclick="@(() => ChangeProject(project))" style="cursor:pointer; ">Project Name</p>
-                                    }
-                                    else
-                                    {
-                                        <p @onclick="@(() => ChangeProject(project))" style="cursor:pointer; background-color: rgba(0,0,0,.125)">@project.Name</p>
-                                    }
+                            <div class="w-100" style="background-color: rgba(0,0,0,.125)">
+                            @if (project.Name == "")
+                            {
+                            <p @onclick="@(() => ChangeProject(project))" style="cursor:pointer; ">Project Name</p>
+                            }
+                            else
+                            {
+                            <p @onclick="@(() => ChangeProject(project))" style="cursor:pointer; background-color: rgba(0,0,0,.125)">@project.Name</p>
+                            }
 
-                                </div>
-                                @foreach (var document in project.Documents)
+                            </div>*@
+                                @foreach (var document in vm.Project.Documents)
                                 {
                                     <div class="col-12">
                                         @if (document.Name == "")
@@ -282,57 +290,57 @@
                                 }
 
                                 <div class=" mt-4">
-                                    <button @onclick="@(() => newDoc(project))" class="small" style="font-size:10px;">  <img src="svgs/Plus.svg" title="New Document" class="mr-2 smallIcon" />New Document </button>
+                                    <button @onclick="@(() => vm.NewDocumentMenu(vm.Project))" class="small" style="font-size:10px;">  <img src="svgs/Plus.svg" title="New Document" class="mr-2 smallIcon" />New Document </button>
                                     <hr />
                                 </div>
-                            }
+
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-*@            @*/menu*@
+                }
+            </menu>
 
 
             @*working area*@
-@*            <div class="col-sm-12 col-md-7 col-lg-7 col-xl-8 mt-5 pl-6" style="margin-left: @(vm.Ui.DisplayMenu? "20%" : "5%")">
-*@
-@*                @if (vm.Ui.DisplayDocumentMenu == true)
+            <div class="col-sm-12 col-md-7 col-lg-7 col-xl-8 mt-5 pl-6" >
+
+               @* @if (vm.Ui.DisplayDocumentMenu == true)
                 {
                     <div class="spacer">
 
-            <div class="documentMenu mb-2">*@
-@*                            <a @onclick="vm.DeleteDocument"><img src="svgs/Delete.svg" title="Delete Document" class="m-1 smallIcon" /></a>
-*@                           
-@*<a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
-*@                            <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
-                            @*<a @onclick="vm.orderElements"><img src="svgs/Elements .svg" title="Sort Elements" Class="smallIcon" /></a>*@
+                        <div class="documentMenu mb-2">
+                            <a @onclick="vm.DeleteDocument"><img src="svgs/Delete.svg" title="Delete Document" class="m-1 smallIcon" /></a>
+
+                            <a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
+                            <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
+                            <a @onclick="vm.orderElements"><img src="svgs/Elements .svg" title="Sort Elements" Class="smallIcon" /></a>
                         </div>
-@*                    </div>
-*@                }
-                @*else*@
+                    </div>
+                }
+                else
                 {
                     <div class="spacer"></div>
 
                 }
+                *@
 
 
-
-                <div style="width:20px; float:left; margin-top:15px;">
+@*                <div style="width:20px; float:left; margin-top:15px;">
                     <a>
-@*                        <img src="svgs/3 dots.svg" title="Document Menu" class="dots " @onclick="vm.DocumentMenu" />
-*@                    </a>
+                        <img src="svgs/3 dots.svg" title="Document Menu" class="dots " @onclick="vm.DocumentMenu" />
+                    </a>
                 </div>
+*@
+                <div style="width:90%; float:left;">
 
-@*                <div style="width:90%; float:left;">
-
-                    <textarea  @bind="@vm.Ui.SelectedDocument.Name" 
-                            @bind:event="oninput" 
-                            id="PageName" 
-                            autofocus="true" 
-                            @onblur="vm.UnBlockRTAFocus" 
-                            @onclick="vm.BlockRTAFocus" 
-                            class="form-control-plaintext small" 
-                            style="color: #342e37; font-size:30px; margin:10px; height: fit-content; padding-left: 15px; inline-size: 75%; overflow-wrap: break-word; text-align: left;" placeholder="Write your title here" />
+                    <textarea @bind="@vm.Project.SelectedDocument.Name"
+                    @bind:event="oninput"
+                              id="PageName"
+                              autofocus="true"
+                    @onblur="vm.UnBlockRTAFocus"
+                    @onclick="vm.BlockRTAFocus"
+                              class="form-control-plaintext small"
+                              style="color: #342e37; font-size:30px; margin:10px; height: fit-content; padding-left: 15px; inline-size: 75%; overflow-wrap: break-word; text-align: left;" placeholder="Write your title here" />
                     <div class="clearfix"></div>
                     <div class="mt-4 ml-6">
                         <div class="mt-4">
@@ -346,14 +354,17 @@
                     </div>
                 </div>
             </div>
-        </div>*@
-@*        <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Ui.DisplayJson? "d-block" : "d-none" )">
-*@            <textarea readonly style="color:#0f0; width:100%; margin:auto; font-size:10px; background-color:#000; border-radius:0px; height:100%; text-align:left;">
-@*                @vm.Ui.JsonFn();
-*@            </textarea>
-@*        </div>
+
+
+            @*        <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Ui.DisplayJson? "d-block" : "d-none" )">
+            <textarea readonly style="color:#0f0; width:100%; margin:auto; font-size:10px; background-color:#000; border-radius:0px; height:100%; text-align:left;">
+            @vm.Ui.JsonFn();
+            </textarea>
+            </div>
+            *@
+        </div>
     </section>
-</div>*@
+</div>
 
 
 @*<Modal @ref="vm.App.Ui.SaveModal" class="half-modal fade">
@@ -478,11 +489,7 @@
             if (token != "")
             {
                 //await LoadContent();
-                project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
-                if(project.Documents.Count() == 0)
-                {
-                    project.AddDocument(project);
-                }
+                vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
 
             }
         }
@@ -507,7 +514,7 @@
             {
                 //vm.Ui.SelectedDocument = new Document();
                 //await localStorage.SetItemAsync(vm.Ui.SelectedProject.Id, vm.Ui.SelectedProject);
-              //  await newDoc(vm.Ui.SelectedProject);
+                //  await newDoc(vm.Ui.SelectedProject);
             }
         }
         /*if (vm.Ui.EditProjectName == true && vm.Ui.EditedProjectName == false)
@@ -547,7 +554,7 @@
 
 
 
-        foreach(var key in k)
+        foreach (var key in k)
         {
             if (key == "i18nextLng")
                 continue;
@@ -585,7 +592,7 @@
         loaded = true;
         //vm.DeleteProjectMenu(vm.Ui.SelectedProject);
 
-       // await ChangeContent(vm.Ui.SelectedDocument);
+        // await ChangeContent(vm.Ui.SelectedDocument);
     }
 
     [JSInvokable]
@@ -594,7 +601,7 @@
         //await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
 
         //foreach (var project in vm.App.Portfolio.Projects)
-         
+
         //    foreach (var document in project.Documents)
         //    {
         //        if (await localStorage.ContainKeyAsync(document.Id))
@@ -611,7 +618,7 @@
 
     public async Task NewSave()
     {
-       // await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
+        // await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
 
         List<Project> projects = new List<Project>();
         List<Document> docs = new List<Document>();
@@ -623,16 +630,16 @@
 
         foreach (var document in docs)
         {
-            if (!await localStorage.ContainKeyAsync(document.GUID)){ continue; }
+            if (!await localStorage.ContainKeyAsync(document.GUID)) { continue; }
 
-           // if(document.Id == vm.Ui.SelectedDocument.Id)
+            // if(document.Id == vm.Ui.SelectedDocument.Id)
             {
-             //   vm.Ui.SelectedDocument.Name = document.Name;
+                //   vm.Ui.SelectedDocument.Name = document.Name;
             }
 
             Document newDoc = await localStorage.GetItemAsync<Document>(document.GUID);
             document.Name = newDoc.Name;
-            document.Content = newDoc.Content;  
+            document.Content = newDoc.Content;
         }
 
         await vm.SaveContentAsync();
@@ -707,7 +714,7 @@
         var projects = vm.App.Portfolio.Projects.Where(x => x.GUID == document.ProjectId).FirstOrDefault();
         var oldDoc = projects.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
 
-        if(newDoc != null)
+        if (newDoc != null)
         {
             oldDoc.Content = newDoc.Content;
             await jsRuntime.InvokeVoidAsync("loadContent", objRef, newDoc.Content);
@@ -716,7 +723,7 @@
         else if (document.Content != null)
             await jsRuntime.InvokeVoidAsync("loadContent", objRef, document.Content);
 
-       // vm.EventSelectDocumentMenu(oldDoc);
+        // vm.EventSelectDocumentMenu(oldDoc);
 
         StateHasChanged();
     }
@@ -735,7 +742,7 @@
 
         //vm.NewDocumentMenu(project);
 
-        await jsRuntime.InvokeAsync<string>("ClearEditor");
+        //await jsRuntime.InvokeAsync<string>("ClearEditor");
     }
 
     public async Task NewProj()
@@ -745,7 +752,7 @@
         //vm.NewProject();
 
         await jsRuntime.InvokeAsync<string>("ClearEditor");
-    }   
+    }
 
     public async Task clipboard(string copied)
     {

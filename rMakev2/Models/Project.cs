@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace rMakev2.Models
 {
@@ -25,6 +26,8 @@ namespace rMakev2.Models
             Portfolio = portfolio;
             PortfolioId = portfolio.GUID;
             AddDocument(this);
+            SelectedDocument = Documents.FirstOrDefault(); 
+            
 
 
         }
@@ -44,7 +47,23 @@ namespace rMakev2.Models
         public string PortfolioId { get; set; }
         public string ParentProjectId { get; set; }
 
-                
+        public bool DisplayMenu { get; set; } = true;
+
+        public bool BlockRTAFocus { get; set; } = true;
+
+        private Document selectedDocument;
+        public Document SelectedDocument
+        
+        {
+            get { return selectedDocument; }
+            set
+            {
+                selectedDocument = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public Document AddDocument(Project project)
         {
             {
@@ -65,6 +84,22 @@ namespace rMakev2.Models
         public void UpdateDocument(Document document)
         {
             Documents.Where(x => x.GUID == document.GUID).Select(x => { x.Name = document.Name; x.Content = document.Content; return x; });
+        }
+        public void SelectDocuments(Document document)
+        {
+            SelectedDocument = document;
+        }
+        public void ShowMenu()
+        {
+
+            if (DisplayMenu == true)
+            {
+                DisplayMenu = false;
+            }
+            else
+            {
+                DisplayMenu = true;
+            }
         }
 
         internal Document CloneDocument(Document document)
@@ -90,6 +125,12 @@ namespace rMakev2.Models
             //Quita el Primer Element sin texto
             newDocument.Elements.RemoveAt(0);*/
             return newDocument;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged()
+        {
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
         }
     }
 }

@@ -50,27 +50,38 @@ namespace rMakev2.ViewModel
                 OnPropertyChanged();
             }
         }
-       /* private Ui ui;
-        public Ui Ui
+        /* private Ui ui;
+         public Ui Ui
+         {
+             get { return ui; }
+             set
+             {
+                 ui = value;
+                 OnPropertyChanged();
+             }
+         }*/
+        private Project project;
+
+        public Project Project
         {
-            get { return ui; }
+            get { return project; }
             set
             {
-                ui = value;
+                project = value;
                 OnPropertyChanged();
             }
-        }*/
+        }
 
         public List<Item> ListaOraciones = new List<Item>();
         public void InitializePortfolio()
         {
             App = new Models.App("rebel");
 
-            //Ui = new Models.Ui(App);
+            Project = new Models.Project();
             //App.Portfolio.Projects.Add(new Project(App.Portfolio));
-            //var ProjectZero = App.Portfolio.Projects.First();
+            //Project.SelectedDocument = Project.Documents.FirstOrDefault(x => x.Id == Project.Id);
             //Ui.SelectedProject = ProjectZero;
-            //Ui.SelectedDocument = ProjectZero.Documents.First();
+            //Project.SelectedDocument = ProjectZero.Documents.First();
 
             Thread p1;
             p1 = new Thread(new ThreadStart(Save));
@@ -136,101 +147,101 @@ namespace rMakev2.ViewModel
         {
             App.Ui.LoadModal.Show();
         }*/
-        /*public void EventSelectProject(ChangeEventArgs e)
-        {
-            string projectId = e.Value.ToString();
-            Project project = Ui.SelectedProject = App.Portfolio.Projects.Where(w => w.Id == projectId).SingleOrDefault();
-            Ui.SelectProject(project);
-            this._toastService.ShowInfo("You have changed the project to " + project.Name);
-        }
-        public void EventSelectDocumentMenu(Document document1)
-        {
-            Ui.SelectDocument(document1);
-            Ui.SelectProject(document1.Project);
-        }
-        public void EventSelectDocument(ChangeEventArgs e)
-        {
-            string documentId = e.Value.ToString();
-            Document document = Ui.SelectedProject.Documents.Where(w => w.Id == documentId).SingleOrDefault();
-            Ui.SelectDocument(document);
-        }
-        public void SelectProject(Project project)
-        {
-            Ui.SelectProject(project);
-            SelectDocument(Ui.SelectedProject.Documents.FirstOrDefault());
+        //public void EventSelectProject(ChangeEventArgs e)
+        //{
+        //    string projectId = e.Value.ToString();
+        //    Project project = Ui.SelectedProject = App.Portfolio.Projects.Where(w => w.Id == projectId).SingleOrDefault();
+        //    Ui.SelectProject(project);
+        //    this._toastService.ShowInfo("You have changed the project to " + project.Name);
+        //}
+        //public void EventSelectDocumentMenu(Document document1)
+        //{
+        //    Ui.SelectDocument(document1);
+        //    Ui.SelectProject(document1.Project);
+        //}
+        //public void EventSelectDocument(ChangeEventArgs e)
+        //{
+        //    string documentId = e.Value.ToString();
+        //    Document document = Ui.SelectedProject.Documents.Where(w => w.Id == documentId).SingleOrDefault();
+        //    Ui.SelectDocument(document);
+        //}
+        //public void SelectProject(Project project)
+        //{
+        //    Ui.SelectProject(project);
+        //    SelectDocument(Ui.SelectedProject.Documents.FirstOrDefault());
 
-        }
+        //}
         public void SelectDocument(Document document)
         {
-            Ui.SelectDocument(document);
-
-        }*/
-       /* public void NewProject()
-        {
-            SelectProject(App.Portfolio.AddProject());
-            //SelectDocument(Ui.SelectedProject.Documents.FirstOrDefault());
-
-
-
-            //this._toastService.ShowSuccess("New project created");
+            Project.SelectDocuments(document);
 
         }
+        //public void NewProject()
+        //{
+        //    SelectProject(App.Portfolio.AddProject());
+        //    //SelectDocument(Ui.SelectedProject.Documents.FirstOrDefault());
 
-        /*public async Task AiGenerate(Element element)
-        {
-            var content = element.Content;
-            element.AIContent= await _aiChat.UseChatService("Improve and expand this text: " + content);
+
+
+        //    //this._toastService.ShowSuccess("New project created");
+
+        //}
+
+        // public async Task AiGenerate(Element element)
+        //{
+        //    var content = element.Content;
+        //    element.AIContent= await _aiChat.UseChatService("Improve and expand this text: " + content);
             
-        }
-        public void DeleteProject()
-        {
+        //}
+        //public void DeleteProject()
+        //{
 
-            if (App.Portfolio.Projects.Count() >= 1)
-            {
-                App.Portfolio.RemoveProject(Ui.SelectedProject);
-                SelectProject(App.Portfolio.Projects.First());
-                //this._toastService.ShowSuccess("Project eliminated");
-            }
-            else
-            {
-                App.Portfolio.RemoveProject(Ui.SelectedProject);
-                this._toastService.ShowSuccess("Project eliminated");
-                NewProject();
-            }
-        }
-        public void DeleteProjectMenu(Project project)
-        {
-            if (App.Portfolio.Projects.Count() > 1)
-            {
-                App.Portfolio.RemoveProject(project);
-                SelectProject(App.Portfolio.Projects.First());
-                SelectDocument(Ui.SelectedProject.Documents.First());
+        //    if (App.Portfolio.Projects.Count() >= 1)
+        //    {
+        //        App.Portfolio.RemoveProject(Ui.SelectedProject);
+        //        SelectProject(App.Portfolio.Projects.First());
+        //        //this._toastService.ShowSuccess("Project eliminated");
+        //    }
+        //    else
+        //    {
+        //        App.Portfolio.RemoveProject(Ui.SelectedProject);
+        //        this._toastService.ShowSuccess("Project eliminated");
+        //        NewProject();
+        //    }
+        //}
+        //public void DeleteProjectMenu(Project project)
+        //{
+        //    if (App.Portfolio.Projects.Count() > 1)
+        //    {
+        //        App.Portfolio.RemoveProject(project);
+        //        SelectProject(App.Portfolio.Projects.First());
+        //        SelectDocument(Ui.SelectedProject.Documents.First());
 
-            }
+        //    }
 
-            else if (App.Portfolio.Projects.Count() == 1)
-            {
-                App.Portfolio.RemoveProject(project);
-                NewProject();
-                SelectDocument(Ui.SelectedProject.Documents.First());
-            }
-        }
+        //    else if (App.Portfolio.Projects.Count() == 1)
+        //    {
+        //        App.Portfolio.RemoveProject(project);
+        //        NewProject();
+        //        SelectDocument(Ui.SelectedProject.Documents.First());
+        //    }
+        //}
 
-        public void ForkProject()
-        {
-            SelectProject(App.Portfolio.ForkProject(Ui.SelectedProject));
+        //public void ForkProject()
+        //{
+        //    SelectProject(App.Portfolio.ForkProject(Ui.SelectedProject));
 
-            this._toastService.ShowSuccess("Project Forked");
-        }
-        public void CloneDocument()
-        {
-            this._toastService.ShowSuccess("Document cloned");
-            SelectDocument(Ui.SelectedProject.CloneDocument(Ui.SelectedDocument));
-        }
+        //    this._toastService.ShowSuccess("Project Forked");
+        //}
+        //public void CloneDocument()
+        //{
+        //    this._toastService.ShowSuccess("Document cloned");
+        //    SelectDocument(Ui.SelectedProject.CloneDocument(Ui.SelectedDocument));
+        //}
         public void NewDocument()
         {
-            SelectDocument(Ui.SelectedProject.AddDocument(Ui.SelectedProject));
-            //this._toastService.ShowSuccess("New document created");
+            project.AddDocument(project);
+            this._toastService.ShowSuccess("New document created");
         }
 
         public void NewDocumentMenu(Project project)
@@ -238,7 +249,7 @@ namespace rMakev2.ViewModel
             SelectDocument(project.AddDocument(project));
         }
 
-        public void UpdateDocumentMenu(Document document)
+        /* public void UpdateDocumentMenu(Document document)
         {
             App.Portfolio.Projects.Where(x => x.Id == document.Project.Id).Select(x => x.Documents.Where(d => d.Id == document.Id)).FirstOrDefault().Select(x => { x.Name = document.Name; return x; });
         }
@@ -299,7 +310,8 @@ namespace rMakev2.ViewModel
 
         public void DisplayMenu()
         {
-           // Ui.ShowMenu();
+            
+            project.ShowMenu();
         }
         public void Enter(KeyboardEventArgs e)
         {
@@ -327,20 +339,20 @@ namespace rMakev2.ViewModel
                 }
             }
         }*/
-        /*public void BlockRTAFocus()
+        public void BlockRTAFocus()
         {
 
 
-            Ui.BlockRTAFocus = true;
+            Project.BlockRTAFocus = true;
 
 
         }
         public void UnBlockRTAFocus()
         {
 
-            Ui.BlockRTAFocus = false;
+            Project.BlockRTAFocus = false;
 
-        }*/
+        }
         public string HashString(string text, string salt)
         {
             if (String.IsNullOrEmpty(text))
