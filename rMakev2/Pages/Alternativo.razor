@@ -256,12 +256,12 @@
     <section>
         <div class="row mt-15 pt-15">
             <menu>
-                <i @onclick="vm.DisplayMenu" class="small mb-1 pl-4 position-fixed"><img src="svgs/Menu Bar.svg" title="Publish" class="menuBarsIcon" /></i>
+                <i @onclick="vm.DisplayMenu" class="small mb-1 pl-4 position-fixed" style="right: 3rem"><img src="svgs/Menu Bar.svg" title="Publish" class="menuBarsIcon" /></i>
                 @if (vm.Project.DisplayMenu == true)
                 {
-                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2 mt-6 p-1 pl-1 ml-3 position-fixed">
+                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2 mt-6 p-1 pl-1 ml-3 position-fixed" style="right: 3rem">
                         <div class="card mt-3">
-                            <div class="card-body minH-500 maxH-500 overflow-auto">
+                            <div class="card-body minH-500 maxH-500 overflow-auto positon-fixed" style="right: 3rem">
                                 @*@foreach (var project in vm.App.Portfolio.Projects)
                             {
                             <div class="w-100" style="background-color: rgba(0,0,0,.125)">
@@ -304,7 +304,7 @@
             @*working area*@
             <div class="col-sm-12 col-md-7 col-lg-7 col-xl-8 mt-5 pl-6" >
 
-               @* @if (vm.Ui.DisplayDocumentMenu == true)
+                @if (vm.Project.DisplayDocumentMenu == true)
                 {
                     <div class="spacer">
 
@@ -313,8 +313,8 @@
 
                             <a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
                             <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
-                            <a @onclick="vm.orderElements"><img src="svgs/Elements .svg" title="Sort Elements" Class="smallIcon" /></a>
-                        </div>
+@*                            <a @onclick="vm.orderElements"><img src="svgs/Elements .svg" title="Sort Elements" Class="smallIcon" /></a>
+*@                        </div>
                     </div>
                 }
                 else
@@ -322,15 +322,15 @@
                     <div class="spacer"></div>
 
                 }
-                *@
+                
 
 
-@*                <div style="width:20px; float:left; margin-top:15px;">
+                <div style="width:20px; float:left; margin-top:15px;">
                     <a>
                         <img src="svgs/3 dots.svg" title="Document Menu" class="dots " @onclick="vm.DocumentMenu" />
                     </a>
                 </div>
-*@
+
                 <div style="width:90%; float:left;">
 
                     <textarea @bind="@vm.Project.SelectedDocument.Name"
@@ -356,7 +356,7 @@
             </div>
 
 
-            @*        <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Ui.DisplayJson? "d-block" : "d-none" )">
+            @*       <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Ui.DisplayJson? "d-block" : "d-none" )">
             <textarea readonly style="color:#0f0; width:100%; margin:auto; font-size:10px; background-color:#000; border-radius:0px; height:100%; text-align:left;">
             @vm.Ui.JsonFn();
             </textarea>

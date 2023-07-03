@@ -123,14 +123,14 @@ namespace rMakev2.ViewModel
         public void ShowJsonModal()
         {
             App.Ui.SwitchDisplayJson();
-        }
+        }*/
 
         public void DocumentMenu()
         {
-            App.Ui.DocumentMenu();
+            Project.DocumentMenu();
         }
 
-        public void HidePublishModal()
+        /*public void HidePublishModal()
         {
             App.Ui.PublishModal.Hide();
         }
@@ -233,11 +233,11 @@ namespace rMakev2.ViewModel
 
         //    this._toastService.ShowSuccess("Project Forked");
         //}
-        //public void CloneDocument()
-        //{
-        //    this._toastService.ShowSuccess("Document cloned");
-        //    SelectDocument(Ui.SelectedProject.CloneDocument(Ui.SelectedDocument));
-        //}
+        public void CloneDocument()
+        {
+           this._toastService.ShowSuccess("Document cloned");
+           SelectDocument(Project.CloneDocument(Project.SelectedDocument));
+        }
         public void NewDocument()
         {
             project.AddDocument(project);
@@ -249,7 +249,7 @@ namespace rMakev2.ViewModel
             SelectDocument(project.AddDocument(project));
         }
 
-        /* public void UpdateDocumentMenu(Document document)
+        public void UpdateDocumentMenu(Document document)
         {
             App.Portfolio.Projects.Where(x => x.Id == document.Project.Id).Select(x => x.Documents.Where(d => d.Id == document.Id)).FirstOrDefault().Select(x => { x.Name = document.Name; return x; });
         }
@@ -257,18 +257,18 @@ namespace rMakev2.ViewModel
         public void DeleteDocument()
         {
 
-            if (Ui.SelectedProject.Documents.Count() > 1)
+            if (Project.Documents.Count() > 1)
             {
-                Ui.SelectedProject.RemoveDocument(Ui.SelectedDocument);
-                SelectDocument(Ui.SelectedProject.Documents.First());
+                Project.RemoveDocument(Project.SelectedDocument);
+                SelectDocument(Project.Documents.First());
             }
-            else if (Ui.SelectedProject.Documents.Count() == 1)
+            else if (Project.Documents.Count() == 1)
             {
-                Ui.SelectedProject.RemoveDocument(Ui.SelectedDocument);
+                Project.RemoveDocument(Project.SelectedDocument);
                 NewDocument();
             }
 
-        }
+         }
 
         public void DeleteDocumentMenu(Document document)
         {
@@ -280,7 +280,7 @@ namespace rMakev2.ViewModel
 
                 project.RemoveDocument(document);
 
-                if (document == Ui.SelectedDocument)
+                if (document == Project.SelectedDocument)
                 {
                     SelectDocument(project.Documents.FirstOrDefault());
                 }
@@ -292,9 +292,9 @@ namespace rMakev2.ViewModel
                 NewDocumentMenu(project);
             }
 
-        }*/
+        }
 
-        
+
         public async Task SaveContentAsync()
         {
             // HashMyContent();

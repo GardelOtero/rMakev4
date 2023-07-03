@@ -49,6 +49,9 @@ namespace rMakev2.Models
 
         public bool DisplayMenu { get; set; } = true;
 
+        public bool DisplayDocumentMenu { get; set; }
+
+
         public bool BlockRTAFocus { get; set; } = true;
 
         private Document selectedDocument;
@@ -101,6 +104,18 @@ namespace rMakev2.Models
                 DisplayMenu = true;
             }
         }
+        public void DocumentMenu()
+        {
+
+            if (DisplayDocumentMenu == true)
+            {
+                DisplayDocumentMenu = false;
+            }
+            else
+            {
+                DisplayDocumentMenu = true;
+            }
+        }
 
         internal Document CloneDocument(Document document)
         {
@@ -110,20 +125,20 @@ namespace rMakev2.Models
             newDocument.Content = document.Content;
             Documents.Add(newDocument);            
 
-            /*foreach (var item in document.Elements)
+            foreach (var item in document.Elements)
             {
                 Element newelement = new Element();
                 newelement.Content= item.Content;
-                newelement.DocumentId = newDocument.Id;
+                newelement.DocumentId = newDocument.GUID;
                 newelement.Document = newDocument;
-                newelement.ParentElementId = item.Id;
-                newelement.Id = Guid.NewGuid().ToString();
+                newelement.ParentElementId = item.GUID;
+                newelement.GUID = Guid.NewGuid().ToString();
                 newelement.Order = item.Order;
 
                 newDocument.Elements.Add(newelement);
             }
             //Quita el Primer Element sin texto
-            newDocument.Elements.RemoveAt(0);*/
+            newDocument.Elements.RemoveAt(0);
             return newDocument;
         }
         public event PropertyChangedEventHandler PropertyChanged;
