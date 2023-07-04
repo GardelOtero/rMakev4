@@ -290,7 +290,7 @@
                                 }
 
                                 <div class=" mt-4">
-                                    <button @onclick="@(() => vm.NewDocumentMenu(vm.Project))" class="small" style="font-size:10px;">  <img src="svgs/Plus.svg" title="New Document" class="mr-2 smallIcon" />New Document </button>
+                                    <button @onclick="@newDoc" class="small" style="font-size:10px;">  <img src="svgs/Plus.svg" title="New Document" class="mr-2 smallIcon" />New Document </button>
                                     <hr />
                                 </div>
 
@@ -302,7 +302,7 @@
 
 
             @*working area*@
-            <div class="col-sm-12 col-md-7 col-lg-7 col-xl-8 mt-5 pl-6" >
+            <div class="col-sm-12 col-md-7 col-lg-7 col-xl-8 mt-5 pl-6 ml-10">
 
                 @if (vm.Project.DisplayDocumentMenu == true)
                 {
@@ -490,6 +490,14 @@
             {
                 //await LoadContent();
                 vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+                if(vm.Project.Documents.Count() == 0)
+                {
+                    vm.Project.AddDocument(vm.Project);
+                } 
+                else if (vm.Project.SelectedDocument == null)
+                {
+                    vm.Project.SelectedDocument = vm.Project.Documents.FirstOrDefault();
+                }
 
             }
         }
@@ -508,22 +516,20 @@
             objRef = DotNetObjectReference.Create(this);
             await jsRuntime.InvokeVoidAsync("runEditor", objRef);
 
-
-            //await localStorage.ClearAsync();
-            //if (vm.Ui.SelectedDocument == null)
-            {
-                //vm.Ui.SelectedDocument = new Document();
-                //await localStorage.SetItemAsync(vm.Ui.SelectedProject.Id, vm.Ui.SelectedProject);
-                //  await newDoc(vm.Ui.SelectedProject);
-            }
+            await localStorage.ClearAsync();
+            await localStorage.SetItemAsync(vm.Project.GUID, vm.Project.Documents);
+            //if (vm.Project.SelectedDocument.Content != "")
+            //{
+            //    await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.Documents.FirstOrDefault().Content);
+            //}
         }
         /*if (vm.Ui.EditProjectName == true && vm.Ui.EditedProjectName == false)
-        {
+            {
             await jsRuntime.InvokeVoidAsync("focusInput");
             vm.Ui.EditedProjectName = true;
         }
         else if (vm.Ui.EditProjectName == false && vm.Ui.EditedProjectName == true)
-        {
+            {
             vm.Ui.EditedProjectName = false;
         }*/
     }
@@ -549,8 +555,8 @@
 
         List<string> k = keys.ToList();
 
-        List<Project> projects = new List<Project>();
-        Project storageProj;
+        //List<Project> projects = new List<Project>();
+        List<Document> storageProj;
 
 
 
@@ -559,29 +565,33 @@
             if (key == "i18nextLng")
                 continue;
 
-            Project newProj = new Project(vm.App.Portfolio);
-            storageProj = await localStorage.GetItemAsync<Project>(key);
-            newProj.Id = storageProj.Id;
-            newProj.Name = storageProj.Name;
-            newProj.CreationDate = storageProj.CreationDate;
-            newProj.PortfolioId = storageProj.PortfolioId;
-            newProj.Documents = storageProj.Documents;
+            //Project newProj = new Project(vm.App.Portfolio);
+            //storageProj = await localStorage.GetItemAsync<Project>(key);
+            //newProj.Id = storageProj.Id;
+            //newProj.Name = storageProj.Name;
+            //newProj.CreationDate = storageProj.CreationDate;
+            //newProj.PortfolioId = storageProj.PortfolioId;
+            //newProj.Documents = storageProj.Documents;
 
 
-            foreach (var doc in newProj.Documents)
+            //foreach (var doc in newProj.Documents)
+            //{
+            //    doc.Project = newProj;
+            //}
+            //projects.Add(newProj);
+
+            if(key == vm.Project.GUID)
             {
-                doc.Project = newProj;
+                storageProj = await localStorage.GetItemAsync<List<Document>>(key);
             }
-            projects.Add(newProj);
-
         }
 
-        vm.App.Portfolio.Projects.AddRange(projects);
+        //vm.App.Portfolio.Projects.AddRange(projects);
         //vm.DeleteProjectMenu(vm.Ui.SelectedProject);
 
-        //if(vm.Ui.SelectedDocument.Content != "")
+        if(vm.Project.SelectedDocument.Content != "")
         {
-            //await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Ui.SelectedDocument.Content);
+            await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.SelectedDocument.Content);
         }
 
     }
@@ -598,20 +608,23 @@
     [JSInvokable]
     public async Task SaveStorage()
     {
-        //await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
+        await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Project.SelectedDocument);
 
-        //foreach (var project in vm.App.Portfolio.Projects)
 
-        //    foreach (var document in project.Documents)
+
+
+
+        //foreach (var document in vm.project.Documents)
+        //{
+        //    if (await localStorage.ContainKeyAsync(document.GUID))
         //    {
-        //        if (await localStorage.ContainKeyAsync(document.Id))
-        //        {
-        //            Document newDoc = await localStorage.GetItemAsync<Document>(document.Id);
-        //            document.Name = newDoc.Name;
-        //            document.Content = newDoc.Content;
-        //        }
+        //        Document newDoc = await localStorage.GetItemAsync<Document>(document.GUID);
+
+        //        document.Name = newDoc.Name;
+        //        document.Content = newDoc.Content;
         //    }
         //}
+
 
         //await vm.SaveContentAsync();
     }
@@ -658,15 +671,14 @@
     [JSInvokable]
     public async Task SaveContent(string content, Document doc)
     {
-        Project project = vm.App.Portfolio.Projects.Where(x => x.GUID == doc.ProjectId).FirstOrDefault();
-        Document document = project.Documents.Where(x => x.GUID == doc.GUID).FirstOrDefault();
+        Document document = vm.Project.Documents.Where(x => x.GUID == doc.GUID).FirstOrDefault();
         document.Content = content;
-        await localStorage.SetItemAsync(doc.ProjectId, project);
+        await localStorage.SetItemAsync(doc.ProjectId, vm.Project.Documents);
     }
 
     public async Task ChangeContent(Document newDoc)
     {
-        //await jsRuntime.InvokeAsync<string>("changeContent", objRef, vm.Ui.SelectedDocument, newDoc);
+        await jsRuntime.InvokeAsync<string>("changeContent", objRef, vm.Project.SelectedDocument, newDoc);
     }
 
     public async Task ChangeProject(Project project)
@@ -677,42 +689,41 @@
     [JSInvokable]
     public async Task SetProjectContent(Document document)
     {
-        Project proj = await localStorage.GetItemAsync<Project>(document.ProjectId);
-        Document newDoc;
-        if (proj == null)
-            newDoc = null;
-        else
-            newDoc = proj.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
+        //Project proj = await localStorage.GetItemAsync<Project>(document.ProjectId);
+        //Document newDoc;
+        //if (proj == null)
+        //    newDoc = null;
+        //else
+        //    newDoc = proj.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
 
-        var projects = vm.App.Portfolio.Projects.Where(x => x.GUID == document.ProjectId).FirstOrDefault();
-        var oldDoc = projects.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
+        //var projects = vm.App.Portfolio.Projects.Where(x => x.GUID == document.ProjectId).FirstOrDefault();
+        //var oldDoc = projects.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
 
-        if (newDoc != null)
-        {
-            oldDoc.Content = newDoc.Content;
-            await jsRuntime.InvokeVoidAsync("loadContent", objRef, newDoc.Content);
+        //if (newDoc != null)
+        //{
+        //    oldDoc.Content = newDoc.Content;
+        //    await jsRuntime.InvokeVoidAsync("loadContent", objRef, newDoc.Content);
 
-        }
-        else if (document.Content != null)
-            await jsRuntime.InvokeVoidAsync("loadContent", objRef, document.Content);
+        //}
+        //else if (document.Content != null)
+        //    await jsRuntime.InvokeVoidAsync("loadContent", objRef, document.Content);
 
-        //vm.SelectProject(projects);
-        StateHasChanged();
+        ////vm.SelectProject(projects);
+        //StateHasChanged();
     }
 
     [JSInvokable]
     public async Task SetDocumentContent(Document document)
     {
 
-        Project proj = await localStorage.GetItemAsync<Project>(document.ProjectId);
+        var docs = await localStorage.GetItemAsync<List<Document>>(document.ProjectId);
         Document newDoc;
-        if (proj == null)
+        if (docs == null)
             newDoc = null;
         else
-            newDoc = proj.Documents.Where(x => x.Id == document.Id).FirstOrDefault();
+            newDoc = docs.Where(x => x.GUID == document.GUID).FirstOrDefault();
 
-        var projects = vm.App.Portfolio.Projects.Where(x => x.GUID == document.ProjectId).FirstOrDefault();
-        var oldDoc = projects.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
+        var oldDoc = vm.Project.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
 
         if (newDoc != null)
         {
@@ -723,7 +734,9 @@
         else if (document.Content != null)
             await jsRuntime.InvokeVoidAsync("loadContent", objRef, document.Content);
 
-        // vm.EventSelectDocumentMenu(oldDoc);
+        vm.Project.SelectedDocument = oldDoc;
+
+         //vm.EventSelectDocumentMenu(oldDoc);
 
         StateHasChanged();
     }
@@ -736,23 +749,23 @@
 
 
 
-    public async Task newDoc(Project project)
+    public async Task newDoc()
     {
-        //await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
+        await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Project.SelectedDocument);
 
-        //vm.NewDocumentMenu(project);
-
-        //await jsRuntime.InvokeAsync<string>("ClearEditor");
-    }
-
-    public async Task NewProj()
-    {
-        //await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
-
-        //vm.NewProject();
+        vm.NewDocumentMenu(vm.Project);
 
         await jsRuntime.InvokeAsync<string>("ClearEditor");
     }
+
+    //public async Task NewProj()
+    //{
+    //    //await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
+
+    //    //vm.NewProject();
+
+    //    await jsRuntime.InvokeAsync<string>("ClearEditor");
+    //}
 
     public async Task clipboard(string copied)
     {

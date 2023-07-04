@@ -4,6 +4,8 @@ using rMakev2.Models;
 using rMakev2.Services;
 using rMakev2.DTOs;
 using System.ComponentModel;
+using Blazored.LocalStorage;
+using rMakev2.Pages;
 
 namespace rMakev2.ViewModel
 {
@@ -13,36 +15,59 @@ namespace rMakev2.ViewModel
         private ICommunicationService _communicationService;
         private AIChat _aiChat;
         private NavigationManager _navigationManager;
+        private ILocalStorageService _localStorageService;
 
 
-        public ProjectViewModel(IToastService toast, ICommunicationService communicationService, NavigationManager navigationManager, AIChat aiChat)
+        public ProjectViewModel(IToastService toast, ICommunicationService communicationService, NavigationManager navigationManager, AIChat aiChat, ILocalStorageService localStorageService)
         {
             this._toastService = toast as Blazored.Toast.Services.ToastService;
             this._communicationService = communicationService;
             this._navigationManager = navigationManager;
             this._aiChat = aiChat;
+            this._localStorageService = localStorageService;
 
             _navigationManager = navigationManager;
         }
-        public Portfolio Portfolio { get; set; }
-     
+
+        private Portfolio portfolio;
+        public Portfolio Portfolio
+        {
+            get { return portfolio; }
+            set
+            {
+                portfolio = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void OnPropertyChanged()
+        {
+            _localStorageService.SetItemAsync("projects", Portfolio.Projects);
+        }
+
         public void NewProject()
         {
             Portfolio.AddProject();
+            OnPropertyChanged();
 
         }
 
-        public async Task InitializeProjects(Models.App app, string? token)
+        public async Task InitializeProjects(Models.App app)
         {
-            Portfolio = app.Portfolio;
+            portfolio = app.Portfolio;
 
-            if(token != null)
-                await LoadProyectAsync(token);
+            //if(token != null)
+            //    await LoadProyectAsync(token);
+            
+            OnPropertyChanged();
+
         }
 
         public void DeleteProject(Project project)
         {
             Portfolio.RemoveProject(project);
+            OnPropertyChanged();
+
         }
 
         public void RenameProject(Project projext)

@@ -3,6 +3,7 @@
 @using rMakev2.ViewModel;
 @using rMakev2.Services;
 @inject RmakeViewModel vm;
+@inject ProjectViewModel PVm;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject NavigationManager NavigationManager
 @inject IToastService toastService
@@ -112,12 +113,13 @@
 
 
 
-        return base.OnInitializedAsync();
+        return base.OnInitializedAsync();  
     }
 
     async void newSession()
     {
         await localStorage.ClearAsync();
+        //await PVm.InitializeProjects(vm.App);
         NavigationManager.NavigateTo("/projects/", forceLoad: true);
     }
 
@@ -126,6 +128,8 @@
         if (tokenstring != "")
         {
             await localStorage.ClearAsync();
+            //await PVm.InitializeProjects(vm.App);
+
             NavigationManager.NavigateTo("/projects/" + tokenstring, forceLoad: true);
         }
     }
@@ -135,6 +139,8 @@
         if (tokenstring != "" && (e.Code == "Enter" || e.Code == "NumpadEnter"))
         {
             await localStorage.ClearAsync();
+            //await PVm.InitializeProjects(vm.App);
+
             NavigationManager.NavigateTo("/projects/" + tokenstring, forceLoad: true);
         }
     }
