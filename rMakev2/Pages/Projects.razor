@@ -86,6 +86,7 @@
 
         try
         {
+            await PVm.InitializeProjects(vm.App);
 
             //if(await localStorage.ContainKeyAsync(PVm.Portfolio.GUID))
             //{
@@ -113,7 +114,6 @@
     {
         if (firstRender)
         {
-            await PVm.InitializeProjects(vm.App);
 
             await loadStorage();
             //await localStorage.ClearAsync();
@@ -146,6 +146,9 @@
         List<string> k = keys.ToList();
 
         List<Project> storagePortfolio = new List<Project>();
+
+
+
 
         foreach (var key in k)
         {
