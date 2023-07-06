@@ -1,6 +1,6 @@
 ﻿namespace rMakev2.Models
 {
-    public class Block : Element
+    public class Block
     {
         public string id { get; set; }
         public string type { get; set; }
