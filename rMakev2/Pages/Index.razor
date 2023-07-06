@@ -119,8 +119,8 @@
     async void newSession()
     {
         await localStorage.ClearAsync();
-        //await PVm.InitializeProjects(vm.App);
-        NavigationManager.NavigateTo("/projects/", forceLoad: true);
+        await PVm.InitializeProjects(vm.App);
+        NavigationManager.NavigateTo("/projects/");
     }
 
     async void navigate()
@@ -128,9 +128,9 @@
         if (tokenstring != "")
         {
             await localStorage.ClearAsync();
-            //await PVm.InitializeProjects(vm.App);
+            await PVm.InitializeProjects(vm.App);
 
-            NavigationManager.NavigateTo("/projects/" + tokenstring, forceLoad: true);
+            NavigationManager.NavigateTo("/projects/" + tokenstring);
         }
     }
 
@@ -139,9 +139,9 @@
         if (tokenstring != "" && (e.Code == "Enter" || e.Code == "NumpadEnter"))
         {
             await localStorage.ClearAsync();
-            //await PVm.InitializeProjects(vm.App);
+            await PVm.InitializeProjects(vm.App);
 
-            NavigationManager.NavigateTo("/projects/" + tokenstring, forceLoad: true);
+            NavigationManager.NavigateTo("/projects/" + tokenstring);
         }
     }
 }

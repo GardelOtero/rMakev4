@@ -26,6 +26,8 @@ namespace rMakev2.ViewModel
             this._aiChat = aiChat;
             this._localStorageService = localStorageService;
 
+            portfolio = new Portfolio();
+
             _navigationManager = navigationManager;
         }
 
@@ -42,7 +44,10 @@ namespace rMakev2.ViewModel
 
         public void OnPropertyChanged()
         {
-            _localStorageService.SetItemAsync("projects", Portfolio.Projects);
+            
+
+
+            _localStorageService.SetItemAsync("portfolio", Portfolio);
         }
 
         public void NewProject()
@@ -70,8 +75,19 @@ namespace rMakev2.ViewModel
 
         }
 
-        public void RenameProject(Project projext)
+        public void UpdateProject(Project projext)
         {
+            var oldProj = Portfolio.Projects.Where(x => x.GUID == projext.GUID).FirstOrDefault();
+
+            var index = Portfolio.Projects.IndexOf(oldProj);
+
+            if (index == -1)
+                return;
+                
+            Portfolio.Projects[index] = projext;
+
+
+            OnPropertyChanged();
 
         }
 

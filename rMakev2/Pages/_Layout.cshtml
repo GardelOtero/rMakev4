@@ -151,7 +151,7 @@
                     },
                 },
                 onReady: () => {
-                    dotNetRef.invokeMethodAsync('loadStorage')
+                    dotNetRef.invokeMethodAsync('LoadPortfolio')
                         .then(() => {
                             dotNetRef.invokeMethodAsync('SaveStorage')
                         });

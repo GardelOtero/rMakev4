@@ -86,7 +86,7 @@
 
         try
         {
-            await PVm.InitializeProjects(vm.App);
+            //await PVm.InitializeProjects(vm.App);
 
             //if(await localStorage.ContainKeyAsync(PVm.Portfolio.GUID))
             //{
@@ -136,28 +136,39 @@
 
     public async Task loadStorage()
     {
-        IEnumerable<string> keys = await localStorage.KeysAsync();
+        //IEnumerable<string> keys = await localStorage.KeysAsync();
 
-        if (keys.Count() == 0)
-        {
+        //if (keys.Count() == 0)
+        //{
+        //    return;
+        //}
+
+        //List<string> k = keys.ToList();
+
+        if (await localStorage.ContainKeyAsync("portfolio") == false)
             return;
+
+        Portfolio storagePortfolio = new Portfolio();
+
+
+
+
+
+
+        storagePortfolio = await localStorage.GetItemAsync<Portfolio>("portfolio");
+
+        storagePortfolio.App = vm.App;
+        storagePortfolio.AppId = vm.App.Id;
+
+        PVm.Portfolio = storagePortfolio;
+
+        foreach(var proj in PVm.Portfolio.Projects)
+        {
+            proj.Portfolio = PVm.Portfolio;
         }
 
-        List<string> k = keys.ToList();
+        StateHasChanged();
 
-        List<Project> storagePortfolio = new List<Project>();
-
-
-
-
-        foreach (var key in k)
-        {
-            if (key == "i18nextLng")
-                continue;
-
-            storagePortfolio = await localStorage.GetItemAsync<List<Project>>("projects");
-
-            PVm.Portfolio.Projects = storagePortfolio;
 
 
 
@@ -178,7 +189,7 @@
 
 
 
-        }
+        
 
         //vm.App.Portfolio.Projects.AddRange(projects);
         //vm.DeleteProjectMenu(vm.Ui.SelectedProject);

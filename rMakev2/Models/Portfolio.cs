@@ -6,6 +6,25 @@ namespace rMakev2.Models
 {
     public class Portfolio
     {
+
+        public Portfolio() 
+        {
+            Id = 0;
+            GUID = Guid.NewGuid().ToString();
+            //App = app ?? throw new Exceptions("app is null");
+            Projects = new List<Project>();
+            //App = app;
+            //AppId = app.Id;
+            CreationDate = DateTime.Now;
+            rIdSignature = "";
+            SignatureDate = DateTime.Now;
+            Authors = new List<string>();
+            //if (dataToken == null)
+            //    dataToken = Guid.NewGuid().ToString();
+            //else
+            //    DataToken = dataToken;
+            //app.Portfolio = this;
+        }
         public Portfolio(App app, string dataToken) {
             Id = 0;
             GUID = Guid.NewGuid().ToString();

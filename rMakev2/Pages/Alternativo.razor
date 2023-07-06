@@ -488,8 +488,12 @@
 
             if (token != "")
             {
-                //await LoadContent();
-                vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+                if (PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault() != null)
+                    vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+
+
+
+
                 if(vm.Project.Documents.Count() == 0)
                 {
                     vm.Project.AddDocument(vm.Project);
@@ -507,7 +511,10 @@
         }
     }
 
-
+    protected override bool ShouldRender()
+    {
+        return true;
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -516,8 +523,11 @@
             objRef = DotNetObjectReference.Create(this);
             await jsRuntime.InvokeVoidAsync("runEditor", objRef);
 
-            await localStorage.ClearAsync();
-            await localStorage.SetItemAsync(vm.Project.GUID, vm.Project.Documents);
+            //await LoadPortfolio();
+
+
+            //await localStorage.ClearAsync();
+            await localStorage.SetItemAsync("documents", vm.Project);
             //if (vm.Project.SelectedDocument.Content != "")
             //{
             //    await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.Documents.FirstOrDefault().Content);
@@ -596,13 +606,37 @@
 
     }
 
-    public async Task LoadContent()
+    [JSInvokable]
+    public async Task LoadPortfolio()
     {
-        await vm.LoadProyectAsync(token);
-        loaded = true;
-        //vm.DeleteProjectMenu(vm.Ui.SelectedProject);
+        //await vm.LoadProyectAsync(token);
+        //loaded = true;
 
-        // await ChangeContent(vm.Ui.SelectedDocument);
+        Portfolio storagePortfolio = new Portfolio();
+
+        storagePortfolio = await localStorage.GetItemAsync<Portfolio>("portfolio");
+
+        storagePortfolio.App = vm.App;
+        storagePortfolio.AppId = vm.App.Id;
+
+
+        foreach (var proj in storagePortfolio.Projects)
+        {
+            proj.Portfolio = PVm.Portfolio;
+        }
+
+        PVm.Portfolio = storagePortfolio;
+
+        vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+
+        if (vm.Project.SelectedDocument.Content != "")
+        {
+            await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.SelectedDocument.Content);
+        }
+
+
+        StateHasChanged();
+
     }
 
     [JSInvokable]
@@ -674,6 +708,8 @@
         Document document = vm.Project.Documents.Where(x => x.GUID == doc.GUID).FirstOrDefault();
         document.Content = content;
         await localStorage.SetItemAsync(doc.ProjectId, vm.Project.Documents);
+        PVm.UpdateProject(vm.Project);
+        vm.Project.SelectedDocument = vm.Project.Documents.Where(x => x.GUID == vm.Project.SelectedDocument.GUID).FirstOrDefault();
     }
 
     public async Task ChangeContent(Document newDoc)

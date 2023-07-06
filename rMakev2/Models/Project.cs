@@ -7,7 +7,20 @@ namespace rMakev2.Models
     {
         public Project()
         {
+            GUID = Guid.NewGuid().ToString();
+            Name = "";
+            Labels = new List<string>();
+            Versions = new List<string>();
+            IsPublic = false;
+            IsWebsite = false;
+            //Name = "Project ("+data.Projects.Count() +")";
+            CreationDate = DateTime.Now;
+            Author = "";
+            PathPreviewImage = "";
             Documents = new List<Document>();
+            AddDocument(this);
+            SelectedDocument = Documents.FirstOrDefault();
+
         }
         public Project(Portfolio portfolio)
         {
