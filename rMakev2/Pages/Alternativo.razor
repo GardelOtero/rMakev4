@@ -475,6 +475,7 @@
     private DotNetObjectReference<Alternativo>? objRef;
     bool loaded = false;
     Project project = new Project();
+    string elementsC;
 
     [Parameter]
     public string token { get; set; }
@@ -532,6 +533,7 @@
             //{
             //    await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.Documents.FirstOrDefault().Content);
             //}
+            callblocks();
         }
         /*if (vm.Ui.EditProjectName == true && vm.Ui.EditedProjectName == false)
             {
@@ -542,6 +544,7 @@
             {
             vm.Ui.EditedProjectName = false;
         }*/
+        
     }
 
     async void navigate()
@@ -772,7 +775,7 @@
 
         vm.Project.SelectedDocument = oldDoc;
 
-         //vm.EventSelectDocumentMenu(oldDoc);
+        //vm.EventSelectDocumentMenu(oldDoc);
 
         StateHasChanged();
     }
@@ -806,6 +809,17 @@
     public async Task clipboard(string copied)
     {
         await jsRuntime.InvokeVoidAsync("copyTextToClipboard", copied);
+    }
+    [JSInvokable]
+    public async Task blocks(string content)
+    {
+        elementsC = content;
+    }
+
+    public async Task callblocks()
+    {
+        await jsRuntime.InvokeVoidAsync("elementsEditor", objRef, elementsC);
+        var hola = elementsC;
     }
 
     [JSInvokable]

@@ -157,9 +157,11 @@
                         });
                 },
                 onChange: (api, event) => {
-                    console.log(api)
-
-                    dotNetRef.invokeMethodAsync('SaveStorage')
+                    console.log(api);
+                    console.log("-------");
+                    console.log(editor.blocks.getById);
+                    dotNetRef.invokeMethodAsync('SaveStorage');
+                    
                 },
                 
             });
@@ -173,6 +175,7 @@
                     const content = JSON.stringify(savedData);
                     dotNetRef.invokeMethodAsync('SaveContent', content, document);
                     console.log(content)
+                    dotNetRef.invokeMethodAsync('blocks', content);
 
                 })
                 .catch((error) => {
@@ -188,7 +191,8 @@
                     }
                     const content = JSON.stringify(savedData);
                     dotNetRef.invokeMethodAsync('SaveContent', content, oldDoc);
-                    console.log(content)
+                    console.log(content);
+                    
                 })
                 .then(() => {
                     dotNetRef.invokeMethodAsync('SetDocumentContent', newDoc);
@@ -231,8 +235,11 @@
                     dotNetRef.invokeMethodAsync('StateChange');
                 })
         }
-
-        window.ClearEditor = () => {            
+        window.elementsEditor = (dotNetRef, elementsC) => {
+            dotNetRef.invokeMethodAsync('blocks', api);
+        }
+        window.ClearEditor = () => { 
+            
             editor.blocks.clear();
         }
     </script>

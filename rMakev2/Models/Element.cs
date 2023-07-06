@@ -47,6 +47,7 @@ namespace rMakev2.Models
             ParentGuid = "";
             OrderParentId = 0;
             Authors = new List<string>();
+            
         }
         public string GUID { get; set; }
         public int Id { get; set; }
