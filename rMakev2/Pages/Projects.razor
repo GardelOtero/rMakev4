@@ -64,7 +64,7 @@
         @foreach (var project in PVm.Portfolio.Projects)
         {
             <div class="projectContainer">
-                <input @bind="@project.Name" class="projectInput" @onblur="@PVm.OnPropertyChanged"></input>
+                <input @bind="@project.Name" @bind:event="oninput" class="projectInput" @onchange="@PVm.OnPropertyChanged"></input>
                 <button @onclick="() => PVm.DeleteProject(project)" class="createButton">Delete</button>
                 <button @onclick="() => PVm.LoadDocuments(project)" class="createButton">Load</button>
 
@@ -86,22 +86,6 @@
 
         try
         {
-            //await PVm.InitializeProjects(vm.App);
-
-            //if(await localStorage.ContainKeyAsync(PVm.Portfolio.GUID))
-            //{
-            //    PVm.Portfolio = await localStorage.GetItemAsync<Portfolio>(PVm.Portfolio.GUID);
-            //} else
-            //{
-
-
-
-
-            //    await localStorage.SetItemAsync(PVm.Portfolio.GUID, PVm.Portfolio);
-
-            //}
-
-
 
         }
         catch
@@ -116,44 +100,19 @@
         {
 
             await loadStorage();
-            //await localStorage.ClearAsync();
-            //await localStorage.SetItemAsync(vm.Project.GUID, vm.Project.Documents);
-            //if (vm.Project.SelectedDocument.Content != "")
-            //{
-            //    await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.Documents.FirstOrDefault().Content);
-            //}
+
         }
-        /*if (vm.Ui.EditProjectName == true && vm.Ui.EditedProjectName == false)
-            {
-            await jsRuntime.InvokeVoidAsync("focusInput");
-            vm.Ui.EditedProjectName = true;
-        }
-        else if (vm.Ui.EditProjectName == false && vm.Ui.EditedProjectName == true)
-            {
-            vm.Ui.EditedProjectName = false;
-        }*/
+
     }
 
     public async Task loadStorage()
     {
-        //IEnumerable<string> keys = await localStorage.KeysAsync();
-
-        //if (keys.Count() == 0)
-        //{
-        //    return;
-        //}
-
-        //List<string> k = keys.ToList();
+ 
 
         if (await localStorage.ContainKeyAsync("portfolio") == false)
             return;
 
         Portfolio storagePortfolio = new Portfolio();
-
-
-
-
-
 
         storagePortfolio = await localStorage.GetItemAsync<Portfolio>("portfolio");
 
@@ -169,32 +128,6 @@
 
         StateHasChanged();
 
-
-
-
-            //Project newProj = new Project(vm.App.Portfolio);
-            //storageProj = await localStorage.GetItemAsync<Project>(key);
-            //newProj.Id = storageProj.Id;
-            //newProj.Name = storageProj.Name;
-            //newProj.CreationDate = storageProj.CreationDate;
-            //newProj.PortfolioId = storageProj.PortfolioId;
-            //newProj.Documents = storageProj.Documents;
-
-
-            //foreach (var doc in newProj.Documents)
-            //{
-            //    doc.Project = newProj;
-            //}
-            //projects.Add(newProj);
-
-
-
-        
-
-        //vm.App.Portfolio.Projects.AddRange(projects);
-        //vm.DeleteProjectMenu(vm.Ui.SelectedProject);
-
-        
 
     }
 
