@@ -13,6 +13,7 @@ using RestSharp;
 using Microsoft.JSInterop;
 using rMakev2.Services;
 using Blazorise;
+using static MudBlazor.CategoryTypes;
 
 namespace rMakev2.ViewModel
 {
@@ -50,7 +51,7 @@ namespace rMakev2.ViewModel
                 OnPropertyChanged();
             }
         }
-        
+
         private Project project;
 
         public Project Project
@@ -77,8 +78,6 @@ namespace rMakev2.ViewModel
             p1 = new Thread(new ThreadStart(Save));
             p1.Start();
 
-   
-
             //Creo las entidades por defecto.
         }
 
@@ -96,81 +95,49 @@ namespace rMakev2.ViewModel
         }
 
 
-        public void HideSaveModal()
+        /*public void HideSaveModal()
         {
-            App.SaveModal.Hide();
+            App.Ui.SaveModal.Hide();
         }
         public void ShowSaveModal()
         {
-            App.SaveModal.Show();
+            App.Ui.SaveModal.Show();
         }
 
-        //public void ShowJsonModal()
-        //{
-        //    App.Ui.SwitchDisplayJson();
-        //}
+        public void ShowJsonModal()
+        {
+            App.Ui.SwitchDisplayJson();
+        }*/
 
         public void DocumentMenu()
         {
             Project.DocumentMenu();
         }
 
-        public void HidePublishModal()
+        /*public void HidePublishModal()
         {
-            App.PublishModal.Hide();
+            App.Ui.PublishModal.Hide();
         }
         public void ShowPublishModal()
         {
-            App.PublishModal.Show();
+            App.Ui.PublishModal.Show();
         }
 
-        //public void HideLoadModal()
-        //{
-        //    App.Ui.LoadModal.Hide();
-        //}
-        //public void ShowLoadModal()
-        //{
-        //    App.Ui.LoadModal.Show();
-        //}
-        //public void EventSelectProject(ChangeEventArgs e)
-        //{
-        //    string projectId = e.Value.ToString();
-        //    Project project = Ui.SelectedProject = App.Portfolio.Projects.Where(w => w.Id == projectId).SingleOrDefault();
-        //    Ui.SelectProject(project);
-        //    this._toastService.ShowInfo("You have changed the project to " + project.Name);
-        //}
-        //public void EventSelectDocumentMenu(Document document1)
-        //{
-        //    Ui.SelectDocument(document1);
-        //    Ui.SelectProject(document1.Project);
-        //}
-        //public void EventSelectDocument(ChangeEventArgs e)
-        //{
-        //    string documentId = e.Value.ToString();
-        //    Document document = Ui.SelectedProject.Documents.Where(w => w.Id == documentId).SingleOrDefault();
-        //    Ui.SelectDocument(document);
-        //}
-        //public void SelectProject(Project project)
-        //{
-        //    Ui.SelectProject(project);
-        //    SelectDocument(Ui.SelectedProject.Documents.FirstOrDefault());
+        public void HideLoadModal()
+        {
+            App.Ui.LoadModal.Hide();
+        }
+        public void ShowLoadModal()
+        {
+            App.Ui.LoadModal.Show();
+        }*/
 
-        //}
         public void SelectDocument(Document document)
         {
             Project.SelectDocuments(document);
 
         }
-        //public void NewProject()
-        //{
-        //    SelectProject(App.Portfolio.AddProject());
-        //    //SelectDocument(Ui.SelectedProject.Documents.FirstOrDefault());
 
-
-
-        //    //this._toastService.ShowSuccess("New project created");
-
-        //}
 
         // public async Task AiGenerate(Element element)
         //{
@@ -178,46 +145,7 @@ namespace rMakev2.ViewModel
         //    element.AIContent= await _aiChat.UseChatService("Improve and expand this text: " + content);
             
         //}
-        //public void DeleteProject()
-        //{
 
-        //    if (App.Portfolio.Projects.Count() >= 1)
-        //    {
-        //        App.Portfolio.RemoveProject(Ui.SelectedProject);
-        //        SelectProject(App.Portfolio.Projects.First());
-        //        //this._toastService.ShowSuccess("Project eliminated");
-        //    }
-        //    else
-        //    {
-        //        App.Portfolio.RemoveProject(Ui.SelectedProject);
-        //        this._toastService.ShowSuccess("Project eliminated");
-        //        NewProject();
-        //    }
-        //}
-        //public void DeleteProjectMenu(Project project)
-        //{
-        //    if (App.Portfolio.Projects.Count() > 1)
-        //    {
-        //        App.Portfolio.RemoveProject(project);
-        //        SelectProject(App.Portfolio.Projects.First());
-        //        SelectDocument(Ui.SelectedProject.Documents.First());
-
-        //    }
-
-        //    else if (App.Portfolio.Projects.Count() == 1)
-        //    {
-        //        App.Portfolio.RemoveProject(project);
-        //        NewProject();
-        //        SelectDocument(Ui.SelectedProject.Documents.First());
-        //    }
-        //}
-
-        //public void ForkProject()
-        //{
-        //    SelectProject(App.Portfolio.ForkProject(Ui.SelectedProject));
-
-        //    this._toastService.ShowSuccess("Project Forked");
-        //}
         public void CloneDocument()
         {
            this._toastService.ShowSuccess("Document cloned");
@@ -305,6 +233,11 @@ namespace rMakev2.ViewModel
                 SwitchProjectName();
             }
 
+        }
+
+        public void BlocktoElement(string elementsJs)
+        {
+            Root block = JsonSerializer.Deserialize<Root>(elementsJs);
         }
         public void MergeDocumentsIntoNewOne(Document First, Document Second)
         {
@@ -439,18 +372,11 @@ namespace rMakev2.ViewModel
 
         }
 
-        /*public void ShowAreaComment()
-        {
-            App.Ui.DisplayComents = App.Ui.DisplayComents == true ? false : true;
-        }*/
-
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged()
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
         }
-
-       
 
         public void SuccessNotification(string message)
         {

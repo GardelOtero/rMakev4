@@ -1,6 +1,6 @@
 ﻿namespace rMakev2.Models
 {
-    public class Block
+    public class BlockElement
     {
         public string id { get; set; }
         public string type { get; set; }
@@ -15,7 +15,7 @@
     public class Root
     {
         public long time { get; set; }
-        public List<Block> blocks { get; set; }
+        public List<BlockElement> blocks { get; set; }
         public string version { get; set; }
     }
 
