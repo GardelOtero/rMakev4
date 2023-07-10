@@ -1,4 +1,6 @@
-﻿namespace rMakev2.Models
+﻿using Blazorise;
+
+namespace rMakev2.Models
 {
     public class App
     {
@@ -13,6 +15,9 @@
         public string Id { get; set; }
         public Portfolio Portfolio { get; set; }
         //public Ui Ui { get; set; }
+        public Modal? SaveModal { get; set; }
+        public Modal? PublishModal { get; set; }
+        public Modal? MergeModal { get; set; }
 
         static string HashString(string text, string salt = "")
         {

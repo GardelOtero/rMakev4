@@ -50,16 +50,7 @@ namespace rMakev2.ViewModel
                 OnPropertyChanged();
             }
         }
-        /* private Ui ui;
-         public Ui Ui
-         {
-             get { return ui; }
-             set
-             {
-                 ui = value;
-                 OnPropertyChanged();
-             }
-         }*/
+        
         private Project project;
 
         public Project Project
@@ -72,7 +63,6 @@ namespace rMakev2.ViewModel
             }
         }
 
-        public List<Item> ListaOraciones = new List<Item>();
         public void InitializePortfolio()
         {
             App = new Models.App("rebel");
@@ -87,12 +77,7 @@ namespace rMakev2.ViewModel
             p1 = new Thread(new ThreadStart(Save));
             p1.Start();
 
-            ListaOraciones.Add(new Item("color: #F9E43D", "Connection made easy"));
-            ListaOraciones.Add(new Item("color: #A2F8BC", "Web of documents"));
-            ListaOraciones.Add(new Item("color: #9BFBF1", "Decentralized from the start"));
-            ListaOraciones.Add(new Item("color: #F5ADFB", "Real collaboration"));
-            ListaOraciones.Add(new Item("color: #F9E43D", "Built-in recognition"));
-            ListaOraciones.Add(new Item("color: #FCB0B3", "Writing made easy"));
+   
 
             //Creo las entidades por defecto.
         }
@@ -111,42 +96,42 @@ namespace rMakev2.ViewModel
         }
 
 
-        /*public void HideSaveModal()
+        public void HideSaveModal()
         {
-            App.Ui.SaveModal.Hide();
+            App.SaveModal.Hide();
         }
         public void ShowSaveModal()
         {
-            App.Ui.SaveModal.Show();
+            App.SaveModal.Show();
         }
 
-        public void ShowJsonModal()
-        {
-            App.Ui.SwitchDisplayJson();
-        }*/
+        //public void ShowJsonModal()
+        //{
+        //    App.Ui.SwitchDisplayJson();
+        //}
 
         public void DocumentMenu()
         {
             Project.DocumentMenu();
         }
 
-        /*public void HidePublishModal()
+        public void HidePublishModal()
         {
-            App.Ui.PublishModal.Hide();
+            App.PublishModal.Hide();
         }
         public void ShowPublishModal()
         {
-            App.Ui.PublishModal.Show();
+            App.PublishModal.Show();
         }
 
-        public void HideLoadModal()
-        {
-            App.Ui.LoadModal.Hide();
-        }
-        public void ShowLoadModal()
-        {
-            App.Ui.LoadModal.Show();
-        }*/
+        //public void HideLoadModal()
+        //{
+        //    App.Ui.LoadModal.Hide();
+        //}
+        //public void ShowLoadModal()
+        //{
+        //    App.Ui.LoadModal.Show();
+        //}
         //public void EventSelectProject(ChangeEventArgs e)
         //{
         //    string projectId = e.Value.ToString();
@@ -465,16 +450,7 @@ namespace rMakev2.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
         }
 
-        public class Item
-        {
-            public string Color = "";
-            public string Question = "";
-            public Item(string color, string question)
-            {
-                Color = color;
-                Question = question;
-            }
-        }
+       
 
         public void SuccessNotification(string message)
         {
