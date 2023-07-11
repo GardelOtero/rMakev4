@@ -14,6 +14,7 @@ using Microsoft.JSInterop;
 using rMakev2.Services;
 using Blazorise;
 using static MudBlazor.CategoryTypes;
+using rMakev2.Pages;
 
 namespace rMakev2.ViewModel
 {
@@ -96,42 +97,42 @@ namespace rMakev2.ViewModel
         }
 
 
-        /*public void HideSaveModal()
+        public void HideSaveModal()
         {
-            App.Ui.SaveModal.Hide();
+            App.SaveModal.Hide();
         }
         public void ShowSaveModal()
         {
-            App.Ui.SaveModal.Show();
+            App.SaveModal.Show();
         }
 
-        public void ShowJsonModal()
-        {
-            App.Ui.SwitchDisplayJson();
-        }*/
+        //public void ShowJsonModal()
+        //{
+        //    App.SwitchDisplayJson();
+        //}
 
         public void DocumentMenu()
         {
             Project.DocumentMenu();
         }
 
-        /*public void HidePublishModal()
+        public void HidePublishModal()
         {
-            App.Ui.PublishModal.Hide();
+            App.PublishModal.Hide();
         }
         public void ShowPublishModal()
         {
-            App.Ui.PublishModal.Show();
+            App.PublishModal.Show();
         }
 
-        public void HideLoadModal()
-        {
-            App.Ui.LoadModal.Hide();
-        }
-        public void ShowLoadModal()
-        {
-            App.Ui.LoadModal.Show();
-        }*/
+        //public void HideLoadModal()
+        //{
+        //    App.LoadModal.Hide();
+        //}
+        //public void ShowLoadModal()
+        //{
+        //    App.LoadModal.Show();
+        //}
 
         public void SelectDocument(Document document)
         {
@@ -238,10 +239,48 @@ namespace rMakev2.ViewModel
 
         public void BlocktoElement(string elementsJs)
         {
+            
             Root block = JsonSerializer.Deserialize<Root>(elementsJs);
 
             elements = new List<BlockElement>();
-            //block.blocks.Add(elements);
+            elements.AddRange(block.blocks);
+
+            List<Models.Element> elementsC = new List<Models.Element>();
+            //HashSet<string> encounteredIds = new HashSet<string>();
+
+            foreach (Document document in project.Documents)
+            {
+                foreach (Models.Element element in document.Elements)
+                {
+                    foreach (BlockElement blockelement in element.BlockContent) {
+                        var oldElement = element.BlockContent.Where(x => x.id == blockelement.id).FirstOrDefault();
+
+                        var index = element.BlockContent.IndexOf(oldElement);
+
+                        if (index == -1)
+                            element.BlockContent.Add(blockelement);
+                        else
+                        element.BlockContent[index] = blockelement;
+                    }
+                    
+                   
+                }
+            }
+        
+       }
+
+        public void ElementstoCSharp()
+        {
+            List<Models.Element> elementsC = new List<Models.Element>();
+            HashSet<string> encounteredIds = new HashSet<string>();
+
+            foreach (Document document in project.Documents)
+            {
+                foreach (Models.Element element in document.Elements)
+                {
+                    element.BlockContent.AddRange(elements);
+                }
+            }
         }
         public void MergeDocumentsIntoNewOne(Document First, Document Second)
         {

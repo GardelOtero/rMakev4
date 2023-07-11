@@ -8,13 +8,14 @@ namespace rMakev2.Models
     {
         public Element()
         {
-
+            BlockContent = new List<BlockElement>();
         }
         public Element(Document document)
         {
             Document = document ?? throw new Exceptions("Document is null");
             GUID = Guid.NewGuid().ToString();
             Content = "";
+            BlockContent = new List<BlockElement>();
             Author = "";
             Order = Document.Elements.Count() + 1;
             EditItem = true;
@@ -52,6 +53,7 @@ namespace rMakev2.Models
         public string GUID { get; set; }
         public int Id { get; set; }
         public string Content { get; set; }
+        public List<BlockElement> BlockContent { get; set; }
         public string Author { get; set; }
         public string AIContent { get; set; }
         public int Order { get; set; }
