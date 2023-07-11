@@ -53,6 +53,7 @@ namespace rMakev2.ViewModel
         }
 
         private Project project;
+        private List<BlockElement> elements;
 
         public Project Project
         {
@@ -238,6 +239,9 @@ namespace rMakev2.ViewModel
         public void BlocktoElement(string elementsJs)
         {
             Root block = JsonSerializer.Deserialize<Root>(elementsJs);
+
+            elements = new List<BlockElement>();
+            //block.blocks.Add(elements);
         }
         public void MergeDocumentsIntoNewOne(Document First, Document Second)
         {
