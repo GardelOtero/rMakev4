@@ -38,22 +38,21 @@ namespace rMakev2.ViewModel
             set
             {
                 portfolio = value;
-                OnPropertyChanged();
             }
         }
 
-        public void OnPropertyChanged()
+        public async Task OnPropertyChanged()
         {
             
 
 
-            _localStorageService.SetItemAsync("portfolio", Portfolio);
+            await _localStorageService.SetItemAsync("portfolio", Portfolio);
         }
 
-        public void NewProject()
+        public async Task NewProject()
         {
             Portfolio.AddProject();
-            OnPropertyChanged();
+            await OnPropertyChanged();
 
         }
 
@@ -64,18 +63,18 @@ namespace rMakev2.ViewModel
             //if(token != null)
             //    await LoadProyectAsync(token);
             
-            OnPropertyChanged();
+            await OnPropertyChanged();
 
         }
 
-        public void DeleteProject(Project project)
+        public async Task DeleteProject(Project project)
         {
             Portfolio.RemoveProject(project);
-            OnPropertyChanged();
+            await OnPropertyChanged();
 
         }
 
-        public void UpdateProject(Project projext)
+        public async Task UpdateProject(Project projext)
         {
             var oldProj = Portfolio.Projects.Where(x => x.GUID == projext.GUID).FirstOrDefault();
 
@@ -87,7 +86,7 @@ namespace rMakev2.ViewModel
             Portfolio.Projects[index] = projext;
 
 
-            OnPropertyChanged();
+            await OnPropertyChanged();
 
         }
 

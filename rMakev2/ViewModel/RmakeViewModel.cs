@@ -108,7 +108,7 @@ namespace rMakev2.ViewModel
 
         //public void ShowJsonModal()
         //{
-        //    App.SwitchDisplayJson();
+        //    App.Ui.SwitchDisplayJson();
         //}
 
         public void DocumentMenu()
@@ -145,13 +145,13 @@ namespace rMakev2.ViewModel
         //{
         //    var content = element.Content;
         //    element.AIContent= await _aiChat.UseChatService("Improve and expand this text: " + content);
-            
+
         //}
 
         public void CloneDocument()
         {
-           this._toastService.ShowSuccess("Document cloned");
-           SelectDocument(Project.CloneDocument(Project.SelectedDocument));
+            this._toastService.ShowSuccess("Document cloned");
+            SelectDocument(Project.CloneDocument(Project.SelectedDocument));
         }
         public void NewDocument()
         {
@@ -183,7 +183,7 @@ namespace rMakev2.ViewModel
                 NewDocument();
             }
 
-         }
+        }
 
         public void DeleteDocumentMenu(Document document)
         {
@@ -218,14 +218,14 @@ namespace rMakev2.ViewModel
         }
         public void SwitchProjectName()
         {
-           // Ui.SwitchEditName();
+            // Ui.SwitchEditName();
 
 
         }
 
         public void DisplayMenu()
         {
-            
+
             project.ShowMenu();
         }
         public void Enter(KeyboardEventArgs e)
@@ -286,20 +286,20 @@ namespace rMakev2.ViewModel
         {
 
         }
-        /*public void HashMyContent()
-        {
+        //public void HashMyContent()
+        //{
 
-            foreach (var project in App.Portfolio.Projects)
-            {
-                foreach (var document in project.Documents)
-                {
-                    foreach (var element in document.Elements)
-                    {
-                        element.Hash = HashString(element.Content, element.Id);
-                    }
-                }
-            }
-        }*/
+        //    foreach (var project in App.Portfolio.Projects)
+        //    {
+        //        foreach (var document in project.Documents)
+        //        {
+        //            foreach (var element in document.Elements)
+        //            {
+        //                element.Hash = HashString(element.Content, element.Id);
+        //            }
+        //        }
+        //    }
+        //}
         public void BlockRTAFocus()
         {
 
