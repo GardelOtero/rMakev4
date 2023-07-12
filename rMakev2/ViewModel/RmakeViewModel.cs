@@ -242,30 +242,31 @@ namespace rMakev2.ViewModel
             
             Root block = JsonSerializer.Deserialize<Root>(elementsJs);
 
-            elements = new List<BlockElement>();
-            elements.AddRange(block.blocks);
+            var elements = Project.SelectedDocument.Elements.FirstOrDefault();
+            elements.BlockContent = new List<BlockElement>();
+            elements.BlockContent.AddRange(block.blocks);
 
-            List<Models.Element> elementsC = new List<Models.Element>();
-            //HashSet<string> encounteredIds = new HashSet<string>();
+            //List<Models.Element> elementsC = new List<Models.Element>();
+            ////HashSet<string> encounteredIds = new HashSet<string>();
 
-            foreach (Document document in project.Documents)
-            {
-                foreach (Models.Element element in document.Elements)
-                {
-                    foreach (BlockElement blockelement in element.BlockContent) {
-                        var oldElement = element.BlockContent.Where(x => x.id == blockelement.id).FirstOrDefault();
+            //foreach (Document document in project.Documents)
+            //{
+            //    foreach (Models.Element element in document.Elements)
+            //    {
+            //        foreach (BlockElement blockelement in element.BlockContent) {
+            //            var oldElement = element.BlockContent.Where(x => x.id == blockelement.id).FirstOrDefault();
 
-                        var index = element.BlockContent.IndexOf(oldElement);
+            //            var index = element.BlockContent.IndexOf(oldElement);
 
-                        if (index == -1)
-                            element.BlockContent.Add(blockelement);
-                        else
-                        element.BlockContent[index] = blockelement;
-                    }
+            //            if (index == -1)
+            //                element.BlockContent.Add(blockelement);
+            //            else
+            //                element.BlockContent[index] = blockelement;
+            //        }
                     
                    
-                }
-            }
+            //    }
+            //}
         
        }
 

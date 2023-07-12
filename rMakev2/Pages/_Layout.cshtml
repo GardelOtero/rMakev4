@@ -91,14 +91,18 @@
     <script src="/tools/marker.js"></script>
     <script src="/tools/codetool.js"></script>
     <script src="/tools/simpleimage.js"></script>
+    <script src="/tools/clone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@@editorjs/embed@latest"></script>
     <link href="/Tools/SimpleImage.css" rel="stylesheet" />
     <script>
         let editor;
+        
+
         window.runEditor = (dotNetRef, existingData) => {
             editor = new EditorJS({
                 holder: 'editorjs',
                 tools: {
+                    clone: CloneTool,
                     header: {
                         class: Header,
                         shortcut: 'CMD+SHIFT+H',
@@ -157,9 +161,9 @@
                         });
                 },
                 onChange: (api, event) => {
-                    console.log(api);
-                    console.log("-------");
-                    console.log(editor.blocks.getById);
+                    //console.log(api);
+                    //console.log("-------");
+                    //console.log(editor.blocks.getById);
                     dotNetRef.invokeMethodAsync('SaveStorage');
                     
                 },

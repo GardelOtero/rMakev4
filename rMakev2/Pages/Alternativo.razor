@@ -508,7 +508,7 @@
 
             await localStorage.SetItemAsync("documents", vm.Project);
 
-            callblocks();
+            //callblocks();
         }
 
 
@@ -638,6 +638,7 @@
     [JSInvokable]
     public async Task SaveContent(string content, Document doc)
     {
+        vm.BlocktoElement(content);
         Document document = vm.Project.Documents.Where(x => x.GUID == doc.GUID).FirstOrDefault();
         document.Content = content;
         await localStorage.SetItemAsync(doc.ProjectId, vm.Project.Documents);
