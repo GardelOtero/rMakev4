@@ -15,9 +15,6 @@ namespace rMakev2.ViewModel.Interfaces
         public void ShowPublishModal();
         public Task SaveContentAsync();
         public void DisplayMenu();
-        public void BlocktoElement(string elementsJs);
-        public void ElementstoCSharp();
-        public void MergeDocumentsIntoNewOne(Document First, Document Second);
         public void BlockRTAFocus();
         public void UnBlockRTAFocus();
         public string HashString(string text, string salt);

@@ -102,7 +102,12 @@
             editor = new EditorJS({
                 holder: 'editorjs',
                 tools: {
-                    clone: CloneTool,
+                    clone: {
+                        class: CloneTool,
+                        config: {
+                            dotNet: dotNetRef
+                        }
+                    },
                     header: {
                         class: Header,
                         shortcut: 'CMD+SHIFT+H',
@@ -163,6 +168,7 @@
                 onChange: (api, event) => {
                     dotNetRef.invokeMethodAsync('SaveStorage');  
                 },
+                tunes:['clone']
                 
             });
             

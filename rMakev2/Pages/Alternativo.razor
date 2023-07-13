@@ -706,6 +706,12 @@
         vm.BlocktoElement(elementsC);
     }
 
+    [JSInvokable]
+    public async Task test()
+    {
+        await newDoc();
+    }
+
     //public async Task callblocks()
     //{
     //    await jsRuntime.InvokeVoidAsync("elementsEditor", objRef, elementsC);

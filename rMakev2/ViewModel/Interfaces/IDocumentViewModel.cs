@@ -15,5 +15,8 @@ namespace rMakev2.ViewModel.Interfaces
         public void DeleteDocument();
 
         public void DeleteDocumentMenu(Document document);
+        public void BlocktoElement(string elementsJs);
+        public void ElementstoCSharp();
+        public void MergeDocumentsIntoNewOne(Document First, Document Second);
     }
 }
