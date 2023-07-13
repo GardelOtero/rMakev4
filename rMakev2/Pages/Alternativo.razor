@@ -452,19 +452,12 @@
 </Modal>
 *@
 @code {
-    bool _isExpanded = true;
-    MudListItem selectedItem;
-    object selectedValue = 1;
     string tokenstring;
     private DotNetObjectReference<Alternativo>? objRef;
-    bool loaded = false;
-    Project project = new Project();
     string elementsC;
 
     [Parameter]
     public string token { get; set; }
-
-    protected RichTextEdit richTextEditRef;
 
     protected override async Task OnInitializedAsync()
     {
@@ -713,11 +706,11 @@
         vm.BlocktoElement(elementsC);
     }
 
-    public async Task callblocks()
-    {
-        await jsRuntime.InvokeVoidAsync("elementsEditor", objRef, elementsC);
-        var hola = elementsC;
-    }
+    //public async Task callblocks()
+    //{
+    //    await jsRuntime.InvokeVoidAsync("elementsEditor", objRef, elementsC);
+    //    var hola = elementsC;
+    //}
 
     [JSInvokable]
     public async Task StateChange()

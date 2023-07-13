@@ -15,10 +15,11 @@ using rMakev2.Services;
 using Blazorise;
 using static MudBlazor.CategoryTypes;
 using rMakev2.Pages;
+using rMakev2.ViewModel.Interfaces;
 
 namespace rMakev2.ViewModel
 {
-    public class RmakeViewModel : INotifyPropertyChanged
+    public class RmakeViewModel : INotifyPropertyChanged, IDocumentViewModel, IAppViewModel
     {
         private ToastService _toastService;
         private ICommunicationService _communicationService;
@@ -71,16 +72,12 @@ namespace rMakev2.ViewModel
             App = new Models.App("rebel");
 
             Project = new Models.Project();
-            //App.Portfolio.Projects.Add(new Project(App.Portfolio));
-            //Project.SelectedDocument = Project.Documents.FirstOrDefault(x => x.Id == Project.Id);
-            //Ui.SelectedProject = ProjectZero;
-            //Project.SelectedDocument = ProjectZero.Documents.First();
+
 
             Thread p1;
             p1 = new Thread(new ThreadStart(Save));
             p1.Start();
 
-            //Creo las entidades por defecto.
         }
 
 
@@ -106,10 +103,6 @@ namespace rMakev2.ViewModel
             App.SaveModal.Show();
         }
 
-        //public void ShowJsonModal()
-        //{
-        //    App.Ui.SwitchDisplayJson();
-        //}
 
         public void DocumentMenu()
         {
@@ -141,12 +134,6 @@ namespace rMakev2.ViewModel
         }
 
 
-        // public async Task AiGenerate(Element element)
-        //{
-        //    var content = element.Content;
-        //    element.AIContent= await _aiChat.UseChatService("Improve and expand this text: " + content);
-
-        //}
 
         public void CloneDocument()
         {
@@ -216,27 +203,14 @@ namespace rMakev2.ViewModel
             await _communicationService.SaveAsync(App);
             this._toastService.ShowSuccess("Project Saved");
         }
-        public void SwitchProjectName()
-        {
-            // Ui.SwitchEditName();
-
-
-        }
+    
 
         public void DisplayMenu()
         {
 
             project.ShowMenu();
         }
-        public void Enter(KeyboardEventArgs e)
-        {
-            if (e.Code == "Enter" || e.Code == "NumpadEnter")
-            {
-                SwitchProjectName();
-            }
-
-        }
-
+        
         public void BlocktoElement(string elementsJs)
         {
             
@@ -246,27 +220,7 @@ namespace rMakev2.ViewModel
             elements.BlockContent = new List<BlockElement>();
             elements.BlockContent.AddRange(block.blocks);
 
-            //List<Models.Element> elementsC = new List<Models.Element>();
-            ////HashSet<string> encounteredIds = new HashSet<string>();
-
-            //foreach (Document document in project.Documents)
-            //{
-            //    foreach (Models.Element element in document.Elements)
-            //    {
-            //        foreach (BlockElement blockelement in element.BlockContent) {
-            //            var oldElement = element.BlockContent.Where(x => x.id == blockelement.id).FirstOrDefault();
-
-            //            var index = element.BlockContent.IndexOf(oldElement);
-
-            //            if (index == -1)
-            //                element.BlockContent.Add(blockelement);
-            //            else
-            //                element.BlockContent[index] = blockelement;
-            //        }
-                    
-                   
-            //    }
-            //}
+        
         
        }
 
@@ -287,6 +241,7 @@ namespace rMakev2.ViewModel
         {
 
         }
+
         //public void HashMyContent()
         //{
 
@@ -301,6 +256,7 @@ namespace rMakev2.ViewModel
         //        }
         //    }
         //}
+
         public void BlockRTAFocus()
         {
 
@@ -341,81 +297,7 @@ namespace rMakev2.ViewModel
             }
         }
 
-        public async Task LoadProyectAsync(string token)
-        {
-
-            
-            SaveProjectDto savedContent = await _communicationService.LoadAsync(token);
-
-            if (savedContent == null)
-            {
-                _navigationManager.NavigateTo("/Error");
-                return;
-            }
-
-            //app = new Models.App(savedContent.Id, savedContent.PortfolioToken);
-
-            App.Portfolio.GUID = savedContent.Id;
-
-
-            foreach (var proj in savedContent.Projects)
-            {
-                Project p = new Project();
-                p.Name = proj.Name;
-                p.GUID = proj.Id;
-                p.CreationDate = proj.CreationDate;
-                p.Portfolio = app.Portfolio;
-                p.PortfolioId = app.Portfolio.GUID;
-                p.ParentProjectId = proj.ParentProjectId;
-                this.App.Portfolio.Projects.Add(p);
-
-
-                foreach (var doc in proj.Documents)
-                {
-                    var Pro = app.Portfolio.Projects.Where(x => x.GUID == proj.Id).FirstOrDefault();
-                    Document d = new Document();
-                    d.Name = doc.Name;
-                    d.GUID = doc.Id;
-                    d.CreationDate = doc.CreationDate;
-                    d.Order = doc.Order;
-                    d.Content = doc.Content;
-                    d.Project = Pro;
-                    d.ProjectId = Pro.GUID;
-                    d.ParentDocumentId = doc.ParentDocumentId;
-                    Pro.Documents.Add(d);
-
-                    //foreach (var ele in doc.Elements)
-                    //{
-                    //    var Proj = app.Portfolio.Projects.Where(x => x.Id == proj.Id).FirstOrDefault();
-                    //    var docum = Proj.Documents.Where(x => x.Id == doc.Id).FirstOrDefault();
-                    //    Element e = new Element();
-                    //    e.Id = ele.Id;
-                    //    e.Content = ele.Content;
-                    //    e.Order = ele.Order;
-                    //    e.Ideary = ele.Ideary;
-                    //    e.DocumentId = ele.DocumentId;
-                    //    e.Document = docum;
-                    //    e.ParentElementId = ele.ParentElementId;
-                    //    e.Hash = ele.Hash;
-                    //    docum.Elements.Add(e);
-
-                    //}
-
-                }
-
-
-            }
-           // app.Ui.SaveModal = app.Ui.SaveModal;
-
-
-            //App.Portfolio.RemoveProject(app.Ui.SelectedProject);
-            //app.Ui.SelectedProject = app.Portfolio.Projects.Where(x => x.Id == savedContent.Ui.IdSelectedProject).FirstOrDefault();
-            //app.Ui.SelectedDocument = app.Ui.SelectedProject.Documents.Where(x => x.Id == savedContent.Ui.IdSelectedDocument).FirstOrDefault();
-
-
-
-        }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged()
         {

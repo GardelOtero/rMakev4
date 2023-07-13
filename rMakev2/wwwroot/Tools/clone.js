@@ -13,7 +13,8 @@ class CloneTool {
         this.api = api;
         this.config = config || {};
         this.block = block
-        this.data
+        this.data = data
+
 
        
        
@@ -28,24 +29,24 @@ class CloneTool {
         console.log(this.config)
         console.log(this.data)
 
-        console.log(this.api.blocks.getBlockByIndex(this.api.blocks.getCurrentBlockIndex() - 1).holder)
+        console.log(this.api.blocks.getBlockByIndex(this.api.blocks.getCurrentBlockIndex() - 1))
 
-        this.wrapper = document.createElement('div');
-        this.wrapper.classList.add('simple-image');
+        //this.wrapper = document.createElement('div');
+        //this.wrapper.classList.add('simple-image');
 
-        if (this.data && this.data.url) {
-            this._createImage(this.data.url, this.data.caption);
-            return this.wrapper;
-        }
+        //if (this.data && this.data.url) {
+        //    this._createImage(this.data.url, this.data.caption);
+        //    return this.wrapper;
+        //}
 
-        const input = document.createElement('input');
+        //const input = document.createElement('input');
 
-        input.placeholder = this.config.placeholder || 'Paste an image URL...';
-        input.addEventListener('paste', (event) => {
-            this._createImage(event.clipboardData.getData('text'));
-        });
+        //input.placeholder = this.config.placeholder || 'Paste an image URL...';
+        //input.addEventListener('paste', (event) => {
+        //    this._createImage(event.clipboardData.getData('text'));
+        //});
 
-        this.wrapper.appendChild(input);
+        //this.wrapper.appendChild(input);
 
         return this.wrapper;
     }
@@ -54,26 +55,3 @@ class CloneTool {
 
 
 }
-
-//function myCustomFunction() {
-//    // Perform custom logic here
-//    console.log("My custom function called!");
-//}
-
-
-
-//// Get the existing tools array from the EditorJS configuration
-//const tools = EditorJS.Tools;
-
-
-
-//// Add your custom function as a new tool
-//// Add your custom function as a new tool 
-//const customTool = {
-//    name: "myCustomFunction", title: "My Custom Function", icon: '<svg>...</svg>', // Replace with your own SVG icon markup 
-//    shortcut: "CMD+M", // Replace with your desired keyboard shortcut 
-//    renderer: () => myCustomFunction()
-//}; // Create a new array of tools by extending the existing tools array 
-
-//const customTools = [...tools, customTool];
-
