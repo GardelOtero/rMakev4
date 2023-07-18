@@ -8,7 +8,8 @@ class CloneTool {
 
     constructor({ api, config, block, data }) {
         this.api = api;
-        this.dotNetRef = config.dotNet
+        this.wind = config.wind
+        this.dotNet = config.dotNet
         this.block = block
         this.data = data
 
@@ -30,10 +31,11 @@ class CloneTool {
 
     onClick() {
 
+        console.log(this.wind.test)
+        this.wind.test()
         console.log(this.api.blocks.getBlockByIndex(this.api.blocks.getCurrentBlockIndex() - 1))
-        console.log(this.dotNetRef)
+        console.log(this.wind)
 
-        this.dotNetRef.invokeMethodAsync('LoadPortfolio')
 
     }
 

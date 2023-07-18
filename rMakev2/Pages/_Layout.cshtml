@@ -96,15 +96,19 @@
     <link href="/Tools/SimpleImage.css" rel="stylesheet" />
     <script>
         let editor;
+        let dotnet;
         
 
         window.runEditor = (dotNetRef, existingData) => {
+            dotnet = dotNetRef
+
             editor = new EditorJS({
                 holder: 'editorjs',
                 tools: {
                     clone: {
                         class: CloneTool,
                         config: {
+                            wind: window,
                             dotNet: dotNetRef
                         }
                     },
@@ -173,6 +177,16 @@
             });
             
         };
+
+        
+
+        window.test = () => {
+            DotNet.invokeMethodAsync('rMakev2', 'test')
+                .then(data => {
+                    console.log("BBBBBBBBBBBBBBBBBBB")
+                })
+                
+        }
 
         window.saveContent = (dotNetRef, document) => {
             editor.save()

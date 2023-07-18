@@ -1,6 +1,7 @@
 ﻿@page "/app"
 @page "/app/{token}"
 @using rMakev2.ViewModel;
+@using Microsoft.JSInterop;
 @inject RmakeViewModel vm;
 @inject ProjectViewModel PVm;
 @inject IJSRuntime jsRuntime;
@@ -706,10 +707,11 @@
         vm.BlocktoElement(elementsC);
     }
 
-    [JSInvokable]
-    public async Task test()
+    //[JSInvokable("test")]
+    [JSInvokableAttribute("test")]
+    public static async Task test()
     {
-        await newDoc();
+        Console.WriteLine("AAAAAAAAAAAAAAAAAA");
     }
 
     //public async Task callblocks()
@@ -723,4 +725,24 @@
     {
         StateHasChanged();
     }
+
+
+    //public class test
+    //{
+    //    public RmakeViewModel Vm;
+
+    //    public test(RmakeViewModel Vm)
+    //    {
+    //        this.Vm = Vm;
+    //    }
+
+    //    public async Task js()
+    //    {
+    //        Vm.NewDocumentMenu(Vm.Project);
+    //    }
+    //}
+
+    //test clase = new test(vm);
+
+
 }

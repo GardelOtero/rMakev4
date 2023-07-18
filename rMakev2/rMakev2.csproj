@@ -4,7 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<AssemblyName>rMakev2</AssemblyName>
   </PropertyGroup>
+
 
   <ItemGroup>
     <Content Remove="Pages\HackerMode.razor" />
