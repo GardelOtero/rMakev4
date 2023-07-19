@@ -10,7 +10,7 @@
     public class Data
     {
         public string text { get; set; }
-        public int level { get; set; }
+        public int? level { get; set; }
         public string caption { get; set; }
         public string alignment { get; set; }
         public string url { get; set; }

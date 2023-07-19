@@ -34,8 +34,7 @@ class CloneTool {
 
     onClick() {
 
-        console.log(this.dotNet)
-        this.dotNet();
+        this.dotNet(this.block.id);
      
 
     }

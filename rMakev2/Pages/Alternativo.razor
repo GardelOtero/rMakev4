@@ -709,9 +709,11 @@
 
     //[JSInvokable("test")]
     [JSInvokable]
-    public void test123()
+    public async Task cloneBlock(string id)
     {
-        Console.WriteLine("AAAAAAAAAAAAAAAAAA");
+        string newContent = vm.elementClone(id);
+        await jsRuntime.InvokeVoidAsync("loadContent", objRef, newContent);
+        await SaveStorage();
     }
 
     //public async Task callblocks()

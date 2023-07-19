@@ -109,7 +109,7 @@
                         class: CloneTool,
                         config: {
                             wind: window,
-                            dotNet: () => dotNetRef.invokeMethodAsync('test123')
+                            dotNet: (id) => dotNetRef.invokeMethodAsync('cloneBlock', id)
                         }
                     },
                     header: {

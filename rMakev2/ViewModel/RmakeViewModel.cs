@@ -16,6 +16,8 @@ using Blazorise;
 using static MudBlazor.CategoryTypes;
 using rMakev2.Pages;
 using rMakev2.ViewModel.Interfaces;
+using MudBlazor;
+using System.Text;
 
 namespace rMakev2.ViewModel
 {
@@ -220,9 +222,60 @@ namespace rMakev2.ViewModel
             elements.BlockContent = new List<BlockElement>();
             elements.BlockContent.AddRange(block.blocks);
 
+            
+
         
         
-       }
+        }
+
+        private string generateUniqueID(int _characterLength = 10)
+        {
+            StringBuilder _builder = new StringBuilder();
+            Enumerable
+                .Range(65, 26)
+                .Select(e => ((char)e).ToString())
+                .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
+                .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
+                .OrderBy(e => Guid.NewGuid())
+                .Take(_characterLength)
+                .ToList().ForEach(e => _builder.Append(e));
+            return _builder.ToString();
+        }
+
+        public string elementClone(string element)
+        {
+
+            Root content = JsonSerializer.Deserialize<Root>(Project.SelectedDocument.Content);
+
+            var block = content.blocks.Where(x => x.id == element).FirstOrDefault(); //ikeAZG3fLM
+
+            if(block == null)
+            {
+                return Project.SelectedDocument.Content;
+            }
+
+            string newId = generateUniqueID();
+
+            var blockClone = new BlockElement();
+
+            blockClone.id = newId;
+            blockClone.type = block.type;
+            blockClone.data = block.data;
+
+            content.blocks.Insert(content.blocks.IndexOf(block), blockClone);
+
+            var options = new JsonSerializerOptions()
+            {
+                MaxDepth = 0,
+                IgnoreReadOnlyProperties = true,
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            };
+
+            string newContent = JsonSerializer.Serialize(content, options);
+
+            return newContent;
+        }
 
         public void ElementstoCSharp()
         {
@@ -237,6 +290,7 @@ namespace rMakev2.ViewModel
                 }
             }
         }
+
         public void MergeDocumentsIntoNewOne(Document First, Document Second)
         {
 
