@@ -6,7 +6,10 @@ class CloneTool {
         return true;
     }
 
+    dotNetRef = null;
+
     constructor({ api, config, block, data }) {
+        console.log(config)
         this.api = api;
         this.wind = config.wind
         this.dotNet = config.dotNet
@@ -31,11 +34,9 @@ class CloneTool {
 
     onClick() {
 
-        console.log(this.wind.test)
-        this.wind.test()
-        console.log(this.api.blocks.getBlockByIndex(this.api.blocks.getCurrentBlockIndex() - 1))
-        console.log(this.wind)
-
+        console.log(this.dotNet)
+        this.dotNet();
+     
 
     }
 

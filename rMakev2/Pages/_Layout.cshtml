@@ -100,7 +100,7 @@
         
 
         window.runEditor = (dotNetRef, existingData) => {
-            dotnet = dotNetRef
+            console.log(dotNetRef)
 
             editor = new EditorJS({
                 holder: 'editorjs',
@@ -109,7 +109,7 @@
                         class: CloneTool,
                         config: {
                             wind: window,
-                            dotNet: dotNetRef
+                            dotNet: () => dotNetRef.invokeMethodAsync('test123')
                         }
                     },
                     header: {
@@ -180,13 +180,7 @@
 
         
 
-        window.test = () => {
-            DotNet.invokeMethodAsync('rMakev2', 'test')
-                .then(data => {
-                    console.log("BBBBBBBBBBBBBBBBBBB")
-                })
-                
-        }
+        
 
         window.saveContent = (dotNetRef, document) => {
             editor.save()
@@ -262,6 +256,8 @@
             
             editor.blocks.clear();
         }
+
+        
     </script>
 
     <script>
