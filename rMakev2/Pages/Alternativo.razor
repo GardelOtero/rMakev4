@@ -228,8 +228,8 @@
                     </li>
                     
                     <li class="nav-item">
-                        @*                        <a class="barItems" @onclick="vm.ShowJsonModal"><img src="svgs/json view.svg" title="Json View" /> </a>
-                        *@
+                                                <a class="barItems" @onclick="vm.ShowJsonModal"><img src="svgs/json view.svg" title="Json View" /> </a>
+                        
                     </li>
                 </ul>
             </div>
@@ -354,12 +354,12 @@
             </div>
 
 
-            @*       <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Ui.DisplayJson? "d-block" : "d-none" )">
+            <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Project.DisplayJson? "d-block" : "d-none" )">
             <textarea readonly style="color:#0f0; width:100%; margin:auto; font-size:10px; background-color:#000; border-radius:0px; height:100%; text-align:left;">
-            @vm.Ui.JsonFn();
+            @vm.Project.JsonFn();
             </textarea>
             </div>
-            *@
+            
         </div>
     </section>
 </div>
