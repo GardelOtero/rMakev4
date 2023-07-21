@@ -224,8 +224,7 @@
                         
                     </li>
                     <li class="nav-item">
-                        @*                        <a class="barItems" @onclick=" vm.ShowLoadModal"><img src="svgs/File icon.svg" title="Load" /> </a>
-                        *@
+                        <a class="barItems" @onclick="vm.ShowAuthorModal"><img src="svgs/File icon.svg" title="Load" /> </a>
                     </li>
                     
                     <li class="nav-item">
@@ -394,6 +393,44 @@
     </ModalContent>
 </Modal>
 *@
+
+<Modal @ref="vm.App.AuthorModal" class="half-modal fade">
+    <ModalContent Centered="true">
+        <ModalBody>
+            <div class="close-button" @onclick="vm.HideAuthorModal">
+                <Icon Name="IconName.Times"></Icon>
+            </div>
+            <div class="h-100 p-4">
+                <div class="w-100 h-50">
+                    <h2>Add Author</h2>
+                    <input Id="authorInput" @bind="authorString" class="form-control-index small" placeholder="Author Name" autofocus />
+                    <button @onclick="async () => {vm.Project.AddAuthor(authorString); authorString = string.Empty; await PVm.OnPropertyChanged();}" class="btn btn-success"><Icon Name="IconName.Lightbulb" /> Add</button>
+                </div>
+            </div>
+            @if(vm.Project.Authors.Count() > 0)
+            {
+                <div class="h-100 p-4">
+                    <div class="w-100 h-50">
+                        <h2>Current Authors</h2>
+                        @foreach(var author in vm.Project.Authors)
+                        {
+                            <p>@author</p>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="h-100 p-4">
+                    <div class="w-100 h-50">
+                        <h2>There are no authors</h2>
+                    </div>
+                </div>
+            }
+        </ModalBody>
+    </ModalContent>
+</Modal>
+
 <Modal @ref="vm.App.PublishModal" class="half-modal fade">
     <ModalContent Centered="true">
         <ModalBody>
@@ -454,6 +491,7 @@
 *@
 @code {
     string tokenstring;
+    string authorString;
     private DotNetObjectReference<Alternativo>? objRef;
     string elementsC;
 

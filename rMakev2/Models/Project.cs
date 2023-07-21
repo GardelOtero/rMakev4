@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace rMakev2.Models
@@ -15,7 +16,7 @@ namespace rMakev2.Models
             IsWebsite = false;
             //Name = "Project ("+data.Projects.Count() +")";
             CreationDate = DateTime.Now;
-            Author = "";
+            Authors = new List<string>();
             PathPreviewImage = "";
             Documents = new List<Document>();
             AddDocument(this);
@@ -33,7 +34,7 @@ namespace rMakev2.Models
             IsWebsite = false;
             //Name = "Project ("+data.Projects.Count() +")";
             CreationDate = DateTime.Now;
-            Author = "";
+            Authors = new List<string>();
             PathPreviewImage = "";
             Documents = new List<Document>();
             Portfolio = portfolio;
@@ -52,7 +53,7 @@ namespace rMakev2.Models
         public bool IsPublic { get; set; }
         public bool IsWebsite { get; set; }
         public DateTime CreationDate { get; set; }
-        public string Author { get; set; }
+        public List<string> Authors { get; set; }
         public string PathPreviewImage { get; set; }
         public List<Document> Documents { get; set; }
         [JsonIgnore]
@@ -77,6 +78,11 @@ namespace rMakev2.Models
                 selectedDocument = value;
                 OnPropertyChanged();
             }
+        }
+
+        public void AddAuthor(string name)
+        {
+            Authors.Add(name);
         }
 
 
