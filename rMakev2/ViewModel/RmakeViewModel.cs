@@ -129,6 +129,15 @@ namespace rMakev2.ViewModel
             App.AuthorModal.Show();
         }
 
+        public void HideDocAuthorModal()
+        {
+            App.DocAuthorModal.Hide();
+        }
+        public void ShowDocAuthorModal()
+        {
+            App.DocAuthorModal.Show();
+        }
+
         //public void HideLoadModal()
         //{
         //    App.LoadModal.Hide();

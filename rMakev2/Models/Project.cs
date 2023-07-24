@@ -16,7 +16,7 @@ namespace rMakev2.Models
             IsWebsite = false;
             //Name = "Project ("+data.Projects.Count() +")";
             CreationDate = DateTime.Now;
-            Authors = new List<string>();
+            Authors = new HashSet<string>();
             PathPreviewImage = "";
             Documents = new List<Document>();
             AddDocument(this);
@@ -34,7 +34,7 @@ namespace rMakev2.Models
             IsWebsite = false;
             //Name = "Project ("+data.Projects.Count() +")";
             CreationDate = DateTime.Now;
-            Authors = new List<string>();
+            Authors = new HashSet<string>();
             PathPreviewImage = "";
             Documents = new List<Document>();
             Portfolio = portfolio;
@@ -53,7 +53,7 @@ namespace rMakev2.Models
         public bool IsPublic { get; set; }
         public bool IsWebsite { get; set; }
         public DateTime CreationDate { get; set; }
-        public List<string> Authors { get; set; }
+        public HashSet<string> Authors { get; set; }
         public string PathPreviewImage { get; set; }
         public List<Document> Documents { get; set; }
         [JsonIgnore]
@@ -82,7 +82,27 @@ namespace rMakev2.Models
 
         public void AddAuthor(string name)
         {
+            if (name == "" || name == null)
+                return;
+
             Authors.Add(name);
+
+            foreach(var doc in Documents)
+            {
+                if (!doc.Authors.Contains(name)) 
+                    doc.Authors.Add(name);
+            }
+        }
+
+        public void RemoveAuthor(string name) 
+        { 
+            Authors.Remove(name);
+
+            foreach (var doc in Documents)
+            {
+                if (doc.Authors.Contains(name))
+                    doc.Authors.Remove(name);
+            }
         }
 
 

@@ -296,6 +296,7 @@
 
                             <a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
                             <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
+                            <a @onclick="vm.ShowDocAuthorModal"><img src="/svgs/Arrow up.svg" title="Add Document Authors" class="m-1 smallIcon"/></a>
 @*                            <a @onclick="vm.orderElements"><img src="svgs/Elements .svg" title="Sort Elements" Class="smallIcon" /></a>
 *@                        </div>
                     </div>
@@ -316,15 +317,28 @@
 
                 <div style="width:90%; float:left;">
 
-                    <textarea @bind="@vm.Project.SelectedDocument.Name"
-                              @bind:event="oninput"
-                              @onchange="() => SaveTitle(vm.Project.SelectedDocument)"
-                              id="PageName"
-                              autofocus="true"
+                    <div style="height: 50%; padding: 5px; ">
+                        <textarea @bind="@vm.Project.SelectedDocument.Name"
+                            @bind:event="oninput"
+                            @onchange="() => SaveTitle(vm.Project.SelectedDocument)"
+                            id="PageName"
+                            autofocus="true"
                             @onblur="vm.UnBlockRTAFocus"
                             @onclick="vm.BlockRTAFocus"
-                              class="form-control-plaintext small"
-                              style="color: #342e37; font-size:30px; margin:10px; height: fit-content; padding-left: 15px; inline-size: 75%; overflow-wrap: break-word; text-align: left;" placeholder="Write your title here" />
+                            class="form-control-plaintext small"
+                            style="color: #342e37; font-size:30px; margin:10px; height: fit-content; padding-left: 15px; inline-size: 75%; overflow-wrap: break-word; text-align: left;" placeholder="Write your title here" />
+                        <div>
+                        @if(vm.Project.SelectedDocument.Authors.Count() > 0)
+                        {
+
+                            <p style="margin:3px; height: fit-content; padding-left: 15px; color: #342e37;">
+                                By @string.Join(", ", vm.Project.SelectedDocument.Authors)
+                            </p>
+
+                        }
+                           
+                        </div>
+                    </div>
                     <div class="clearfix"></div>
                     <div class="mt-4 ml-6">
                         <div class="mt-4">
@@ -402,7 +416,7 @@
             </div>
             <div class="h-100 p-4">
                 <div class="w-100 h-50">
-                    <h2>Add Author</h2>
+                    <h2>Add Project Author</h2>
                     <input Id="authorInput" @bind="authorString" class="form-control-index small" placeholder="Author Name" autofocus />
                     <button @onclick="async () => {vm.Project.AddAuthor(authorString); authorString = string.Empty; await PVm.OnPropertyChanged();}" class="btn btn-success"><Icon Name="IconName.Lightbulb" /> Add</button>
                 </div>
@@ -414,7 +428,44 @@
                         <h2>Current Authors</h2>
                         @foreach(var author in vm.Project.Authors)
                         {
-                            <p>@author</p>
+                            <p>@author <button @onclick="() => vm.Project.RemoveAuthor(author)" class="btn btn-danger" style="margin-left: 50%;">Delete</button></p>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="h-100 p-4">
+                    <div class="w-100 h-50">
+                        <h2>There are no authors</h2>
+                    </div>
+                </div>
+            }
+        </ModalBody>
+    </ModalContent>
+</Modal>
+
+<Modal @ref="vm.App.DocAuthorModal" class="half-modal fade">
+    <ModalContent Centered="true">
+        <ModalBody>
+            <div class="close-button" @onclick="vm.HideDocAuthorModal">
+                <Icon Name="IconName.Times"></Icon>
+            </div>
+            <div class="h-100 p-4">
+                <div class="w-100 h-50">
+                    <h2>Add Document Author</h2>
+                    <input Id="docAuthorInput" @bind="docAuthorString" class="form-control-index small" placeholder="Author Name" autofocus />
+                    <button @onclick="async () => {vm.Project.SelectedDocument.AddAuthor(docAuthorString); docAuthorString = string.Empty; await PVm.OnPropertyChanged();}" class="btn btn-success"><Icon Name="IconName.Lightbulb" /> Add</button>
+                </div>
+            </div>
+            @if (vm.Project.SelectedDocument.Authors.Count() > 0)
+            {
+                <div class="h-100 p-4">
+                    <div class="w-100 h-50">
+                        <h2>Current Authors</h2>
+                        @foreach (var author in vm.Project.SelectedDocument.Authors)
+                        {
+                            <p>@author <button @onclick="() => vm.Project.RemoveAuthor(author)" class="btn btn-danger" style="margin-left: 50%;">Delete</button></p>
                         }
                     </div>
                 </div>
@@ -492,6 +543,7 @@
 @code {
     string tokenstring;
     string authorString;
+    string docAuthorString;
     private DotNetObjectReference<Alternativo>? objRef;
     string elementsC;
 
@@ -553,41 +605,6 @@
             await localStorage.ClearAsync();
             NavigationManager.NavigateTo("/App/" + tokenstring, forceLoad: true);
         }
-    }
-
-    [JSInvokable]
-    public async Task loadStorage()
-    {
-        IEnumerable<string> keys = await localStorage.KeysAsync();
-
-        if (keys.Count() == 0)
-        {
-            return;
-        }
-
-        List<string> k = keys.ToList();
-
-        //List<Project> projects = new List<Project>();
-        List<Document> storageProj;
-
-
-
-        foreach (var key in k)
-        {
-            if (key == "i18nextLng")
-                continue;
-
-            if(key == vm.Project.GUID)
-            {
-                storageProj = await localStorage.GetItemAsync<List<Document>>(key);
-            }
-        }
-
-        if(vm.Project.SelectedDocument.Content != "")
-        {
-            await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.SelectedDocument.Content);
-        }
-
     }
 
     [JSInvokable]
