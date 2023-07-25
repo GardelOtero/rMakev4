@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace rMakev2.Models
@@ -64,6 +65,10 @@ namespace rMakev2.Models
         public bool DisplayMenu { get; set; } = true;
 
         public bool DisplayDocumentMenu { get; set; }
+        [JsonIgnore]
+        public string Json { get; set; }
+
+        public bool DisplayJson { get; set; } = false;
 
 
         public bool BlockRTAFocus { get; set; } = true;
@@ -154,6 +159,30 @@ namespace rMakev2.Models
             {
                 DisplayDocumentMenu = true;
             }
+        }
+        public void SwitchDisplayJson()
+        {
+
+            if (DisplayJson == true)
+            {
+                DisplayJson = false;
+
+            }
+            else
+            {
+                DisplayJson = true;
+
+            }
+        }
+        public string JsonFn()
+        {
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+                WriteIndented = true
+            };
+            Json = JsonSerializer.Serialize(Portfolio.Projects, options);
+            return Json;
         }
 
         internal Document CloneDocument(Document document)

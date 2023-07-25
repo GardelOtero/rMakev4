@@ -119,6 +119,10 @@ namespace rMakev2.ViewModel
         {
             App.PublishModal.Show();
         }
+        public void ShowJsonModal()
+        {
+
+            Project.SwitchDisplayJson();
 
         public void HideAuthorModal()
         {
@@ -223,27 +227,27 @@ namespace rMakev2.ViewModel
             await _communicationService.SaveAsync(App);
             this._toastService.ShowSuccess("Project Saved");
         }
-    
+
 
         public void DisplayMenu()
         {
 
             project.ShowMenu();
         }
-        
+
         public void BlocktoElement(string elementsJs)
         {
-            
+
             Root block = JsonSerializer.Deserialize<Root>(elementsJs);
 
             var elements = Project.SelectedDocument.Elements.FirstOrDefault();
             elements.BlockContent = new List<BlockElement>();
             elements.BlockContent.AddRange(block.blocks);
 
-            
 
-        
-        
+
+
+
         }
 
         private string generateUniqueID(int _characterLength = 10)
@@ -267,7 +271,7 @@ namespace rMakev2.ViewModel
 
             var block = content.blocks.Where(x => x.id == element).FirstOrDefault(); //ikeAZG3fLM
 
-            if(block == null)
+            if (block == null)
             {
                 return Project.SelectedDocument.Content;
             }
@@ -369,7 +373,7 @@ namespace rMakev2.ViewModel
             }
         }
 
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged()
         {
