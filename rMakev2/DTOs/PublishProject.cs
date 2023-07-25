@@ -22,11 +22,11 @@ namespace rMakev2.DTOs
           // PublicationDate = DateTime.Now.Date;
         //}
 
-        public PublishDocument AddDocument(Document doc)
-        {
-            PublishDocument publishDocument = new PublishDocument(this, doc);
+        //public PublishDocument AddDocument(Document doc)
+        //{
+          //  PublishDocument publishDocument = new PublishDocument(doc);
             //Documents.Add(publishDocument.Order, publishDocument.Id);
-            return publishDocument;
-        }
+            //return publishDocument;
+        //}
     }
 }

@@ -124,6 +124,8 @@ namespace rMakev2.ViewModel
 
             Project.SwitchDisplayJson();
 
+        }
+
         public void HideAuthorModal()
         {
             App.AuthorModal.Hide();
@@ -228,6 +230,11 @@ namespace rMakev2.ViewModel
             this._toastService.ShowSuccess("Project Saved");
         }
 
+        public async Task PublishContentAsync()
+        {
+            await _communicationService.PublishAsync(Project);
+            this._toastService.ShowSuccess("Project Publish");
+        }
 
         public void DisplayMenu()
         {

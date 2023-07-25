@@ -14,6 +14,7 @@ namespace rMakev2.ViewModel.Interfaces
         public void HidePublishModal();
         public void ShowPublishModal();
         public Task SaveContentAsync();
+        public Task PublishContentAsync();
         public void DisplayMenu();
         public void BlockRTAFocus();
         public void UnBlockRTAFocus();

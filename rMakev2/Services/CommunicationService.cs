@@ -14,7 +14,7 @@ namespace rMakev2.Services
 
         private NavigationManager _navigationManager;
 
-        public CommunicationService(NavigationManager navigationManager) 
+        public CommunicationService(NavigationManager navigationManager)
         {
             _navigationManager = navigationManager;
         }
@@ -25,7 +25,7 @@ namespace rMakev2.Services
             save.Id = App.Portfolio.GUID;
             //save.DataToken = App.DataToken;
             save.Projects = new List<ProjectDTO>();
-           // save.Ui = new UIDto();
+            // save.Ui = new UIDto();
 
             //save.Ui.IdSelectedDocument = App.Ui.SelectedDocument.Id;
             //save.Ui.IdSelectedProject = App.Ui.SelectedProject.Id;
@@ -39,7 +39,7 @@ namespace rMakev2.Services
                 project.Documents = new List<DocumentDTO>();
                 project.ParentProjectId = item.ParentProjectId;
                 save.Projects.Add(project);
-                
+
                 foreach (var itemDoc in item.Documents)
                 {
                     DocumentDTO document = new DocumentDTO();
@@ -51,7 +51,7 @@ namespace rMakev2.Services
                     document.Name = itemDoc.Name;
                     document.Content = itemDoc.Content;
                     //document.Elements = new List<ElementDTO>();
-                    document.ParentDocumentId = itemDoc.ParentDocumentId;   
+                    document.ParentDocumentId = itemDoc.ParentDocumentId;
                     save.Projects.Where(x => x.Id == itemDoc.ProjectId).First().Documents.Add(document);
 
                     /*foreach (var itemElement in itemDoc.Elements)
@@ -166,7 +166,7 @@ namespace rMakev2.Services
 
 
             return Portfolio;
-            
+
             //Logica
             //recibe el json
             //carga entiedades directas
@@ -179,8 +179,39 @@ namespace rMakev2.Services
             var publish = new PublishProject();
             publish.Id = project.GUID;
             publish.PublicationDate = DateTime.Now;
-            publish.Authors = project.Author;
+            publish.Authors = project.Authors;
+            publish.Sign = project.Authors.FirstOrDefault();
+            publish.Documents = new List<PublishDocument>();
+
+            foreach (var doc in project.Documents)
+            {
+                PublishDocument document = new PublishDocument();
+                document.Id = doc.GUID;
+                document.ProjectId = doc.ProjectId;
+                document.Name = doc.Name;
+                document.Order = doc.Order;
+                document.Content = doc.Content;
+                document.ContentType = "rebel";
+                publish.Documents.Add(document);
+
+            }
+            var client = new RestClient("https://localhost:7267/");
+            //var client = new RestClient("https://rcontentman.azurewebsites.net/");
+            var request = new RestRequest("api/item", Method.Post);
+            request.AddHeader("Content-Type", "application/json");
+            var options = new JsonSerializerOptions()
+            {
+                MaxDepth = 0,
+                IgnoreReadOnlyProperties = true,
+                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+
+            };
+            var objstr = System.Text.Json.JsonSerializer.Serialize(publish, options);
+            request.AddJsonBody(objstr);
+            var sendReq = await client.ExecuteAsync(request);
+
         }
-       
     }
+
 }
+
