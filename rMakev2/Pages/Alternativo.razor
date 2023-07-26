@@ -224,7 +224,7 @@
                         
                     </li>
                     <li class="nav-item">
-                        <a class="barItems" @onclick="vm.ShowAuthorModal"><img src="svgs/File icon.svg" title="Load" /> </a>
+                        <a class="barItems" @onclick="vm.ShowAuthorModal"><img src="/svgs/Arrow up.svg" title="Load" /> </a>
                     </li>
                     
 @*                    <li class="nav-item">
@@ -465,7 +465,7 @@
                         <h2>Current Authors</h2>
                         @foreach (var author in vm.Project.SelectedDocument.Authors)
                         {
-                            <p>@author <button @onclick="() => vm.Project.RemoveAuthor(author)" class="btn btn-danger" style="margin-left: 50%;">Delete</button></p>
+                            <p>@author <button @onclick="() => vm.Project.SelectedDocument.RemoveAuthor(author)" class="btn btn-danger" style="margin-left: 50%;">Delete</button></p>
                         }
                     </div>
                 </div>
@@ -588,11 +588,9 @@
             objRef = DotNetObjectReference.Create(this);
             await jsRuntime.InvokeVoidAsync("runEditor", objRef);
 
-            //await LoadPortfolio();
 
-            await localStorage.SetItemAsync("documents", vm.Project);
+            //await localStorage.SetItemAsync("documents", vm.Project);
 
-            //callblocks();
         }
 
 
@@ -627,6 +625,7 @@
         PVm.Portfolio = storagePortfolio;
 
         vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+
 
         if (vm.Project.SelectedDocument.Content != "")
         {

@@ -18,7 +18,7 @@ namespace rMakev2.Models
             GUID = Guid.NewGuid().ToString();
             Name = "";
             CreationDate = DateTime.Now;
-            Authors = new List<string>();
+            Authors = new HashSet<string>(project.Authors);
             PathPreviewImage = "";
             IsPublic = false;
             Order = Project.Documents.Count() + 1;
@@ -33,7 +33,7 @@ namespace rMakev2.Models
         public string GUID { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
-        public List<string> Authors { get; set; }
+        public HashSet<string> Authors { get; set; }
         public string PathPreviewImage { get; set; }
         public bool IsPublic { get; set; }
         public int Order { get; set; }
@@ -71,6 +71,11 @@ namespace rMakev2.Models
             Authors.Add(name);
 
             
+        }
+
+        public void RemoveAuthor(string name)
+        {
+            Authors.Remove(name);
         }
 
         public void ChangeOrder(Element element, int order)

@@ -179,7 +179,7 @@ namespace rMakev2.Services
             var publish = new PublishProject();
             publish.Id = project.GUID;
             publish.PublicationDate = DateTime.Now;
-            publish.Authors = project.Authors;
+            publish.Authors = project.Authors.ToList();
             publish.Sign = project.Authors.FirstOrDefault();
             publish.Documents = new List<PublishDocument>();
 
