@@ -195,7 +195,7 @@ namespace rMakev2.Services
                 publish.Documents.Add(document);
 
             }
-            var client = new RestClient("https://localhost:7267/");
+            var client = new RestClient("https://localhost:7247/");
             //var client = new RestClient("https://rcontentman.azurewebsites.net/");
             var request = new RestRequest("api/item", Method.Post);
             request.AddHeader("Content-Type", "application/json");
