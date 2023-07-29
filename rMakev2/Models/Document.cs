@@ -70,6 +70,10 @@ namespace rMakev2.Models
             
             Authors.Add(name);
 
+            foreach(var element in Elements)
+            {
+                element.AddAuthor(name);
+            }
             
         }
 

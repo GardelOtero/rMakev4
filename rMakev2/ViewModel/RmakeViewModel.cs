@@ -252,7 +252,10 @@ namespace rMakev2.ViewModel
             elements.BlockContent.AddRange(block.blocks);
 
 
-
+            foreach(var author in Project.SelectedDocument.Authors)
+            {
+                elements.AddAuthor(author);
+            }
 
 
         }

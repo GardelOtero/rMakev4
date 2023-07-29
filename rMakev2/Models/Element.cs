@@ -25,7 +25,7 @@ namespace rMakev2.Models
             CreationDate = DateTime.Now;
             ParentGuid = "";
             OrderParentId = 0;
-            Authors = new List<string>();
+            Authors = new HashSet<string>();
 
         }
         public Element(Document document, int previousElement)
@@ -47,7 +47,7 @@ namespace rMakev2.Models
             CreationDate = DateTime.Now;
             ParentGuid = "";
             OrderParentId = 0;
-            Authors = new List<string>();
+            Authors = new HashSet<string>();
             
         }
         public string GUID { get; set; }
@@ -69,12 +69,23 @@ namespace rMakev2.Models
         public DateTime CreationDate { get; set; }
         public string ParentGuid { get; set; }
         public int OrderParentId { get; set; }
-        public List<string> Authors { get; set; }
+        public HashSet<string> Authors { get; set; }
         public void AddIdea(string Idea)
         {
             Ideary = Idea;
         }
 
+        public void AddAuthor(string name)
+        {
+            if (name == "" || name == null) return;
+
+            Authors.Add(name);
+
+            foreach(var block in BlockContent)
+            {
+                block.Authors.Add(name);
+            }
+        }
 
 
     }

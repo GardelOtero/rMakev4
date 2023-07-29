@@ -95,7 +95,7 @@ namespace rMakev2.Models
             foreach(var doc in Documents)
             {
                 if (!doc.Authors.Contains(name)) 
-                    doc.Authors.Add(name);
+                    doc.AddAuthor(name);
             }
         }
 
