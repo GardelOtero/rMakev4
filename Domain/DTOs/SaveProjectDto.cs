@@ -9,6 +9,10 @@ namespace Domain.DTOs
         
         public string id { get; set; }
         public string DataToken { get; set; }
+        public DateTime CreationDate { get; set; }
+        public string rIdSignature { get; set; }
+        public DateTime SignatureDate { get; set; }
+        public List<string> Authors { get; set; }
         public List<ProjectDTO> Projects { get; set; }
        // public UIDto Ui { get; set; }
 
@@ -26,7 +30,10 @@ namespace Domain.DTOs
         public string id { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
+        public HashSet<string> Authors { get; set; }
+        public string PathPreviewImage { get; set; }
         public List<DocumentDTO> Documents { get; set; }
+        public string PortfolioId { get; set; }
         public string ParentProjectId { get; set; }
     }
 
@@ -36,6 +43,7 @@ namespace Domain.DTOs
         public string id { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
+        public HashSet<string> Authors { get; set; }
         public int Order { get; set; }
         public string Content { get; set; }
         public string ProjectId { get; set; }

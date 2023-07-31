@@ -5,6 +5,8 @@
         public HashSet<string> Authors { get; set; } = new HashSet<string>();
         public string id { get; set; }
         public string type { get; set; }
+
+        public string author { get; set; }
         public Data data { get; set; }
     }
 
