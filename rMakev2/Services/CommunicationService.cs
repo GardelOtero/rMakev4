@@ -19,10 +19,16 @@ namespace rMakev2.Services
             _navigationManager = navigationManager;
         }
 
-        public async Task SaveAsync(Models.App App)
+        public async Task SaveAsync(Portfolio portfolio)
         {
+            
             var save = new SaveProjectDto();
-            save.Id = App.Portfolio.GUID;
+            save.Id = portfolio.GUID;
+            save.CreationDate = portfolio.CreationDate;
+            save.rIdSignature = portfolio.rIdSignature;
+            save.SignatureDate = portfolio.SignatureDate;
+            save.Authors = portfolio.Authors;    
+           
             //save.DataToken = App.DataToken;
             save.Projects = new List<ProjectDTO>();
             // save.Ui = new UIDto();
@@ -30,12 +36,14 @@ namespace rMakev2.Services
             //save.Ui.IdSelectedDocument = App.Ui.SelectedDocument.Id;
             //save.Ui.IdSelectedProject = App.Ui.SelectedProject.Id;
 
-            foreach (var item in App.Portfolio.Projects)
+            foreach (var item in portfolio.Projects)
             {
                 ProjectDTO project = new ProjectDTO();
                 project.Id = item.GUID;
                 project.Name = item.Name;
                 project.CreationDate = item.CreationDate;
+                project.Authors = item.Authors;
+                project.PathPrewiewImage = item.PathPreviewImage;
                 project.Documents = new List<DocumentDTO>();
                 project.ParentProjectId = item.ParentProjectId;
                 save.Projects.Add(project);
@@ -50,22 +58,68 @@ namespace rMakev2.Services
                     document.ProjectId = itemDoc.ProjectId;
                     document.Name = itemDoc.Name;
                     document.Content = itemDoc.Content;
-                    //document.Elements = new List<ElementDTO>();
+                    document.Elements = new List<ElementDTO>();
                     document.ParentDocumentId = itemDoc.ParentDocumentId;
                     save.Projects.Where(x => x.Id == itemDoc.ProjectId).First().Documents.Add(document);
 
-                    /*foreach (var itemElement in itemDoc.Elements)
+                    foreach (var itemElement in itemDoc.Elements)
                     {
                         ElementDTO element = new ElementDTO();
-                        element.Id = itemElement.Id;
+                        element.Id = itemElement.GUID;
                         element.Content = itemElement.Content;
                         element.Order = itemElement.Order;
                         element.Ideary = itemElement.Ideary;
+                        element.BlockContent = new List<BlockElementDTO>();
                         element.DocumentId = itemElement.DocumentId;
                         element.ParentElementId= itemElement.ParentElementId;
                         var pro = save.Projects.Where(x => x.Id == itemDoc.ProjectId).First();
-                        pro.Documents.Where(x => x.Id == itemDoc.Id).First().Elements.Add(element);
-                    }*/
+                        pro.Documents.Where(x => x.Id == itemDoc.GUID).First().Elements.Add(element);
+
+                        foreach (var itemblockElement in itemElement.BlockContent)
+                        {
+                            BlockElementDTO blockElement = new BlockElementDTO();
+                            blockElement.id = itemblockElement.id;
+                            blockElement.type = itemblockElement.type;
+                            blockElement.elementId = itemblockElement.elementId;
+                            blockElement.data = new DataDTO();
+                            blockElement.data.text = itemblockElement.data.text;
+                            blockElement.data.level = itemblockElement.data.level;
+                            blockElement.data.caption = itemblockElement.data.caption;
+                            blockElement.data.alignment = itemblockElement.data.alignment;
+                            blockElement.data.url = itemblockElement.data.url;
+                            blockElement.data.withBorder = itemblockElement.data.withBorder;
+                            blockElement.data.withBackground = itemblockElement.data.withBackground;
+                            blockElement.data.stretched = itemblockElement.data.stretched;
+                            blockElement.data.style = itemblockElement.data.style;
+                            blockElement.data.link = itemblockElement.data.link;
+                            blockElement.data.code = itemblockElement.data.code;
+                            blockElement.data.items = new List<ItemDTO>();
+                            var pro1 = save.Projects.Where(x => x.Id == itemDoc.ProjectId).First();
+                            var pro2 = pro1.Documents.Where(x => x.Id == itemElement.DocumentId).First();
+                            pro2.Elements.Where(x => x.Id == itemElement.GUID).First().BlockContent.Add(blockElement);
+
+                            if (itemblockElement.data.items != null)
+                            {
+                                foreach (var itemofItem in itemblockElement.data.items)
+                                {
+                                    ItemDTO itemBElement = new ItemDTO();
+                                    itemBElement.content = itemofItem.content;
+                                    itemBElement.items = itemofItem.items;
+                                    itemBElement.text = itemofItem.text;
+                                    itemBElement.@checked = itemofItem.@checked;
+                                    //var pro12 = save.Projects.Where(x => x.Id == itemDoc.ProjectId).First();
+                                    //var pro23 = pro12.Documents.Where(x => x.Id == itemElement.DocumentId).First();
+                                    //var pro34 = pro23.Elements.Where(x => x.Id == itemblockElement.elementId).First();
+                                    //pro34.BlockContent.Where(x => x.id == itemblockElement.id).First().data.items.Add(itemBElement);
+                                    blockElement.data.items.Add(itemBElement);
+
+
+                                }
+                            }
+                        }
+
+                    }
+                        
 
                 }
 

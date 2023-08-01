@@ -90,8 +90,8 @@ namespace rMakev2.ViewModel
 
                 Thread.Sleep(300000);
                 //HashMyContent();
-                _communicationService.SaveAsync(App).Wait();
-                this._toastService.ShowSuccess("Project Auto Saved");
+                //_communicationService.SaveAsync(App).Wait();
+                //this._toastService.ShowSuccess("Project Auto Saved");
             }
         }
 
@@ -222,13 +222,6 @@ namespace rMakev2.ViewModel
 
         }
 
-
-        public async Task SaveContentAsync()
-        {
-            // HashMyContent();
-            await _communicationService.SaveAsync(App);
-            this._toastService.ShowSuccess("Project Saved");
-        }
 
         public async Task PublishContentAsync()
         {

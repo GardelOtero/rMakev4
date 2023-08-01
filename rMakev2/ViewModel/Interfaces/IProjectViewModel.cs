@@ -8,6 +8,7 @@ namespace rMakev2.ViewModel.Interfaces
         public Task NewProject();
 
         public Task InitializeProjects(Models.App app);
+        public Task SaveContentAsync();
 
         public Task DeleteProject(Project project);
 

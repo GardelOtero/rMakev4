@@ -48,6 +48,7 @@ namespace Domain.DTOs
         public string Content { get; set; }
         public string ProjectId { get; set; }
         public string ParentDocumentId { get; set; }
+        public List<ElementDTO> Elements { get; set; }
 
     }
 
@@ -61,5 +62,40 @@ namespace Domain.DTOs
         public string DocumentId { get; set; }
         public string ParentElementId { get; set; }
 
+        public List<BlockElementDTO> BlockElement { get; set; }
+
+    }
+    public class BlockElementDTO
+    {
+        public HashSet<string> Authors { get; set; }
+        public string id { get; set; }
+        public string type { get; set; }
+        public DataDTO data { get; set; }
+        public string elementId { get; set; }
+    }
+
+    public class DataDTO
+    {
+        public string text { get; set; }
+        public int? level { get; set; }
+        public string caption { get; set; }
+        public string alignment { get; set; }
+        public string url { get; set; }
+        public bool? withBorder { get; set; }
+        public bool? withBackground { get; set; }
+        public bool? stretched { get; set; }
+        public string style { get; set; }
+        public List<ItemDTO> items { get; set; }
+        public string link { get; set; }
+        //public Meta meta { get; set; }
+        public string code { get; set; }
+    }
+
+    public class ItemDTO
+    {
+        public string content { get; set; }
+        public List<object> items { get; set; }
+        public string text { get; set; }
+        public bool? @checked { get; set; }
     }
 }

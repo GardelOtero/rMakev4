@@ -100,9 +100,14 @@ namespace rMakev2.ViewModel
         {
             portfolio = await _communicationService.LoadAsync(token, Portfolio);
         }
-            
+
+        public async Task SaveContentAsync()
+        {
+            // HashMyContent();
+            await _communicationService.SaveAsync(Portfolio);
+            this._toastService.ShowSuccess("Project Saved");
+        }
 
 
-        
     }
 }
