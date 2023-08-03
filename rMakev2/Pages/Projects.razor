@@ -92,6 +92,10 @@
         padding: 5px;
     }
 
+    .dropdown-toggle::after {
+        display: none !important;
+    }
+
 </style>
 
 <div class="mainContainer">
@@ -114,8 +118,8 @@
                 <div class="projectTitle">
 
                     <input @bind="@project.Name" @bind:event="oninput" class="projectInput" @onchange="@PVm.OnPropertyChanged"></input>
-                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        
+                    <button class="dropdown-toggle" style="width: 10%;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="/svgs/3 dots.svg"/>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <button class="dropdown-item" @onclick="() => PVm.DeleteProject(project)">
@@ -131,9 +135,6 @@
 
                 </button>
 
-
-                @*<button @onclick="() => PVm.DeleteProject(project)" class="createButton">Delete</button>
-                <button @onclick="() => PVm.LoadDocuments(project)" class="createButton">Load</button>*@
             </div>
         }
 

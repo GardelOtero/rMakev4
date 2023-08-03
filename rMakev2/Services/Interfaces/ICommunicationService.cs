@@ -1,6 +1,6 @@
 ﻿using rMakev2.Models;
 
-namespace rMakev2.Services
+namespace rMakev2.Services.Interfaces
 {
     public interface ICommunicationService
     {

@@ -10,6 +10,7 @@ using MudBlazor.Services;
 using Blazored.SessionStorage;
 using Blazored.LocalStorage;
 using System.Text.Json.Serialization;
+using rMakev2.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

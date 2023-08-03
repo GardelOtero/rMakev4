@@ -13,6 +13,7 @@ namespace rMakev2.ViewModel.Interfaces
         public Task DeleteProject(Project project);
 
         public Task UpdateProject(Project projext);
+        public Task ForkProject(Project project);
 
         public void LoadDocuments(Project project);
 

@@ -7,6 +7,7 @@ using System.ComponentModel;
 using Blazored.LocalStorage;
 using rMakev2.Pages;
 using rMakev2.ViewModel.Interfaces;
+using rMakev2.Services.Interfaces;
 
 namespace rMakev2.ViewModel
 {
