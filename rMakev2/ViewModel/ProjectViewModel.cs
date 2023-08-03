@@ -75,6 +75,13 @@ namespace rMakev2.ViewModel
 
         }
 
+        public async Task ForkProject(Project project)
+        {
+            Portfolio.ForkProject(project);
+            await OnPropertyChanged();
+
+        }
+
         public async Task UpdateProject(Project projext)
         {
             var oldProj = Portfolio.Projects.Where(x => x.GUID == projext.GUID).FirstOrDefault();

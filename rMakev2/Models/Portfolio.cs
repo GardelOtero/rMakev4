@@ -67,12 +67,14 @@ namespace rMakev2.Models
             Project createdProject= new Project(this);
             createdProject.ParentProjectId = project.GUID;
             createdProject.Name = project.Name + "(Forked)";
+            createdProject.Authors = project.Authors;
+            createdProject.CreationDate = DateTime.Now;
             
             Projects.Add(createdProject);
 
             foreach(var item in project.Documents)
             {
-                Document newdoc=new Document();
+                Document newdoc = new Document();
                 newdoc.GUID = Guid.NewGuid().ToString();
                 newdoc.Name = item.Name;
                 newdoc.Order = item.Order;
@@ -81,6 +83,8 @@ namespace rMakev2.Models
                 newdoc.ParentDocumentId = item.GUID;
                 newdoc.CreationDate = DateTime.Now;
                 newdoc.Content = item.Content;
+                newdoc.Elements = item.Elements;
+                newdoc.Authors = item.Authors;
                 createdProject.Documents.Add(newdoc);
                 
                 /*foreach (var element in item.Elements)
@@ -98,6 +102,7 @@ namespace rMakev2.Models
             }
             //Quita el Primer Document sin Texto
             createdProject.Documents.RemoveAt(0);
+            createdProject.SelectedDocument = createdProject.Documents.First();
             return createdProject;
         }
         public void RemoveProject(Project project)

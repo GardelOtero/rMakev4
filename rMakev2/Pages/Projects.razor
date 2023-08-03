@@ -111,12 +111,21 @@
             <div class="projectContainer">
 
 
-
                 <div class="projectTitle">
 
                     <input @bind="@project.Name" @bind:event="oninput" class="projectInput" @onchange="@PVm.OnPropertyChanged"></input>
-                    <button @onclick="() => PVm.DeleteProject(project)"><img src="/svgs/Delete.svg"/></button>
-
+                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button class="dropdown-item" @onclick="() => PVm.DeleteProject(project)">
+                            <img src="/svgs/Delete.svg"/> Delete project
+                        </button>
+                        <button class="dropdown-item" @onclick="() => PVm.ForkProject(project)">
+                            <img src="/svgs/Fork.svg"/> Fork project
+                        </button>
+                    </div>
+                    
                 </div>
                 <button @onclick="() => PVm.LoadDocuments(project)" class="loadButton">
 
