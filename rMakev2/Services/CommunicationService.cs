@@ -247,9 +247,9 @@ namespace rMakev2.Services
                             dat.items = new List<Item>();
                             elem.BlockContent.Add(b);
 
-                            if (dat.items != null)
+                            if (blo.data.items != null)
                             {
-                                foreach (var item in dat.items)
+                                foreach (var item in blo.data.items)
                                 {
                                     Item i = new Item();
                                     i.content = item.content;
