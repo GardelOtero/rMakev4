@@ -186,6 +186,7 @@ namespace rMakev2.Services
                 p.Authors = proj.Authors;
                 p.PathPreviewImage = proj.PathPrewiewImage;
                 p.Portfolio = portfolio;
+                p.Documents = new List<Document>();
                 p.PortfolioId = portfolio.GUID;
                 p.ParentProjectId = proj.ParentProjectId;
                 Portfolio.Projects.Add(p);
@@ -199,9 +200,10 @@ namespace rMakev2.Services
                     d.GUID = doc.Id;
                     d.CreationDate = doc.CreationDate;
                     d.Order = doc.Order;
-                    d.Authors = d.Authors;
+                    d.Authors = doc.Authors;
                     d.Content = doc.Content;
                     d.Project = Pro;
+                    d.Elements = new List<Element>();
                     d.ProjectId = Pro.GUID;
                     d.ParentDocumentId = doc.ParentDocumentId;
                     Pro.Documents.Add(d);
@@ -265,10 +267,16 @@ namespace rMakev2.Services
 
                     }
 
+
                 }
+                
+                
+                p.SelectedDocument = p.Documents.First();
 
 
             }
+
+
 
 
             return Portfolio;

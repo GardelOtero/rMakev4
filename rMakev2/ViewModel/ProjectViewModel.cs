@@ -65,7 +65,7 @@ namespace rMakev2.ViewModel
             //if(token != null)
             //    await LoadProyectAsync(token);
             
-            await OnPropertyChanged();
+            //await OnPropertyChanged();
 
         }
 
@@ -107,6 +107,7 @@ namespace rMakev2.ViewModel
         public async Task LoadProyectAsync(string token)
         {
             portfolio = await _communicationService.LoadAsync(token, Portfolio);
+            await OnPropertyChanged();
         }
 
         public async Task SaveContentAsync()
