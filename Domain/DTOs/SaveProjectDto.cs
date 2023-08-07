@@ -61,8 +61,9 @@ namespace Domain.DTOs
         public string Ideary { get; set; }
         public string DocumentId { get; set; }
         public string ParentElementId { get; set; }
+        public HashSet<string> Authors { get; set; }
 
-        public List<BlockElementDTO> BlockElement { get; set; }
+        public List<BlockElementDTO> BlockContent { get; set; }
 
     }
     public class BlockElementDTO

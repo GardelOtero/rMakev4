@@ -52,6 +52,7 @@ namespace rMakev2.DTOs
         public string Name { get; set; }
         public string Content { get; set; }
         public DateTime CreationDate { get; set; }
+        public HashSet<string> Authors { get; set; }
         public int Order { get; set; }
         public List<ElementDTO> Elements { get; set; }
         public string ProjectId { get; set; }
@@ -69,6 +70,8 @@ namespace rMakev2.DTOs
         public string DocumentId { get; set; }
         public string ParentElementId { get; set; }
         public string Hash { get; set; }
+
+        public HashSet<string> Authors { get; set; }
 
         public List<BlockElementDTO> BlockContent { get; set; }
     }

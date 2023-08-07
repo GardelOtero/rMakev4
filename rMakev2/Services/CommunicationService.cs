@@ -56,6 +56,7 @@ namespace rMakev2.Services
                     document.Name = itemDoc.Name;
                     document.CreationDate = itemDoc.CreationDate;
                     document.Order = itemDoc.Order;
+                    document.Authors = itemDoc.Authors;
                     document.ProjectId = itemDoc.ProjectId;
                     document.Name = itemDoc.Name;
                     document.Content = itemDoc.Content;
@@ -70,6 +71,7 @@ namespace rMakev2.Services
                         element.Content = itemElement.Content;
                         element.Order = itemElement.Order;
                         element.Ideary = itemElement.Ideary;
+                        element.Authors = itemDoc.Authors;
                         element.BlockContent = new List<BlockElementDTO>();
                         element.DocumentId = itemElement.DocumentId;
                         element.ParentElementId= itemElement.ParentElementId;
@@ -80,6 +82,7 @@ namespace rMakev2.Services
                         {
                             BlockElementDTO blockElement = new BlockElementDTO();
                             blockElement.id = itemblockElement.id;
+                            blockElement.Authors = itemDoc.Authors;
                             blockElement.type = itemblockElement.type;
                             blockElement.elementId = itemblockElement.elementId;
                             blockElement.data = new DataDTO();
@@ -169,6 +172,9 @@ namespace rMakev2.Services
             //app = new Models.App(savedContent.Id, savedContent.PortfolioToken);
 
             portfolio.GUID = loadedSaveProject.Id;
+            portfolio.CreationDate = loadedSaveProject.CreationDate;
+            portfolio.rIdSignature = loadedSaveProject.rIdSignature;
+            portfolio.SignatureDate = loadedSaveProject.SignatureDate; 
 
 
             foreach (var proj in loadedSaveProject.Projects)
@@ -177,6 +183,8 @@ namespace rMakev2.Services
                 p.Name = proj.Name;
                 p.GUID = proj.Id;
                 p.CreationDate = proj.CreationDate;
+                p.Authors = proj.Authors;
+                p.PathPreviewImage = proj.PathPrewiewImage;
                 p.Portfolio = portfolio;
                 p.PortfolioId = portfolio.GUID;
                 p.ParentProjectId = proj.ParentProjectId;
@@ -191,28 +199,71 @@ namespace rMakev2.Services
                     d.GUID = doc.Id;
                     d.CreationDate = doc.CreationDate;
                     d.Order = doc.Order;
+                    d.Authors = d.Authors;
                     d.Content = doc.Content;
                     d.Project = Pro;
                     d.ProjectId = Pro.GUID;
                     d.ParentDocumentId = doc.ParentDocumentId;
                     Pro.Documents.Add(d);
 
-                    //foreach (var ele in doc.Elements)
-                    //{
-                    //    var Proj = app.Portfolio.Projects.Where(x => x.Id == proj.Id).FirstOrDefault();
-                    //    var docum = Proj.Documents.Where(x => x.Id == doc.Id).FirstOrDefault();
-                    //    Element e = new Element();
-                    //    e.Id = ele.Id;
-                    //    e.Content = ele.Content;
-                    //    e.Order = ele.Order;
-                    //    e.Ideary = ele.Ideary;
-                    //    e.DocumentId = ele.DocumentId;
-                    //    e.Document = docum;
-                    //    e.ParentElementId = ele.ParentElementId;
-                    //    e.Hash = ele.Hash;
-                    //    docum.Elements.Add(e);
+                    foreach (var ele in doc.Elements)
+                    {
+                        var Proj = Portfolio.Projects.Where(x => x.GUID == proj.Id).FirstOrDefault();
+                        var docum = Proj.Documents.Where(x => x.GUID == doc.Id).FirstOrDefault();
+                        Element e = new Element();
+                        e.GUID = ele.Id;
+                        e.Content = ele.Content;
+                        e.Order = ele.Order;
+                        e.Ideary = ele.Ideary;
+                        e.Authors = d.Authors;
+                        e.DocumentId = ele.DocumentId;
+                        e.Document = docum;
+                        e.ParentElementId = ele.ParentElementId;
+                        e.Hash = ele.Hash;
+                        docum.Elements.Add(e);
 
-                    //}
+                        foreach (var blo in ele.BlockContent)
+                        {
+                            var Proje = Portfolio.Projects.Where(x => x.GUID == proj.Id).FirstOrDefault();
+                            var docume = Proje.Documents.Where(x => x.GUID == doc.Id).FirstOrDefault();
+                            var elem = docume.Elements.Where(x => x.GUID == ele.Id).FirstOrDefault();
+                            BlockElement b = new BlockElement();
+                            b.id = blo.id;
+                            b.Authors = blo.Authors;
+                            b.type = blo.type;
+                            Data dat = new Data();
+                            b.data = dat;
+                            dat.text = blo.data.text;
+                            dat.level = blo.data.level;
+                            dat.caption = blo.data.caption;
+                            dat.alignment = blo.data.alignment;
+                            dat.url = blo.data.url;
+                            dat.withBorder = blo.data.withBorder;
+                            dat.withBackground = blo.data.withBackground;
+                            dat.stretched = blo.data.stretched;
+                            dat.style = blo.data.style;
+                            dat.link = blo.data.link;
+                            dat.code = blo.data.code;
+                            dat.items = new List<Item>();
+                            elem.BlockContent.Add(b);
+
+                            if (dat.items != null)
+                            {
+                                foreach (var item in dat.items)
+                                {
+                                    Item i = new Item();
+                                    i.content = item.content;
+                                    i.text = item.text;
+                                    i.items = item.items;
+                                    i.@checked = item.@checked;
+                                    b.data.items.Add(i);
+                                }
+                            }
+
+
+                        }
+
+                    }
 
                 }
 
