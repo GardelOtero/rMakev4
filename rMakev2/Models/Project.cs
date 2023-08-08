@@ -187,26 +187,17 @@ namespace rMakev2.Models
 
         internal Document CloneDocument(Document document)
         {
-            Document newDocument = new Document(document.Project);
-            newDocument.Name = document.Name + "(Cloned)";
+            Document newDocument = new Document(Portfolio.Projects.Where(x => x.GUID == document.ProjectId).FirstOrDefault());
+            newDocument.Name = document.Name + " (Cloned)";
             newDocument.ParentDocumentId = document.GUID;
             newDocument.Content = document.Content;
+            newDocument.Authors = document.Authors;
+            newDocument.ProjectId = document.ProjectId;
+
+            newDocument.Elements.AddRange(document.Elements);
+            
             Documents.Add(newDocument);            
 
-            foreach (var item in document.Elements)
-            {
-                Element newelement = new Element();
-                newelement.Content= item.Content;
-                newelement.DocumentId = newDocument.GUID;
-                newelement.Document = newDocument;
-                newelement.ParentElementId = item.GUID;
-                newelement.GUID = Guid.NewGuid().ToString();
-                newelement.Order = item.Order;
-
-                newDocument.Elements.Add(newelement);
-            }
-            //Quita el Primer Element sin texto
-            newDocument.Elements.RemoveAt(0);
             return newDocument;
         }
         public event PropertyChangedEventHandler PropertyChanged;

@@ -292,7 +292,7 @@
                     <div class="spacer">
 
                         <div class="documentMenu mb-2">
-                            <a @onclick="vm.DeleteDocument"><img src="svgs/Delete.svg" title="Delete Document" class="m-1 smallIcon" /></a>
+                            <a @onclick="deleteDoc"><img src="svgs/Delete.svg" title="Delete Document" class="m-1 smallIcon" /></a>
 
                             <a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
                             <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
@@ -774,6 +774,32 @@
         await jsRuntime.InvokeAsync<string>("ClearEditor");
     }
 
+    public async Task deleteDoc()
+    {
+        vm.Project.RemoveDocument(vm.Project.SelectedDocument);
+
+        if (vm.Project.Documents.Count() <= 0)
+        {
+            vm.Project.AddDocument(vm.Project);
+
+            vm.SelectDocument(vm.Project.Documents.First());
+
+            await jsRuntime.InvokeAsync<string>("ClearEditor");
+
+        }
+        else
+        {
+            vm.SelectDocument(vm.Project.Documents.First());
+
+            await SetDocumentContent(vm.Project.SelectedDocument);
+            
+        }
+
+
+        //await SaveStorage();
+
+    }
+
 
     public async Task clipboard(string copied)
     {
@@ -786,7 +812,6 @@
         vm.BlocktoElement(elementsC);
     }
 
-    //[JSInvokable("test")]
     [JSInvokable]
     public async Task cloneBlock(string id)
     {
