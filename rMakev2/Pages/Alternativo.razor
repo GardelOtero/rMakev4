@@ -555,7 +555,7 @@
         try
         {
 
-            if (token != "")
+            if (token != "" && token != null)
             {
                 if (PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault() != null)
                     vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
@@ -571,6 +571,29 @@
                 {
                     vm.Project.SelectedDocument = vm.Project.Documents.FirstOrDefault();
                 }
+
+            } 
+            else
+            {
+                await localStorage.ClearAsync();
+
+                if(PVm.Portfolio == null)
+                {
+                    await PVm.InitializeProjects(vm.App);
+                }
+
+
+                if (PVm.Portfolio.Projects.Count() <= 0)
+                {
+                    PVm.Portfolio.AddProject();
+
+                    vm.Project = PVm.Portfolio.Projects.First();
+
+                    token = vm.Project.GUID;
+
+                }
+
+                await PVm.OnPropertyChanged();
 
             }
         }
@@ -625,6 +648,8 @@
         PVm.Portfolio = storagePortfolio;
 
         vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+
+
 
 
         if (vm.Project.SelectedDocument.Content != "")

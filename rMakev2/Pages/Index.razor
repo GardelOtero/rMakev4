@@ -79,6 +79,7 @@
                 <p>Create a new document</p>
                 <br />
                 <a @onclick="newSession" class="btn btn-start btn-lg">Start</a>
+                <a @onclick="toEditor" class="btn btn-start btn-lg">To editor</a>
                 <br />
                 <div class="d-flex justify-content-center align-content-center">
                     <hr class="or-hr" />
@@ -132,6 +133,29 @@
 
             NavigationManager.NavigateTo("/projects/" + tokenstring);
         }
+    }
+
+    async void toEditor()
+    {
+        await localStorage.ClearAsync();
+
+
+        if (PVm.Portfolio == null)
+        {
+            await PVm.InitializeProjects(vm.App);
+        }
+
+
+        if (PVm.Portfolio.Projects.Count() <= 0)
+        {
+            PVm.Portfolio.AddProject();
+
+            vm.Project = PVm.Portfolio.Projects.First();
+        }
+
+        await PVm.OnPropertyChanged();
+        NavigationManager.NavigateTo("/app/" + vm.Project.GUID);
+
     }
 
     public async void Enter(KeyboardEventArgs e)
