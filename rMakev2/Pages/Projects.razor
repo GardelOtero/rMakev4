@@ -158,7 +158,7 @@
             if(token != "")
             {
                 await PVm.LoadProyectAsync(token);
-                
+
             }
 
         }
@@ -192,7 +192,15 @@
 
         Portfolio storagePortfolio = new Portfolio();
 
-        storagePortfolio = await localStorage.GetItemAsync<Portfolio>("portfolio");
+        try
+        {
+            storagePortfolio = await localStorage.GetItemAsync<Portfolio>("portfolio");
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
 
         storagePortfolio.App = vm.App;
         storagePortfolio.AppId = vm.App.Id;

@@ -1,4 +1,5 @@
 ﻿
+using rMakev2.DTOs;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Text.Json.Serialization;
@@ -108,6 +109,29 @@ namespace rMakev2.Models
         public void RemoveProject(Project project)
         {
            Projects.Remove(project);            
+        }
+
+        public LocalPortfolioDTO ToLocalStorage()
+        {
+            LocalPortfolioDTO localPorfolio = new LocalPortfolioDTO();
+
+            localPorfolio.Id = Id;
+            localPorfolio.GUID = GUID;
+            localPorfolio.DataToken = DataToken;
+            localPorfolio.SignatureDate = SignatureDate;
+            localPorfolio.CreationDate = CreationDate;
+            localPorfolio.rIdSignature = rIdSignature;
+            localPorfolio.Authors = Authors;
+            localPorfolio.AppId = AppId;
+            localPorfolio.projectsGUID = new List<string>();
+
+            foreach (var item in Projects)
+            {
+                localPorfolio.projectsGUID.Add(item.GUID);
+            }
+
+
+            return localPorfolio;
         }
     }
 }

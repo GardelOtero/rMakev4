@@ -1,4 +1,5 @@
 ﻿
+using rMakev2.DTOs;
 using System.ComponentModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -205,6 +206,39 @@ namespace rMakev2.Models
         {
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+        }
+
+        public LocalProjectDTO ToLocalStorage()
+        {
+            LocalProjectDTO localProject = new LocalProjectDTO();
+
+            localProject.Id = Id;
+            localProject.GUID = GUID;
+            localProject.Name = Name;
+            localProject.Labels = Labels;
+            localProject.Versions = Versions;
+            localProject.IsPublic = IsPublic;
+            localProject.IsWebsite = IsWebsite;
+            localProject.CreationDate = CreationDate;
+            localProject.Authors = Authors;
+            localProject.PathPreviewImage = PathPreviewImage;
+            localProject.PortfolioId = PortfolioId;
+            localProject.ParentProjectId = ParentProjectId;
+            localProject.DisplayDocumentMenu = DisplayDocumentMenu;
+            localProject.DisplayMenu = DisplayMenu;
+            localProject.DisplayJson = DisplayJson;
+            localProject.BlockRTAFocus = BlockRTAFocus;
+
+            localProject.selectedDocumentGUID = SelectedDocument.GUID;
+            localProject.DocumentsGUID = new List<string>();
+
+            foreach(var item in Documents)
+            {
+                localProject.DocumentsGUID.Add(item.GUID);
+            }
+
+
+            return localProject;
         }
     }
 }

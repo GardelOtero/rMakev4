@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using rMakev2.DTOs;
+using System;
 using System.Reflection.Metadata;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
@@ -80,6 +82,34 @@ namespace rMakev2.Models
         public void RemoveAuthor(string name)
         {
             Authors.Remove(name);
+        }
+
+        public LocalDocumentDTO ToLocalStorage()
+        {
+            LocalDocumentDTO localDocument = new LocalDocumentDTO();
+
+            localDocument.Id = Id;
+            localDocument.GUID = GUID;
+            localDocument.Name = Name;
+            localDocument.IsPublic = IsPublic;
+            localDocument.CreationDate = CreationDate;
+            localDocument.Authors = Authors;
+            localDocument.PathPreviewImage = PathPreviewImage;
+            localDocument.Order = Order;
+            localDocument.Content = Content;
+            localDocument.ParentDocumentId = ParentDocumentId;
+            localDocument.ProjectId = ProjectId;
+            localDocument.IsOrdered = IsOrdered;
+
+            localDocument.ElementsGUID = new List<string>();
+
+            foreach (var item in Elements)
+            {
+                localDocument.ElementsGUID.Add(item.GUID);
+            }
+
+
+            return localDocument;
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using rMakev2.DTOs;
 using System.Diagnostics.Eventing.Reader;
 using System.Text.Json.Serialization;
 
@@ -85,6 +86,36 @@ namespace rMakev2.Models
             {
                 block.Authors.Add(name);
             }
+        }
+
+        public LocalElementDTO ToLocalStorage()
+        {
+            LocalElementDTO localElement = new LocalElementDTO();
+
+            localElement.Id = Id;
+
+            localElement.GUID = GUID;
+            localElement.Id = Id;
+            localElement.Content = Content;
+            localElement.BlockContent = BlockContent;
+            localElement.Author = Author;
+            localElement.AIContent = AIContent;
+            localElement.Order = Order;
+            localElement.AppearingOrder = AppearingOrder;
+            localElement.Ideary = Ideary;
+            localElement.DocumentId = DocumentId;
+            localElement.Hash = Hash;
+            localElement.IsValid = IsValid;
+            localElement.ParentElementId = ParentElementId;
+            localElement.EditItem = EditItem;
+            localElement.CreationDate = CreationDate;
+            localElement.ParentGuid = ParentGuid;
+            localElement.OrderParentId = OrderParentId;
+            localElement.Authors = Authors;
+
+            return localElement;
+
+
         }
 
 
