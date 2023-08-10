@@ -45,8 +45,8 @@ namespace rMakev2.ViewModel
 
         public async Task OnPropertyChanged()
         {
-            await _localStorageService.SetItemAsync("portfolio", Portfolio);
-            await _localStorageService.SetItemAsync("Portfolio-" + Portfolio.GUID, Portfolio.ToLocalStorage());
+            //await _localStorageService.SetItemAsync("portfolio", Portfolio);
+            await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
             
             foreach(var proj in Portfolio.Projects)
             {

@@ -13,6 +13,7 @@ namespace rMakev2.Models
         public Document()
         {
            Elements = new List<Element>();
+           Authors = new HashSet<string>();
         }
         public Document(Project project)
         {
@@ -30,6 +31,26 @@ namespace rMakev2.Models
             ProjectId = project.GUID;
             AddElement(this);
 
+        }
+
+        public Document(Project project, LocalDocumentDTO localDocument)
+        {
+            Project = project ?? throw new Exceptions("Project is null");
+
+            Id = localDocument.Id;
+            GUID = localDocument.GUID;
+            Name = localDocument.Name;
+            IsPublic = localDocument.IsPublic;
+            CreationDate = localDocument.CreationDate;
+            Authors = localDocument.Authors;
+            PathPreviewImage = localDocument.PathPreviewImage;
+            Order = localDocument.Order;
+            Content = localDocument.Content;
+            ParentDocumentId = localDocument.ParentDocumentId;
+            ProjectId = localDocument.ProjectId;
+            IsOrdered = localDocument.IsOrdered;
+
+            Elements = new List<Element>();
         }
         public int Id { get; set; }
         public string GUID { get; set; }
@@ -110,6 +131,22 @@ namespace rMakev2.Models
 
 
             return localDocument;
+        }
+
+        public void FromLocalDTO(LocalDocumentDTO localDocument)
+        {
+            Id = localDocument.Id;
+            GUID = localDocument.GUID;
+            Name = localDocument.Name;
+            IsPublic = localDocument.IsPublic;
+            CreationDate = localDocument.CreationDate;
+            Authors = localDocument.Authors;
+            PathPreviewImage = localDocument.PathPreviewImage;
+            Order = localDocument.Order;
+            Content = localDocument.Content;
+            ParentDocumentId = localDocument.ParentDocumentId;
+            ProjectId = localDocument.ProjectId;
+            IsOrdered = localDocument.IsOrdered;
         }
 
     }

@@ -5,6 +5,7 @@
 @using rMakev2.Components;
 @using rMakev2.Services;
 @using rMakev2.Models;
+@using rMakev2.DTOs;
 @inject RmakeViewModel vm;
 @inject ProjectViewModel PVm;
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
@@ -183,18 +184,21 @@
     {
 
 
-        if (await localStorage.ContainKeyAsync("portfolio") == false)
+        if (await localStorage.ContainKeyAsync("PortfolioLocal") == false)
         {
             await PVm.OnPropertyChanged();
             return;
         }
 
 
-        Portfolio storagePortfolio = new Portfolio();
+        //Portfolio storagePortfolio = new Portfolio();
+        LocalPortfolioDTO localPortfolio = new LocalPortfolioDTO();
 
         try
         {
-            storagePortfolio = await localStorage.GetItemAsync<Portfolio>("portfolio");
+            //storagePortfolio = await localStorage.GetItemAsync<Portfolio>("portfolio");
+
+            localPortfolio = await localStorage.GetItemAsync<LocalPortfolioDTO>("PortfolioLocal");
 
         }
         catch (Exception e)
@@ -202,15 +206,34 @@
             Console.WriteLine(e);
         }
 
-        storagePortfolio.App = vm.App;
-        storagePortfolio.AppId = vm.App.Id;
+        PVm.Portfolio.FromLocalDTO(localPortfolio);
 
-        PVm.Portfolio = storagePortfolio;
+        List<LocalProjectDTO> localProjects = new List<LocalProjectDTO>();
 
-        foreach(var proj in PVm.Portfolio.Projects)
+        foreach(var GUID in localPortfolio.projectsGUID)
         {
-            proj.Portfolio = PVm.Portfolio;
+            LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + GUID);
+
+            var DtoProject = new Project(PVm.Portfolio, dto);
+
+            PVm.Portfolio.Projects.Add(DtoProject);
+
+            localProjects.Add(dto);
         }
+
+
+
+          
+
+        //storagePortfolio.App = vm.App;
+        //storagePortfolio.AppId = vm.App.Id;
+
+        //PVm.Portfolio = storagePortfolio;
+
+        //foreach(var proj in PVm.Portfolio.Projects)
+        //{
+        //    proj.Portfolio = PVm.Portfolio;
+        //}
 
         StateHasChanged();
 

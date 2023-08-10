@@ -51,6 +51,31 @@ namespace rMakev2.Models
             Authors = new HashSet<string>();
             
         }
+
+        public Element(Document document, LocalElementDTO localElement)
+        {
+            Document = document ?? throw new Exceptions("Document is null");
+
+            Id = localElement.Id;
+            GUID = localElement.GUID;
+            Id = localElement.Id;
+            Content = localElement.Content;
+            BlockContent = localElement.BlockContent;
+            Author = localElement.Author;
+            AIContent = localElement.AIContent;
+            Order = localElement.Order;
+            AppearingOrder = localElement.AppearingOrder;
+            Ideary = localElement.Ideary;
+            DocumentId = localElement.DocumentId;
+            Hash = localElement.Hash;
+            IsValid = localElement.IsValid;
+            ParentElementId = localElement.ParentElementId;
+            EditItem = localElement.EditItem;
+            CreationDate = localElement.CreationDate;
+            ParentGuid = localElement.ParentGuid;
+            OrderParentId = localElement.OrderParentId;
+            Authors = localElement.Authors;
+        }
         public string GUID { get; set; }
         public int Id { get; set; }
         public string Content { get; set; }
@@ -93,7 +118,6 @@ namespace rMakev2.Models
             LocalElementDTO localElement = new LocalElementDTO();
 
             localElement.Id = Id;
-
             localElement.GUID = GUID;
             localElement.Id = Id;
             localElement.Content = Content;
@@ -116,6 +140,29 @@ namespace rMakev2.Models
             return localElement;
 
 
+        }
+
+        public void FromLocalDTO(LocalElementDTO localElement)
+        {
+            Id = localElement.Id;
+            GUID = localElement.GUID;
+            Id = localElement.Id;
+            Content = localElement.Content;
+            BlockContent = localElement.BlockContent;
+            Author = localElement.Author;
+            AIContent = localElement.AIContent;
+            Order = localElement.Order;
+            AppearingOrder = localElement.AppearingOrder;
+            Ideary = localElement.Ideary;
+            DocumentId = localElement.DocumentId;
+            Hash = localElement.Hash;
+            IsValid = localElement.IsValid;
+            ParentElementId = localElement.ParentElementId;
+            EditItem = localElement.EditItem;
+            CreationDate = localElement.CreationDate;
+            ParentGuid = localElement.ParentGuid;
+            OrderParentId = localElement.OrderParentId;
+            Authors = localElement.Authors;
         }
 
 

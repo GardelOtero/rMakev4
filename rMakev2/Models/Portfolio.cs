@@ -133,5 +133,19 @@ namespace rMakev2.Models
 
             return localPorfolio;
         }
+
+        public void FromLocalDTO(LocalPortfolioDTO localPorfolio)
+        {
+            Id = localPorfolio.Id;
+            GUID = localPorfolio.GUID;
+            DataToken = localPorfolio.DataToken;
+            SignatureDate = localPorfolio.SignatureDate;
+            CreationDate = localPorfolio.CreationDate;
+            rIdSignature = localPorfolio.rIdSignature;
+            Authors = localPorfolio.Authors;
+            AppId = localPorfolio.AppId;
+
+            Projects = new List<Project>();
+        }
     }
 }

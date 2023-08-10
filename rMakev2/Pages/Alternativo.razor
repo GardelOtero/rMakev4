@@ -9,7 +9,8 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 @inject NavigationManager NavigationManager
 @using MudBlazor;
-@using rMakev2.Models
+@using rMakev2.Models;
+@using rMakev2.DTOs;
 <PageTitle>rHacker</PageTitle>
 
 <style>
@@ -632,24 +633,51 @@
     public async Task LoadPortfolio()
     {
 
-        Portfolio storagePortfolio = new Portfolio();
+        LocalPortfolioDTO localPortfolio = new LocalPortfolioDTO();
+        localPortfolio = await localStorage.GetItemAsync<LocalPortfolioDTO>("PortfolioLocal");
+        PVm.Portfolio.FromLocalDTO(localPortfolio);
 
-        storagePortfolio = await localStorage.GetItemAsync<Portfolio>("portfolio");
+        LocalProjectDTO localProject = new LocalProjectDTO();
 
-        storagePortfolio.App = vm.App;
-        storagePortfolio.AppId = vm.App.Id;
-
-
-        foreach (var proj in storagePortfolio.Projects)
+        foreach (var GUID in localPortfolio.projectsGUID)
         {
-            proj.Portfolio = PVm.Portfolio;
+            LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + GUID);
+
+            if(GUID == token)
+            {
+                localProject = dto;
+            }
+
+            var DtoProject = new Project(PVm.Portfolio, dto);
+
+            PVm.Portfolio.Projects.Add(DtoProject);
+
         }
 
-        PVm.Portfolio = storagePortfolio;
 
-        vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+        vm.Project.FromLocalDTO(localProject);
 
+        List<Document> documents = new List<Document>();
 
+        foreach (var GUID in localProject.DocumentsGUID)
+        {
+            LocalDocumentDTO dto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + GUID);
+
+            var DtoDocument = new Document(vm.Project, dto);
+
+            LocalElementDTO localElement = new LocalElementDTO();
+
+            localElement = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + dto.ElementsGUID.First());
+
+            Element element = new Element(DtoDocument, localElement);
+
+            DtoDocument.Elements.Add(element);
+
+            documents.Add(DtoDocument);
+        }
+
+        vm.Project.Documents = documents;
+        vm.Project.SelectedDocument = vm.Project.Documents.FirstOrDefault();
 
 
         if (vm.Project.SelectedDocument.Content != "")
@@ -714,7 +742,18 @@
         vm.BlocktoElement(content);
         Document document = vm.Project.Documents.Where(x => x.GUID == doc.GUID).FirstOrDefault();
         document.Content = content;
-        await localStorage.SetItemAsync(doc.ProjectId, vm.Project.Documents);
+        //await localStorage.SetItemAsync(doc.ProjectId, vm.Project.Documents);
+
+        await localStorage.SetItemAsync("Project-" + doc.ProjectId, vm.Project.ToLocalStorage());
+
+        await localStorage.SetItemAsync("Document-" + doc.GUID, doc.ToLocalStorage());
+
+        foreach(var ele in doc.Elements)
+        {
+            await localStorage.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
+        }
+
+
         PVm.UpdateProject(vm.Project);
         vm.Project.SelectedDocument = vm.Project.Documents.Where(x => x.GUID == vm.Project.SelectedDocument.GUID).FirstOrDefault();
     }
@@ -734,25 +773,15 @@
     public async Task SetDocumentContent(Document document)
     {
 
-        var docs = await localStorage.GetItemAsync<List<Document>>(document.ProjectId);
-        Document newDoc;
-        if (docs == null)
-            newDoc = null;
-        else
-            newDoc = docs.Where(x => x.GUID == document.GUID).FirstOrDefault();
+        var localDoc = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + document.GUID);
 
-        var oldDoc = vm.Project.Documents.Where(x => x.GUID == document.GUID).FirstOrDefault();
-
-        if (newDoc != null)
+        if(localDoc.Content != null && localDoc.Content != "")
         {
-            oldDoc.Content = newDoc.Content;
-            await jsRuntime.InvokeVoidAsync("loadContent", objRef, newDoc.Content);
-
+            await jsRuntime.InvokeVoidAsync("loadContent", objRef, localDoc.Content);
         }
-        else if (document.Content != null)
-            await jsRuntime.InvokeVoidAsync("loadContent", objRef, document.Content);
 
-        vm.Project.SelectedDocument = oldDoc;
+        vm.Project.SelectedDocument = vm.Project.Documents.Where(x => x.GUID == localDoc.GUID).FirstOrDefault();
+
 
         StateHasChanged();
     }

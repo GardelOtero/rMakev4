@@ -34,7 +34,6 @@ namespace rMakev2.Models
             Versions = new List<string>();
             IsPublic = false;
             IsWebsite = false;
-            //Name = "Project ("+data.Projects.Count() +")";
             CreationDate = DateTime.Now;
             Authors = new HashSet<string>();
             PathPreviewImage = "";
@@ -44,9 +43,34 @@ namespace rMakev2.Models
             AddDocument(this);
             SelectedDocument = Documents.FirstOrDefault(); 
             
-
-
         }
+
+        public Project(Portfolio portfolio, LocalProjectDTO localProject)
+        {
+            Portfolio = portfolio;
+
+            Id = localProject.Id;
+            GUID = localProject.GUID;
+            Name = localProject.Name;
+            Labels = localProject.Labels;
+            Versions = localProject.Versions;
+            IsPublic = localProject.IsPublic;
+            IsWebsite = localProject.IsWebsite;
+            CreationDate = localProject.CreationDate;
+            Authors = localProject.Authors;
+            PathPreviewImage = localProject.PathPreviewImage;
+            PortfolioId = localProject.PortfolioId;
+            ParentProjectId = localProject.ParentProjectId;
+            DisplayDocumentMenu = localProject.DisplayDocumentMenu;
+            DisplayMenu = localProject.DisplayMenu;
+            DisplayJson = localProject.DisplayJson;
+            BlockRTAFocus = localProject.BlockRTAFocus;
+
+            Documents = new List<Document>();
+            SelectedDocument = new Document();
+        }
+
+
         public int Id { get; set; }
         public string GUID { get; set; }
         public string Name { get; set; }
@@ -239,6 +263,26 @@ namespace rMakev2.Models
 
 
             return localProject;
+        }
+
+        public void FromLocalDTO(LocalProjectDTO localProject)
+        {
+            Id = localProject.Id;
+            GUID = localProject.GUID;
+            Name = localProject.Name;
+            Labels = localProject.Labels;
+            Versions = localProject.Versions;
+            IsPublic = localProject.IsPublic;
+            IsWebsite = localProject.IsWebsite;
+            CreationDate = localProject.CreationDate;
+            Authors = localProject.Authors;
+            PathPreviewImage = localProject.PathPreviewImage;
+            PortfolioId = localProject.PortfolioId;
+            ParentProjectId = localProject.ParentProjectId;
+            DisplayDocumentMenu = localProject.DisplayDocumentMenu;
+            DisplayMenu = localProject.DisplayMenu;
+            DisplayJson = localProject.DisplayJson;
+            BlockRTAFocus = localProject.BlockRTAFocus;
         }
     }
 }
