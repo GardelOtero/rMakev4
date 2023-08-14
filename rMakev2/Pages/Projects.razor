@@ -219,21 +219,33 @@
             PVm.Portfolio.Projects.Add(DtoProject);
 
             localProjects.Add(dto);
+
+            foreach(var docGUID in dto.DocumentsGUID)
+            {
+                LocalDocumentDTO docDto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
+
+                var newDoc = new Document(DtoProject, docDto);
+
+                DtoProject.Documents.Add(newDoc);
+
+
+                foreach(var eleGUID in docDto.ElementsGUID)
+                {
+                    LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + eleGUID);
+
+                    var newEle = new Element(newDoc, eleDto);
+
+                    newDoc.Elements = new List<Element>();
+
+                    newDoc.Elements.Add(newEle);
+
+                }
+
+            }
+
         }
 
-
-
-          
-
-        //storagePortfolio.App = vm.App;
-        //storagePortfolio.AppId = vm.App.Id;
-
-        //PVm.Portfolio = storagePortfolio;
-
-        //foreach(var proj in PVm.Portfolio.Projects)
-        //{
-        //    proj.Portfolio = PVm.Portfolio;
-        //}
+       
 
         StateHasChanged();
 

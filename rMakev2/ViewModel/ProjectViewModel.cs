@@ -45,22 +45,27 @@ namespace rMakev2.ViewModel
 
         public async Task OnPropertyChanged()
         {
-            //await _localStorageService.SetItemAsync("portfolio", Portfolio);
             await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
-            
-            foreach(var proj in Portfolio.Projects)
+            try
             {
-                await _localStorageService.SetItemAsync("Project-" + proj.GUID, proj.ToLocalStorage());
-
-                foreach(var doc in proj.Documents)
+                foreach(var proj in Portfolio.Projects.ToList())
                 {
-                    await _localStorageService.SetItemAsync("Document-" + doc.GUID, doc.ToLocalStorage());
+                    await _localStorageService.SetItemAsync("Project-" + proj.GUID, proj.ToLocalStorage()); 
 
-                    foreach(var ele in doc.Elements)
+                    foreach(var doc in proj.Documents.ToList())
                     {
-                        await _localStorageService.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
+                        await _localStorageService.SetItemAsync("Document-" + doc.GUID, doc.ToLocalStorage());
+
+                        foreach(var ele in doc.Elements.ToList())
+                        {
+                            await _localStorageService.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
+                        }
                     }
                 }
+
+            } catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 

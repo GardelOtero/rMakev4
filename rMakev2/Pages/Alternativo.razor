@@ -643,46 +643,53 @@
         {
             LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + GUID);
 
-            if(GUID == token)
+            if(dto == null)
             {
-                localProject = dto;
+                continue;
             }
 
             var DtoProject = new Project(PVm.Portfolio, dto);
 
             PVm.Portfolio.Projects.Add(DtoProject);
 
-        }
+            foreach (var docGUID in dto.DocumentsGUID)
+            {
+                LocalDocumentDTO docDto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
+
+                var newDoc = new Document(DtoProject, docDto);
+
+                DtoProject.Documents.Add(newDoc);
 
 
-        vm.Project.FromLocalDTO(localProject);
+                LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
 
-        List<Document> documents = new List<Document>();
+                var newEle = new Element(newDoc, eleDto);
 
-        foreach (var GUID in localProject.DocumentsGUID)
-        {
-            LocalDocumentDTO dto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + GUID);
+                newDoc.Elements = new List<Element>();
 
-            var DtoDocument = new Document(vm.Project, dto);
+                newDoc.Elements.Add(newEle);
 
-            LocalElementDTO localElement = new LocalElementDTO();
+            }
 
-            localElement = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + dto.ElementsGUID.First());
-
-            Element element = new Element(DtoDocument, localElement);
-
-            DtoDocument.Elements.Add(element);
-
-            documents.Add(DtoDocument);
-        }
-
-        vm.Project.Documents = documents;
-        vm.Project.SelectedDocument = vm.Project.Documents.FirstOrDefault();
+            if(GUID == token)
+            {
+                vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+                
+                if (vm.Project.Documents.Count() == 0)
+                {
+                    vm.Project.AddDocument(vm.Project);
+                }
 
 
-        if (vm.Project.SelectedDocument.Content != "")
-        {
-            await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.SelectedDocument.Content);
+                vm.Project.SelectedDocument = vm.Project.Documents.FirstOrDefault();
+
+
+                if (vm.Project.SelectedDocument.Content != "")
+                {
+                    await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.SelectedDocument.Content);
+                }
+            }
+
         }
 
 
