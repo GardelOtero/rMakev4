@@ -277,7 +277,7 @@ namespace rMakev2.Services
             }
 
 
-
+            Portfolio.GUID = portfolio.GUID;
 
             return Portfolio;
 
