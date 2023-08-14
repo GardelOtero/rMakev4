@@ -61,7 +61,7 @@ namespace rMakev2.ViewModel
                             await _localStorageService.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
                         }
                     }
-                }
+                }          
 
             } catch(Exception ex)
             {
@@ -71,8 +71,10 @@ namespace rMakev2.ViewModel
 
         public async Task NewProject()
         {
-            Portfolio.AddProject();
-            await OnPropertyChanged();
+            await SaveLocalProject(Portfolio.AddProject());
+
+            await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
+            //await OnPropertyChanged();
 
         }
 
@@ -87,17 +89,51 @@ namespace rMakev2.ViewModel
 
         }
 
+        public async Task SaveLocalProject(Project project)
+        {
+            //await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
+
+            await _localStorageService.SetItemAsync("Project-" + project.GUID, project.ToLocalStorage());
+
+            foreach (var doc in project.Documents.ToList())
+            {
+                await _localStorageService.SetItemAsync("Document-" + doc.GUID, doc.ToLocalStorage());
+
+                foreach (var ele in doc.Elements.ToList())
+                {
+                    await _localStorageService.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
+                }
+            }
+        }
+
         public async Task DeleteProject(Project project)
         {
+
+            foreach (var doc in project.Documents.ToList())
+            {
+                await _localStorageService.RemoveItemAsync("Document-" + doc.GUID);
+
+                foreach (var ele in doc.Elements.ToList())
+                {
+                    await _localStorageService.RemoveItemAsync("Element-" + ele.GUID);
+                }
+            }
+
+
+            await _localStorageService.RemoveItemAsync("Project-" + project.GUID);
+
             Portfolio.RemoveProject(project);
-            await OnPropertyChanged();
+
+            await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
+
 
         }
 
         public async Task ForkProject(Project project)
         {
-            Portfolio.ForkProject(project);
-            await OnPropertyChanged();
+            await SaveLocalProject(Portfolio.ForkProject(project));
+
+            await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
 
         }
 
@@ -113,8 +149,7 @@ namespace rMakev2.ViewModel
             Portfolio.Projects[index] = projext;
 
 
-            await OnPropertyChanged();
-
+            await SaveLocalProject(projext);
         }
 
         public void LoadDocuments(Project project)
