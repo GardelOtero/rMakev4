@@ -1,7 +1,9 @@
 ﻿
+using Blazorise;
 using rMakev2.DTOs;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Reflection.Metadata;
 using System.Text.Json.Serialization;
 namespace rMakev2.Models
 {
@@ -84,21 +86,41 @@ namespace rMakev2.Models
                 newdoc.ParentDocumentId = item.GUID;
                 newdoc.CreationDate = DateTime.Now;
                 newdoc.Content = item.Content;
-                newdoc.Elements = item.Elements;
+                newdoc.Elements = new List<Element>();
                 newdoc.Authors = item.Authors;
                 createdProject.Documents.Add(newdoc);
-                
-                /*foreach (var element in item.Elements)
+
+                foreach (var element in item.Elements)
                 {
                     Element newelement = new Element();
                     newelement.GUID = Guid.NewGuid().ToString();
-                    newelement.Content = element.Content;
+                    newelement.Content = "";
+                    newelement.Author = "";
+                    newelement.Order = newdoc.Elements.Count() + 1;
+                    newelement.EditItem = true;
                     newelement.DocumentId = newdoc.GUID;
                     newelement.Document = newdoc;
-                    newelement.Order = element.Order;
-                    newelement.ParentElementId = item.GUID;
+                    newelement.CreationDate = DateTime.Now;
+                    newelement.ParentGuid = "";
+                    newelement.OrderParentId = 0;
+                    newelement.Authors = new HashSet<string>();
+                    newelement.BlockContent = new List<BlockElement>();
                     newdoc.Elements.Add(newelement);
-                }*/
+
+                    foreach(var block in element.BlockContent)
+                    {
+                        BlockElement newblock = new BlockElement();
+
+                        newblock.Authors = block.Authors;
+                        newblock.id = block.id;
+                        newblock.type = block.type;
+                        newblock.elementId = block.elementId;
+                        //newblock.data = block.data;
+
+
+    }
+
+                }
 
             }
             //Quita el Primer Document sin Texto
