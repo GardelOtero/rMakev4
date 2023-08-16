@@ -11,7 +11,7 @@
 @using MudBlazor;
 @using rMakev2.Models;
 @using rMakev2.DTOs;
-<PageTitle>rHacker</PageTitle>
+<PageTitle>rMake</PageTitle>
 
 <style>
     .topBar {
@@ -43,7 +43,6 @@
         float: right;
         width: 30px;
         margin: 10px;
-        padding: 5px;
         margin-left: 10px;
     }
 
@@ -184,12 +183,42 @@
     }
 
     .card {
-        min-width:200px;
-        max-width:200px;
+        min-width: 200px;
+        max-width: 200px;
         border: 2px solid rgba(0,0,0,.125);
         border-radius: 8px;
         position: absolute;
         z-index: 3;
+    }
+
+    .newcard {
+        box-sizing: border-box;
+        /*padding: 50px 50px;*/
+        min-width: 200px;
+        max-width: 200px;
+        /*box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;*/
+        /*box-shadow: rgba(17, 17, 26, 0.25) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;*/ /*71*/
+        box-shadow: rgb(38, 57, 77, 0.5) 0px 1px 13px -3px;
+        border-radius: 10px;
+        font-weight: 500;
+        color: #342e37;
+        width: 30%;
+    }
+
+    .iconcard {
+        box-sizing: border-box;
+        /*padding: 50px 50px;*/
+        /*box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;*/
+        /*box-shadow: rgba(17, 17, 26, 0.25) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;*/ /*71*/
+        box-shadow: rgb(38, 57, 77, 0.5) 0px 1px 13px -3px;
+        border-radius: 10px;
+        font-weight: 500;
+        color: #342e37;
+        width: 50px;
+        height: 50px;
+    }
+    .svgProject {
+        opacity: 0.45;
     }
 
     .rightArea {
@@ -218,21 +247,18 @@
                 <p class="form-control-plaintext small text-left" style=" font-size:24px; margin-left:10px; margin-top:-25px;"> @vm.Project.Name</p>
                 </a>
                 </div>*@
-                <ul class="navbar-nav mr-auto">
-                    <li class="spacer">
+                <ul class="navbar mr-auto">
+                    <li class="nav-item" style="width:200px">
+                        <input @bind="@vm.Project.Name" class="form-control-plaintext small text-left" style=" font-size:20px; margin-left:10px; margin-right:10px; margin-top: 5px; width:90%;"> <strong>@vm.Project.Name</strong></input>
                     </li>
-                    <li class="nav-item" style="padding-right: 15px; border-right: 1px solid #f1f1f1;">
-                        <p class="form-control-plaintext small text-left" style=" font-size:20px; margin-left:10px; margin-top: 5px;"> <strong>@vm.Project.Name</strong></p>
+                    <li class="nav-item iconcard ml-2">
+                        <a class="barItems" @onclick=" vm.ShowSaveModal"><img src="svgs/Save portafolio icon.svg" class="svgProject" title="Save Portfolio" width="30px" height="30px" /> </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="barItems" @onclick=" vm.ShowSaveModal"><img src="svgs/asset 1.svg" title="Save Project" /> </a>
+                    <li class="nav-item iconcard ml-1">
+                        <a class="barItems" @onclick=" vm.ShowPublishModal"><img src="svgs/Back icon.svg" class="svgProject" title="Return to Portfolio" width="30px" height="30px" /> </a>
                     </li>
-                    <li class="nav-item" style="padding-right: 25px; margin-right: 15px; border-right: 1px solid #f1f1f1;">
-                        <a class="barItems" @onclick=" vm.ShowPublishModal"><img src="svgs/asset 3.svg" title="Publish Project" /> </a>
-
-                    </li>
-                    <li class="nav-item">
-                        <a class="barItems" @onclick="vm.ShowAuthorModal"><img src="/svgs/Autor.svg" title="Author Project" /> </a>
+                    <li class="nav-item iconcard ml-1">
+                        <a class="barItems" @onclick="vm.ShowAuthorModal"><img src="/svgs/autor project.svg" class="svgProject" title="Author Project" width="30px" height="30px" /> </a>
                     </li>
                 </ul>
             </div>
@@ -269,20 +295,23 @@
             <menu>
                 <div class="d-flex align-items-start position-fixed">
                     <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <i @onclick="vm.DisplayMenu" class="small mb-1 pl-4" style="left: 3rem"><img src="svgs/Menu.svg" title="Outline" class="menuBarsIcon" width="50px" height="50px" /></i>
-                        <button @onclick="@newDoc" class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true" title="Add Document"><img src="svgs/Plus.svg" width="25px" height="25px" /></button>
-                        <button @onclick="vm.ShowSaveModal" class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" title="Save Document"><img src="svgs/Save.svg" width="25px" height="25px" /></button>
-                        <button @onclick="deleteDoc" class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false" title="Delete Document"><img src="svgs/Delete1.svg" width="25px" height="25px" /></button>
-                        <button @onclick=" vm.ShowPublishModal" class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" title="Publish Document"><img src="svgs/Publish.svg" width="25px" height="25px" /></button>
-                        <button @onclick="vm.ShowDocAuthorModal" class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Author Document"><img src="svgs/Autor.svg" width="25px" height="25px" /></button>
-                        <button @onclick="vm.CloneDocument" class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Fork Document"><img src="svgs/Fork.svg" width="25px" height="25px" /></button>
-                        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Json View Hacker Mode"><img src="svgs/Jsonview1.svg" width="25px" height="25px" /></button>
+                        <button @onclick="vm.DisplayMenu" class="nav-link iconcard" type="button" role="tab" title="Outline"><img src="svgs/Menu.svg" width="25px" height="25px" /></button>
+                        <div class="spacer"></div>
+                        <button @onclick="@newDoc" class="nav-link iconcard" type="button" role="tab"  title="Add Document"><img src="svgs/Plus.svg" width="20px" height="20px" /></button>
+                        <button @onclick="vm.ShowSaveModal" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" title="Save Document"><img src="svgs/Save.svg" width="20px" height="20px" /></button>
+                        <button @onclick="deleteDoc" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false" title="Delete Document"><img src="svgs/Delete1.svg" width="20px" height="20px" /></button>
+                        <button @onclick=" vm.ShowPublishModal" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" title="Publish Document"><img src="svgs/PUBLISH ICON.svg" width="20px" height="20px" /></button>
+                        <button @onclick="vm.ShowDocAuthorModal" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Author Document"><img src="svgs/Autor icon.svg" width="20px" height="20px" /></button>
+                        <div class="spacer"></div>
+                        <button @onclick="vm.CloneDocument" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Fork Document"><img src="svgs/Fork.svg" width="20px" height="20px" /></button>
+                        <div class="spacer"></div>
+                        <button class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Json View Hacker Mode"><img src="svgs/Jsonview1.svg" width="30px" height="30px" /></button>
                     </div>
                 </div>
                 @if (vm.Project.DisplayMenu == true)
                 {
-                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2 mt-6 p-1 pl-1 ml-3 position-fixed" style="left: 6rem">
-                        <div class="card mt-3">
+                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2 p-1 pl-1 ml-3 position-fixed" style="left: 6rem">
+                        <div class="newcard">
                             <div class="card-body minH-400 maxH-400 overflow-auto positon-fixed" style="left: 6rem">
                                 @*@foreach (var project in vm.App.Portfolio.Projects)
                             {
@@ -308,13 +337,11 @@
                                         {
                                             <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis;" class="menuDocumentTitle">@document.Name</p>
                                         }
+                                        <hr />
                                     </div>
                                 }
 
-                                <div class=" mt-4">
-                                    <button @onclick="@newDoc" class="small" style="font-size:10px;">  <img src="svgs/Plus.svg" title="New Document" class="mr-2 smallIcon" />New Document </button>
-                                    <hr />
-                                </div>
+
 
                             </div>
                         </div>
@@ -327,33 +354,33 @@
             <div class="col-sm-12 col-md-9 col-lg-9 col-xl-10 mt-5 pl-6 ml-10">
                 <div class="row">
                     <div class="col-4 col-xl-3">
-                    @*@if (vm.Project.DisplayDocumentMenu == true)
-                    {
+                        @*@if (vm.Project.DisplayDocumentMenu == true)
+                        {
                         <div class="spacer">
 
-                            <div class="documentMenu mb-2">
-                                <a @onclick="deleteDoc"><img src="svgs/Delete.svg" title="Delete Document" class="m-1 smallIcon" /></a>
+                        <div class="documentMenu mb-2">
+                        <a @onclick="deleteDoc"><img src="svgs/Delete.svg" title="Delete Document" class="m-1 smallIcon" /></a>
 
-                                <a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
-                                <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
-                                <a @onclick="vm.ShowDocAuthorModal"><img src="/svgs/Arrow up.svg" title="Add Document Authors" class="m-1 smallIcon" /></a>
-                                @*                            <a @onclick="vm.orderElements"><img src="svgs/Elements .svg" title="Sort Elements" Class="smallIcon" /></a>
-                            
-                            </div>
+                        <a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
+                        <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
+                        <a @onclick="vm.ShowDocAuthorModal"><img src="/svgs/Arrow up.svg" title="Add Document Authors" class="m-1 smallIcon" /></a>
+                        @*                            <a @onclick="vm.orderElements"><img src="svgs/Elements .svg" title="Sort Elements" Class="smallIcon" /></a>
+
                         </div>
-                    }
-                    else
-                    {
+                        </div>
+                        }
+                        else
+                        {
                         <div class="spacer"></div>
 
-                    }*@
+                        }*@
 
                     </div>
                     <div class="col-8 col-xl-9">
-@*                        <div style="width:20px; float:left; margin-top:15px;">
-                            <a>
-                                <img src="svgs/3 dots.svg" title="Document Menu" class="dots " @onclick="vm.DocumentMenu" />
-                            </a>
+                        @*                        <div style="width:20px; float:left; margin-top:15px;">
+                        <a>
+                        <img src="svgs/3 dots.svg" title="Document Menu" class="dots " @onclick="vm.DocumentMenu" />
+                        </a>
                         </div>*@
 
                         <div style="width:90%; float:left;">
@@ -589,7 +616,7 @@
     string docAuthorString;
     private DotNetObjectReference<Alternativo>? objRef;
     string elementsC;
-
+    private string projectName;
     [Parameter]
     public string token { get; set; }
 
@@ -725,10 +752,45 @@
 
 
 
+        //        DtoProject.Documents.Add(newDoc);
+
+
+        //        LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
+
+        //        var newEle = new Element(newDoc, eleDto);
+
+        //        newDoc.Elements = new List<Element>();
+
+        //        newDoc.Elements.Add(newEle);
+
+        //    }
+
+        //    if(GUID == token)
+        //    {
+        //        vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
+                
+        //        if (vm.Project.Documents.Count() == 0)
+        //        {
+        //            vm.Project.AddDocument(vm.Project);
+        //        }
+
+
+        //        vm.Project.SelectedDocument = vm.Project.Documents.FirstOrDefault();
+
+
+        //        if (vm.Project.SelectedDocument.Content != "")
+        //        {
+        //            await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.SelectedDocument.Content);
+        //        }
+        //    }
+
+        //}
+
+
         StateHasChanged();
 
     }
-
+    private void HandleInputProjectName(ChangeEventArgs e) => projectName = e.Value.ToString();
     [JSInvokable]
     public async Task SaveStorage()
     {
@@ -781,6 +843,17 @@
         vm.BlocktoElement(content);
         Document document = vm.Project.Documents.Where(x => x.GUID == doc.GUID).FirstOrDefault();
         document.Content = content;
+        //await localStorage.SetItemAsync(doc.ProjectId, vm.Project.Documents);
+
+        await localStorage.SetItemAsync("Project-" + doc.ProjectId, vm.Project.ToLocalStorage());
+
+        await localStorage.SetItemAsync("Document-" + doc.GUID, doc.ToLocalStorage());
+
+        foreach(var ele in doc.Elements)
+        {
+            await localStorage.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
+        }
+
 
         PVm.UpdateProject(vm.Project);
         vm.Project.SelectedDocument = vm.Project.Documents.Where(x => x.GUID == vm.Project.SelectedDocument.GUID).FirstOrDefault();
@@ -803,7 +876,7 @@
 
         var localDoc = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + document.GUID);
 
-        if(localDoc.Content != null && localDoc.Content != "")
+        if (localDoc.Content != null && localDoc.Content != "")
         {
             await jsRuntime.InvokeVoidAsync("loadContent", objRef, localDoc.Content);
         }

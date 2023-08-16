@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <g id="auror_project_" data-name="auror project " transform="translate(-515 -54)">
+    <rect id="Rectangle_5150" data-name="Rectangle 5150" width="28" height="28" rx="4" transform="translate(515 54)"/>
+    <g id="Group_760" data-name="Group 760" transform="translate(522.364 59.857)">
+      <path id="Path_1067" data-name="Path 1067" d="M9,9.893A1.9,1.9,0,0,1,10.916,8h9.756a1.9,1.9,0,0,1,1.916,1.893v2.941H21.543V9.893a.866.866,0,0,0-.871-.86H10.916a.866.866,0,0,0-.871.86V22.971a.866.866,0,0,0,.871.86h9.756a.866.866,0,0,0,.871-.86V17.151l1.045-.36v6.179a1.9,1.9,0,0,1-1.916,1.893H10.916A1.9,1.9,0,0,1,9,22.971Z" transform="translate(-9 -8)" fill="#fff" fill-rule="evenodd"/>
+      <path id="Path_1068" data-name="Path 1068" d="M12.967,21.55a.519.519,0,0,1,.523-.516h4.878a.516.516,0,1,1,0,1.032H13.489A.519.519,0,0,1,12.967,21.55Z" transform="translate(-10.876 -14.165)" fill="#fff" fill-rule="evenodd"/>
+      <path id="Path_1069" data-name="Path 1069" d="M12.967,14.884a.519.519,0,0,1,.523-.516h6.283a.516.516,0,1,1,0,1.032H13.489A.519.519,0,0,1,12.967,14.884Z" transform="translate(-10.876 -11.012)" fill="#fff" fill-rule="evenodd"/>
+      <path id="Path_1070" data-name="Path 1070" d="M12.967,28.108a.519.519,0,0,1,.523-.516h2.787a.516.516,0,1,1,0,1.032H13.489A.519.519,0,0,1,12.967,28.108Z" transform="translate(-10.876 -17.267)" fill="#fff" fill-rule="evenodd"/>
+      <path id="Path_1071" data-name="Path 1071" d="M22.271,24.616a1.064,1.064,0,0,1-.2-1.487l4.923-6.464a1.912,1.912,0,0,1,2.69-.353,1.935,1.935,0,0,1,.363,2.7l-4.923,6.464a1.052,1.052,0,0,1-1.48.194Zm.625-.852a.019.019,0,0,0,0,.027l1.373,1.057a.019.019,0,0,0,.027,0l4.923-6.464a.89.89,0,0,0-.167-1.243.879.879,0,0,0-1.237.162Z" transform="translate(-15.081 -11.743)" fill="#fff" fill-rule="evenodd"/>
+      <path id="Path_1072" data-name="Path 1072" d="M21.527,30.129,24.5,32.416l-3.119,1.263a.27.27,0,0,1-.367-.294Z" transform="translate(-14.68 -18.468)" fill="#fff"/>
+    </g>
+  </g>
+</svg>
