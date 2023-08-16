@@ -722,59 +722,7 @@
             await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.SelectedDocument.Content);
         }
 
-        //foreach (var GUID in localPortfolio.projectsGUID)
-        //{
-        //    LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + GUID);
 
-        //    if(dto == null)
-        //    {
-        //        continue;
-        //    }
-
-        //    var DtoProject = new Project(PVm.Portfolio, dto);
-
-        //    PVm.Portfolio.Projects.Add(DtoProject);
-
-
-        //    foreach (var docGUID in dto.DocumentsGUID)
-        //    {
-        //        LocalDocumentDTO docDto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
-
-        //        var newDoc = new Document(DtoProject, docDto);
-
-        //        DtoProject.Documents.Add(newDoc);
-
-
-        //        LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
-
-        //        var newEle = new Element(newDoc, eleDto);
-
-        //        newDoc.Elements = new List<Element>();
-
-        //        newDoc.Elements.Add(newEle);
-
-        //    }
-
-        //    if(GUID == token)
-        //    {
-        //        vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
-                
-        //        if (vm.Project.Documents.Count() == 0)
-        //        {
-        //            vm.Project.AddDocument(vm.Project);
-        //        }
-
-
-        //        vm.Project.SelectedDocument = vm.Project.Documents.FirstOrDefault();
-
-
-        //        if (vm.Project.SelectedDocument.Content != "")
-        //        {
-        //            await jsRuntime.InvokeVoidAsync("loadContent", objRef, vm.Project.SelectedDocument.Content);
-        //        }
-        //    }
-
-        //}
 
 
         StateHasChanged();
@@ -835,14 +783,16 @@
         document.Content = content;
         //await localStorage.SetItemAsync(doc.ProjectId, vm.Project.Documents);
 
-        await localStorage.SetItemAsync("Project-" + doc.ProjectId, vm.Project.ToLocalStorage());
+        //await PVm.SaveLocalProject(vm.Project);
 
-        await localStorage.SetItemAsync("Document-" + doc.GUID, doc.ToLocalStorage());
+        //await localStorage.SetItemAsync("Project-" + doc.ProjectId, vm.Project.ToLocalStorage());
 
-        foreach(var ele in doc.Elements)
-        {
-            await localStorage.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
-        }
+        //await localStorage.SetItemAsync("Document-" + doc.GUID, doc.ToLocalStorage());
+
+        //foreach(var ele in doc.Elements)
+        //{
+        //    await localStorage.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
+        //}
 
 
         PVm.UpdateProject(vm.Project);
