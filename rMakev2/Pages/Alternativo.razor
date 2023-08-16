@@ -781,19 +781,6 @@
         vm.BlocktoElement(content);
         Document document = vm.Project.Documents.Where(x => x.GUID == doc.GUID).FirstOrDefault();
         document.Content = content;
-        //await localStorage.SetItemAsync(doc.ProjectId, vm.Project.Documents);
-
-        //await PVm.SaveLocalProject(vm.Project);
-
-        //await localStorage.SetItemAsync("Project-" + doc.ProjectId, vm.Project.ToLocalStorage());
-
-        //await localStorage.SetItemAsync("Document-" + doc.GUID, doc.ToLocalStorage());
-
-        //foreach(var ele in doc.Elements)
-        //{
-        //    await localStorage.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
-        //}
-
 
         PVm.UpdateProject(vm.Project);
         vm.Project.SelectedDocument = vm.Project.Documents.Where(x => x.GUID == vm.Project.SelectedDocument.GUID).FirstOrDefault();
@@ -838,10 +825,10 @@
     public async Task newDoc()
     {
         await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Project.SelectedDocument);
+        await jsRuntime.InvokeAsync<string>("ClearEditor");
 
         vm.NewDocumentMenu(vm.Project);
 
-        await jsRuntime.InvokeAsync<string>("ClearEditor");
     }
 
     public async Task deleteDoc()

@@ -191,12 +191,10 @@
         }
 
 
-        //Portfolio storagePortfolio = new Portfolio();
         LocalPortfolioDTO localPortfolio = new LocalPortfolioDTO();
 
         try
         {
-            //storagePortfolio = await localStorage.GetItemAsync<Portfolio>("portfolio");
 
             localPortfolio = await localStorage.GetItemAsync<LocalPortfolioDTO>("PortfolioLocal");
 
@@ -208,8 +206,6 @@
 
         PVm.Portfolio.FromLocalDTO(localPortfolio);
 
-        List<LocalProjectDTO> localProjects = new List<LocalProjectDTO>();
-
         foreach(var GUID in localPortfolio.projectsGUID)
         {
             LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + GUID);
@@ -217,26 +213,6 @@
             var DtoProject = new Project(PVm.Portfolio, dto);
 
             PVm.Portfolio.Projects.Add(DtoProject);
-
-            localProjects.Add(dto);
-
-            foreach(var docGUID in dto.DocumentsGUID)
-            {
-                LocalDocumentDTO docDto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
-
-                var newDoc = new Document(DtoProject, docDto);
-
-                DtoProject.Documents.Add(newDoc);
-
-                
-                LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
-
-                var newEle = new Element(newDoc, eleDto);
-
-                newDoc.Elements = new List<Element>();
-
-                newDoc.Elements.Add(newEle);
-            }
 
         }
 

@@ -247,6 +247,8 @@
                 draftBody.blocks = [{ type: "paragraph", data: {} }];
             }
 
+            editor.blocks.clear();
+
             editor.render(draftBody)
                 .then(() => {
                     dotNetRef.invokeMethodAsync('StateChange');
