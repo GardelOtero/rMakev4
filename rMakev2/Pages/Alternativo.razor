@@ -217,6 +217,27 @@
         width: 50px;
         height: 50px;
     }
+
+    .iconcardbig {
+        box-sizing: border-box;
+        /*padding: 50px 50px;*/
+        /*box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;*/
+        /*box-shadow: rgba(17, 17, 26, 0.25) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;*/ /*71*/
+        box-shadow: rgb(38, 57, 77, 0.5) 0px 1px 13px -3px;
+        border-radius: 5px;
+        font-weight: 500;
+        color: #342e37;
+        width: 50px;
+        height: 200px;
+    }
+
+    .hrstyle{
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        margin-left: 5px;
+        margin-right: 5px;
+        opacity: 0.2;
+    }
     .svgProject {
         opacity: 0.45;
     }
@@ -297,11 +318,17 @@
                     <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <button @onclick="vm.DisplayMenu" class="nav-link iconcard" type="button" role="tab" title="Outline"><img src="svgs/Menu.svg" width="25px" height="25px" /></button>
                         <div class="spacer"></div>
-                        <button @onclick="@newDoc" class="nav-link iconcard" type="button" role="tab"  title="Add Document"><img src="svgs/Plus.svg" width="20px" height="20px" /></button>
-                        <button @onclick="vm.ShowSaveModal" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" title="Save Document"><img src="svgs/Save.svg" width="20px" height="20px" /></button>
-                        <button @onclick="deleteDoc" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false" title="Delete Document"><img src="svgs/Delete1.svg" width="20px" height="20px" /></button>
-                        <button @onclick=" vm.ShowPublishModal" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" title="Publish Document"><img src="svgs/PUBLISH ICON.svg" width="20px" height="20px" /></button>
-                        <button @onclick="vm.ShowDocAuthorModal" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Author Document"><img src="svgs/Autor icon.svg" width="20px" height="20px" /></button>
+                        <div class="iconcardbig">
+                            <button @onclick="@newDoc" class="nav-link" type="button" role="tab" title="Add Document"><img src="svgs/Plus.svg" width="20px" height="20px" /></button>
+                            <hr class="hrstyle"/>
+                            <button @onclick="vm.ShowSaveModal" class="nav-link" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" title="Save Document"><img src="svgs/Save.svg" width="20px" height="20px" /></button>
+                            <hr class="hrstyle" />
+                            <button @onclick="deleteDoc" class="nav-link" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false" title="Delete Document"><img src="svgs/Delete1.svg" width="20px" height="20px" /></button>
+                            <hr class="hrstyle"/> 
+                            <button @onclick=" vm.ShowPublishModal" class="nav-link" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" title="Publish Document"><img src="svgs/PUBLISH ICON.svg" width="20px" height="20px" /></button>
+                            <hr class="hrstyle" />
+                            <button @onclick="vm.ShowDocAuthorModal" class="nav-link" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Author Document"><img src="svgs/Autor icon.svg" width="20px" height="20px" /></button>
+                        </div>
                         <div class="spacer"></div>
                         <button @onclick="vm.CloneDocument" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Fork Document"><img src="svgs/Fork.svg" width="20px" height="20px" /></button>
                         <div class="spacer"></div>
@@ -849,7 +876,7 @@
 
         await localStorage.SetItemAsync("Document-" + doc.GUID, doc.ToLocalStorage());
 
-        foreach(var ele in doc.Elements)
+        foreach (var ele in doc.Elements)
         {
             await localStorage.SetItemAsync("Element-" + ele.GUID, ele.ToLocalStorage());
         }
