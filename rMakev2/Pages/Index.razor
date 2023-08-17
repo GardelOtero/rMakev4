@@ -19,19 +19,18 @@
     .login-container {
         box-sizing: border-box;
         padding: 50px 50px;
-        max-width: 60%;
+        max-width: 100%;
         /*box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;*/
         /*box-shadow: rgba(17, 17, 26, 0.25) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;*/ /*71*/
         box-shadow: rgb(38, 57, 77, 0.5) 0px 1px 13px -3px;
         border-radius: 25px;
         font-weight: 500;
         color: #342e37;
-        width: 60%;
+        width: 62%;
     }
 
-    .btn-editor {
+    .option-btn {
         color: #342e37;
-        background-color: #F2EF25;
         border-color: none;
         border-radius: 8px;
         position: relative;
@@ -39,43 +38,29 @@
         transform: translateY(-58%);
         font-size: 14px;
         margin-top: 75%;
+        margin-left: 10px;
         transition: all 0.3s ease;
     }
-
-    .btn-portfolio {
-        color: #342e37;
-        background-color: #D85AD0;
-        border-color: none;
-        border-radius: 8px;
-        position: relative;
-        text-align: center;
-        transform: translateY(-58%);
-        font-size: 14px;
-        margin-top: 75%;
-        transition: all 0.3s ease;
-    }
-
-    .btn-load {
-        color: #342e37;
-        background-color: #394BF8;
-        border-color: none;
-        border-radius: 8px;
-        position: relative;
-        text-align: center;
-        transform: translateY(-58%);
-        font-size: 14px;
-        margin-top: 75%;
-        transition: all 0.3s ease;
-    }
-
-        .btn-editor:hover, .btn-portfolio:hover, .btn-load:hover {
+        .option-btn:hover {
             color: #fff;
         }
+
+    .yellow-btn {
+        background-color: #F2EF25;
+    }
+
+    .pink-btn {
+        background-color: #D85AD0;
+    }
+
+    .blue-btn {
+        background-color: #394BF8;
+    }
 
     .optionTitle {
         text-decoration: underline;
         font-weight: bold;
-        font-size: medium;
+        font-size: 15px;
         margin-bottom: 0px;
     }
 
@@ -96,6 +81,26 @@
         -ms-transform: rotate(90deg);
         -o-transform: rotate(90deg);
         transform: rotate(90deg);
+    }
+
+    .form-control-index {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: transparent;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,0.5);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        opacity: 0.5;
+        margin-bottom: 20px;
     }
     
 
@@ -145,7 +150,7 @@
                             <p class="optionDesc">Hit "Start writing and let your words flow"</p>
                         </div>
                         <div>
-                            <a @onclick="toEditor" class="btn btn-editor btn-lg">
+                            <a @onclick="toEditor" class="btn option-btn yellow-btn btn-lg">
                                 <img src="/svgs/Arrow up.svg" class="rotate_image" />
                             </a>
                         </div>
@@ -156,7 +161,7 @@
                             <p class="optionDesc">Create a new portfolio for your content</p>
                         </div>
                         <div>
-                            <a @onclick="newSession" class="btn btn-portfolio btn-lg">
+                            <a @onclick="newSession" class="btn option-btn pink-btn btn-lg">
                                 <img src="/svgs/Arrow up.svg" class="rotate_image" />
                             </a>
                         </div>
@@ -168,7 +173,7 @@
                                 <p class="optionDesc">Revisit your treasury of words</p>
                             </div>
                             <div>
-                                <a @onclick="navigate" class="btn btn-load btn-lg">
+                                <a @onclick="navigate" class="btn option-btn blue-btn btn-lg">
                                     <img src="/svgs/Arrow up.svg" class="rotate_image" />
                                 </a>
                             </div>
