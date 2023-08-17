@@ -7,6 +7,7 @@ using rMakev2.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Components;
 using rMakev2.Services.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace rMakev2.Services
 {
@@ -152,19 +153,23 @@ namespace rMakev2.Services
         {
             HttpClient hc = new HttpClient();
 
+            Regex guidRegEx = new Regex(@"^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$");
+
             string url = "https://rcontentman.azurewebsites.net/api/item/" + token;
             //string url = "https://localhost:7267/api/item/" + token;
+
             var response = await hc.GetAsync(url);
 
             var Portfolio = new Portfolio(portfolio.App, "codename-rebel-creator");
-            if (!response.IsSuccessStatusCode)
+
+            var resultContent = response.Content.ReadAsStringAsync().Result;
+            var loadedSaveProject = JsonConvert.DeserializeObject<SaveProjectDto>(resultContent);
+
+            if (!response.IsSuccessStatusCode || loadedSaveProject == null || !guidRegEx.IsMatch(token))
             {
                 _navigationManager.NavigateTo("/Error");
                 return Portfolio;
             }
-
-            var resultContent = response.Content.ReadAsStringAsync().Result;
-            var loadedSaveProject = JsonConvert.DeserializeObject<SaveProjectDto>(resultContent);
 
             var hola = loadedSaveProject;
 
