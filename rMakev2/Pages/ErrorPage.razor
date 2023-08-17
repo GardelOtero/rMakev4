@@ -5,15 +5,61 @@
 @inject NavigationManager NavigationManager
 @inject IToastService toastService
 
-<div>
+<style>
+    .error-section {
+        font-family: 'Open Sans', sans-serif;
+    }
 
-    <h5>Token not found</h5>
+    .error-number {
+        font-size: 12rem;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.4)
+    }
 
-</div>
-<div>
-    <Button Class="btn btn-lg btn-success" @onclick="navigate">Go back</Button>
+    .error-caption {
+        font-size: 1.2rem;
+    }
 
-</div>
+    .error-section img {
+        max-width: -webkit-fill-available;
+    }
+
+    .button-error {
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 20vw;
+        height: 6vh;
+        background-color: #C2E109;
+        color: #342E37;
+        font-weight: bold;
+        border: 2px solid #C2E109;
+        border-radius: 10px;
+        transition: all .2s ease-in-out;
+    }
+
+        .button-error:hover {
+            color: #342E37;
+            background-color: #fff;
+        }
+
+</style>
+
+<section class="error-section container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <p class="error-number">404</p>
+            <p class="error-caption"><strong>Oh no!</strong> It seems like the page you are searching for currently exploded. Don't worry we will fix it, in the meantime check out other amazing content.</p>
+            <a href="/" class="button-error">Go back home</a>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="grey-circle"></div>
+            <img src="/svgs/404 Robot con fondo.svg" />
+        </div>
+    </div>
+</section>
 
 
 
