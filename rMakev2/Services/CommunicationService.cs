@@ -130,8 +130,8 @@ namespace rMakev2.Services
 
             }
 
-            var client = new RestClient("https://localhost:7267/");
-            //var client = new RestClient("https://rcontentman.azurewebsites.net/");
+            //var client = new RestClient("https://localhost:7267/");
+            var client = new RestClient("https://rcontentman.azurewebsites.net/");
             var request = new RestRequest("api/item", Method.Post);
             request.AddHeader("Content-Type", "application/json");
             var options = new JsonSerializerOptions()
@@ -152,8 +152,8 @@ namespace rMakev2.Services
         {
             HttpClient hc = new HttpClient();
 
-            //string url = "https://rcontentman.azurewebsites.net/api/item/" + token;
-            string url = "https://localhost:7267/api/item/" + token;
+            string url = "https://rcontentman.azurewebsites.net/api/item/" + token;
+            //string url = "https://localhost:7267/api/item/" + token;
             var response = await hc.GetAsync(url);
 
             var Portfolio = new Portfolio(portfolio.App, "codename-rebel-creator");

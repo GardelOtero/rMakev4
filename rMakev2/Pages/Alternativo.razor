@@ -255,7 +255,7 @@
                         <a class="barItems" @onclick=" vm.ShowSaveModal"><img src="svgs/Save portafolio icon.svg" class="svgProject" title="Save Portfolio" width="30px" height="30px" /> </a>
                     </li>
                     <li class="nav-item iconcard ml-1">
-                        <a class="barItems" @onclick=" vm.ShowPublishModal"><img src="svgs/Back icon.svg" class="svgProject" title="Return to Portfolio" width="30px" height="30px" /> </a>
+                        <a class="barItems" @onclick="backToProjects"><img src="svgs/Back icon.svg" class="svgProject" title="Return to Portfolio" width="30px" height="30px" /> </a>
                     </li>
                     <li class="nav-item iconcard ml-1">
                         <a class="barItems" @onclick="vm.ShowAuthorModal"><img src="/svgs/autor project.svg" class="svgProject" title="Author Project" width="30px" height="30px" /> </a>
@@ -768,7 +768,7 @@
         //    if(GUID == token)
         //    {
         //        vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
-                
+
         //        if (vm.Project.Documents.Count() == 0)
         //        {
         //            vm.Project.AddDocument(vm.Project);
@@ -957,6 +957,11 @@
     public async Task StateChange()
     {
         StateHasChanged();
+    }
+
+    public void backToProjects()
+    {
+        NavigationManager.NavigateTo("/projects");
     }
 
 
