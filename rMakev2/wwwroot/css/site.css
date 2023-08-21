@@ -13,6 +13,12 @@ a, .btn-link {
 }
 
 /*font SIZE inicio*/
+@font-face {
+    font-family: "OpenSauceOne-Medium";
+    src: url("~/fonts/OpenSauceOne-Medium.ttf");
+}
+
+
 .content {
     padding-top: 1.1rem;
 }
