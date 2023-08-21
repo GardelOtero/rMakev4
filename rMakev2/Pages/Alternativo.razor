@@ -11,6 +11,7 @@
 @using MudBlazor;
 @using rMakev2.Models;
 @using rMakev2.DTOs;
+@using Blazored.Toast.Configuration;
 <PageTitle>rMake</PageTitle>
 
 <style type="text/css">
@@ -670,6 +671,19 @@
     </ModalContent>
 </Modal>
 
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="10000"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                WarningClass="warning-toast-override"
+                WarningIcon="fa fa-thumbs-up"
+                ErrorClass="error-toast-override"
+                ErrorIcon="fa fa-bug"
+                InfoClass="info-toast-override"
+                InfoIcon="fa fa-bug"
+                ShowProgressBar="true"
+                />
 @*<Modal @ref="vm.App.Ui.MergeModal" class="half-modal fade">
     <ModalContent Centered="true">
         <ModalBody>
