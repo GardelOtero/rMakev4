@@ -12,6 +12,10 @@ a, .btn-link {
     color: #fff;
 }
 
+img, svg {
+    font-family: "open sauce one", Arial, sans-serif !important;
+}
+
 /*font SIZE inicio*/
 @font-face {
     font-family: "OpenSauceOne-Medium";
