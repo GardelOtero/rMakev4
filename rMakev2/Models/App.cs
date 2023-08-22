@@ -20,6 +20,7 @@ namespace rMakev2.Models
         public Modal? MergeModal { get; set; }
         public Modal? AuthorModal { get; set; }
         public Modal? DocAuthorModal { get; set; }
+        public Modal? DeleteModal { get; set; }
 
         static string HashString(string text, string salt = "")
         {

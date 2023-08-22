@@ -277,6 +277,15 @@
         font-family: 'Open Sauce Sans', sans-serif;
         font-family: "OpenSauce"
     } 
+
+    .modalAcceptButton {
+        background-color: #5c78ff;
+
+    }
+
+    .modalCancelButton {
+        border: solid 1px gray;
+    }
 </style>
 <div class="container-fluid">
     <header>
@@ -355,7 +364,7 @@
                             <hr class="hrstyle" />
                             <button @onclick="vm.ShowSaveModal" class="nav-link" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" title="Save Document"><img src="svgs/Save.svg" width="20px" height="20px" /></button>
                             <hr class="hrstyle" />
-                            <button @onclick="deleteDoc" class="nav-link" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="true" title="Delete Document"><img src="svgs/Delete1.svg" width="20px" height="20px" /></button>
+                            <button @onclick="vm.ShowDeleteModal" class="nav-link" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="true" title="Delete Document"><img src="svgs/Delete1.svg" width="20px" height="20px" /></button>
                             <hr class="hrstyle" />
                             <button @onclick=" vm.ShowPublishModal" class="nav-link" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" title="Publish Document"><img src="svgs/PUBLISH ICON.svg" width="20px" height="20px" /></button>
                             <hr class="hrstyle" />
@@ -517,42 +526,32 @@
             <div class="close-button" @onclick="vm.HideSaveModal">
                 <Icon Name="IconName.Times"></Icon>
             </div>
-            <div class="h-100 p-4">
-                <div class="w-100 h-50">
-                    <h2>Choose your server</h2>
-                    <p>Save your token to retrive your content</p>
-                    <h5> @PVm.Portfolio.GUID</h5>
-                    <Button @onclick="@(() => clipboard(PVm.Portfolio.GUID))">Copy Hash</Button>
-                    <div class="form-check p-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            rMake@Rebel-server
-                        </label>
-                    </div>
-                    <button @onclick="NewSave" class="btn btn-success"><Icon Name="IconName.Lightbulb" /> Save</button>
-                </div>
-            </div>
-        </ModalBody>
-    </ModalContent>
-</Modal>
+            <div class="h-100 p-5">
+                <div class="w-100 h-50 d-flex flex-column align-items-center">
+                    <h2>Save to portfolio</h2>
 
-@*<Modal @ref="vm.App.Ui.LoadModal" class="half-modal fade">
-    <ModalContent Centered="true">
-        <ModalBody>
-            <div class="close-button" @onclick="vm.HideLoadModal">
-                <Icon Name="IconName.Times"></Icon>
-            </div>
-            <div class="h-100 p-4">
-                <div class="w-100 h-50">
-                    <h2>Load project</h2>
-                    <input Id="token" @bind="tokenstring" class="form-control-index small" placeholder="example: 24256aG-A90n56D3-a722" autofocus />
-                    <button @onclick="navigate" class="btn btn-success"><Icon Name="IconName.Lightbulb" /> Load</button>
+                    <p>
+                        Your project will bee saved to your portfolio, 
+                        here is your access token to that portfolio
+                    </p>
+                    
+                    <p style="border: solid 1px gray; border-radius: 5px;" class="p-2"> @PVm.Portfolio.GUID</p>
+                    
+                    <div class="d-flex align-items-start w-100 ">
+                        <button  @onclick="@(() => clipboard(PVm.Portfolio.GUID))" class="text-decoration-underline">Copy Hash</button>
+                    </div>
+
+
+                    <div class="d-flex justify-content-between w-100 mt-5">
+                        <button @onclick="NewSave" class="btn modalAcceptButton">Save</button>
+                        <button @onclick="vm.HideSaveModal" class="btn modalCancelButton"> Cancel</button>
+                    </div>
+                    
                 </div>
             </div>
         </ModalBody>
     </ModalContent>
 </Modal>
-*@
 
 <Modal @ref="vm.App.AuthorModal" class="half-modal fade">
     <ModalContent Centered="true">
@@ -560,21 +559,40 @@
             <div class="close-button" @onclick="vm.HideAuthorModal">
                 <Icon Name="IconName.Times"></Icon>
             </div>
-            <div class="h-100 p-4">
-                <div class="w-100 h-50">
+            <div class="h-100 p-3">
+                <div class="w-100 h-50 d-flex flex-column align-items-center">
                     <h2>Add Project Author</h2>
-                    <input Id="authorInput" @bind="authorString" class="form-control-index small" placeholder="Author Name" autofocus />
-                    <button @onclick="async () => {vm.Project.AddAuthor(authorString); authorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn btn-success"><Icon Name="IconName.Lightbulb" /> Add</button>
+
+                    <p>
+                        Enter the name of this author to add to this project
+                    </p>
+
+                    <input Id="authorInput" @bind="authorString" class="form-control-index small" placeholder="Author's Name" autofocus />
+                    
+                    <div class="w-100 d-flex align-items-start">
+                        <button @onclick="async () => {vm.Project.AddAuthor(authorString); authorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn modalAcceptButton"> Add</button>
+                    </div>
                 </div>
             </div>
+
+            <hr class="hrstyle" />
+
             @if (vm.Project.Authors.Count() > 0)
             {
-                <div class="h-100 p-4">
-                    <div class="w-100 h-50">
-                        <h2>Current Authors</h2>
+                <div class="h-100 p-4 d-flex flex-column align-items-center">
+                    <h4>Authors already added</h4>
+                    <div class="w-75 h-50 d-flex flex-column align-items-center">
                         @foreach (var author in vm.Project.Authors)
                         {
-                            <p>@author <button @onclick="() => vm.Project.RemoveAuthor(author)" class="btn btn-danger" style="margin-left: 50%;">Delete</button></p>
+                            <div class="d-flex flex-col justify-content-between align-content-center w-100 p-1">
+                                <span style="vertical-align: middle; margin-bottom: 0; line-height: normal;">
+                                   @author 
+                                </span>
+                                
+                                <button @onclick="() => vm.Project.RemoveAuthor(author)" class="btn p-0">
+                                    <img src="/svgs/Delete1.svg" alt="Delete" height="15"/>
+                                </button>
+                            </div>
                         }
                     </div>
                 </div>
@@ -582,8 +600,8 @@
             else
             {
                 <div class="h-100 p-4">
-                    <div class="w-100 h-50">
-                        <h2>There are no authors</h2>
+                    <div class="w-100 h-50 d-flex align-items-center">
+                        <h2 class="text-center">There are no authors</h2>
                     </div>
                 </div>
             }
@@ -594,24 +612,40 @@
 <Modal @ref="vm.App.DocAuthorModal" class="half-modal fade">
     <ModalContent Centered="true">
         <ModalBody>
-            <div class="close-button" @onclick="vm.HideDocAuthorModal">
-                <Icon Name="IconName.Times"></Icon>
-            </div>
-            <div class="h-100 p-4">
-                <div class="w-100 h-50">
+            <div class="h-100 p-3">
+                <div class="w-100 h-50 d-flex flex-column align-items-center">
                     <h2>Add Document Author</h2>
-                    <input Id="docAuthorInput" @bind="docAuthorString" class="form-control-index small" placeholder="Author Name" autofocus />
-                    <button @onclick="async () => {vm.Project.SelectedDocument.AddAuthor(docAuthorString); docAuthorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn btn-success"><Icon Name="IconName.Lightbulb" /> Add</button>
+
+                    <p>
+                        Enter the name of this author to add to this document
+                    </p>
+
+                    <input Id="authorInput" @bind="authorString" class="form-control-index small" placeholder="Author's Name" autofocus />
+
+                    <div class="w-100 d-flex align-items-start">
+                        <button @onclick="async () => {vm.Project.AddAuthor(authorString); authorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn modalAcceptButton"> Add</button>
+                    </div>
                 </div>
             </div>
-            @if (vm.Project.SelectedDocument.Authors.Count() > 0)
+
+            <hr class="hrstyle" />
+
+            @if (vm.Project.Authors.Count() > 0)
             {
-                <div class="h-100 p-4">
-                    <div class="w-100 h-50">
-                        <h2>Current Authors</h2>
-                        @foreach (var author in vm.Project.SelectedDocument.Authors)
+                <div class="h-100 p-4 d-flex flex-column align-items-center">
+                    <h4>Authors already added</h4>
+                    <div class="w-75 h-50 d-flex flex-column align-items-center">
+                        @foreach (var author in vm.Project.Authors)
                         {
-                            <p>@author <button @onclick="() => vm.Project.SelectedDocument.RemoveAuthor(author)" class="btn btn-danger" style="margin-left: 50%;">Delete</button></p>
+                            <div class="d-flex flex-col justify-content-between align-content-center w-100 p-1">
+                                <span style="vertical-align: middle; margin-bottom: 0; line-height: normal;">
+                                    @author
+                                </span>
+
+                                <button @onclick="() => vm.Project.RemoveAuthor(author)" class="btn p-0">
+                                    <img src="/svgs/Delete1.svg" alt="Delete" height="15" />
+                                </button>
+                            </div>
                         }
                     </div>
                 </div>
@@ -619,8 +653,8 @@
             else
             {
                 <div class="h-100 p-4">
-                    <div class="w-100 h-50">
-                        <h2>There are no authors</h2>
+                    <div class="w-100 h-50 d-flex align-items-center">
+                        <h2 class="text-center">There are no authors</h2>
                     </div>
                 </div>
             }
@@ -670,22 +704,38 @@
     </ModalContent>
 </Modal>
 
-@*<Modal @ref="vm.App.Ui.MergeModal" class="half-modal fade">
+<Modal @ref="vm.App.DeleteModal" class="half-modal fade">
     <ModalContent Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideSaveModal">
                 <Icon Name="IconName.Times"></Icon>
             </div>
-            <div class="h-100 p-4">
-                <div class="w-100 h-50">
-                    <h2>Choose Documents to Merge</h2>
-                    <p>How it works...</p>
+            <div class="h-100 p-5">
+                <div class="w-100 h-50 d-flex flex-column align-items-center">
+
+                    <div class="p-4 mb-3" >
+                        <img src="/svgs/Delete1.svg" alt="Delete" height="50"/>
+                    </div>
+
+                    <h2>Delete document</h2>
+
+                    <p>
+                        Your about to delete this document, are you sure?
+                    </p>
+
+                    
+                    <div class="d-flex justify-content-between w-100 mt-5">
+                        <button @onclick="async () => {await deleteDoc(); vm.HideDeleteModal();}" class="btn modalAcceptButton">Delete</button>
+                        <button @onclick="vm.HideSaveModal" class="btn modalCancelButton">Cancel</button>
+                    </div>
+
                 </div>
             </div>
         </ModalBody>
     </ModalContent>
 </Modal>
-*@
+
+
 @code {
     string tokenstring;
     string authorString;
