@@ -97,8 +97,9 @@ namespace rMakev2.Models
 
 
         public bool BlockRTAFocus { get; set; } = true;
-
+        [JsonIgnore]
         private Document selectedDocument;
+        [JsonIgnore]
         public Document SelectedDocument
         
         {
@@ -206,7 +207,7 @@ namespace rMakev2.Models
                 ReferenceHandler = ReferenceHandler.IgnoreCycles,
                 WriteIndented = true
             };
-            Json = JsonSerializer.Serialize(Portfolio.Projects, options);
+            Json = JsonSerializer.Serialize(this, options);
             return Json;
         }
 

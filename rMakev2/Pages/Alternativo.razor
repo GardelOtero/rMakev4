@@ -390,7 +390,7 @@
                         
                         <div class="spacer"></div>
                         
-                        <button class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Json View" style="font-size: 20px; padding: 2px;">{ i }</button>
+                        <button @onclick="vm.Project.SwitchDisplayJson" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Json View" style="font-size: 20px; padding: 2px; color: black!important;">{ i }</button>
                     </div>
                 </div>
                 @if (vm.Project.DisplayMenu == true)
@@ -524,13 +524,13 @@
                     </div>
                 </div>
             </div>
-            @*
+            
 
             <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Project.DisplayJson? "d-block" : "d-none" )">
             <textarea readonly style="color:#0f0; width:100%; margin:auto; font-size:10px; background-color:#000; border-radius:0px; height:100%; text-align:left;">
             @vm.Project.JsonFn();
             </textarea>
-            </div>*@
+            </div>
 
         </div>
     </section>
