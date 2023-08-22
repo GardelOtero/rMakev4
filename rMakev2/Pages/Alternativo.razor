@@ -643,26 +643,26 @@
                     <input Id="authorInput" @bind="authorString" class="form-control-index small" placeholder="Author's Name" autofocus />
 
                     <div class="w-100 d-flex align-items-start">
-                        <button @onclick="async () => {vm.Project.AddAuthor(authorString); authorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn modalAcceptButton"> Add</button>
+                        <button @onclick="async () => {vm.Project.SelectedDocument.AddAuthor(authorString); authorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn modalAcceptButton"> Add</button>
                     </div>
                 </div>
             </div>
 
             <hr class="hrstyle" />
 
-            @if (vm.Project.Authors.Count() > 0)
+            @if (vm.Project.SelectedDocument.Authors.Count() > 0)
             {
                 <div class="h-100 p-4 d-flex flex-column align-items-center">
                     <h4>Authors already added</h4>
                     <div class="w-75 h-50 d-flex flex-column align-items-center">
-                        @foreach (var author in vm.Project.Authors)
+                        @foreach (var author in vm.Project.SelectedDocument.Authors)
                         {
                             <div class="d-flex flex-col justify-content-between align-content-center w-100 p-1">
                                 <span style="vertical-align: middle; margin-bottom: 0; line-height: normal;">
                                     @author
                                 </span>
 
-                                <button @onclick="() => vm.Project.RemoveAuthor(author)" class="btn p-0">
+                                <button @onclick="() => vm.Project.SelectedDocument.RemoveAuthor(author)" class="btn p-0">
                                     <img src="/svgs/Delete1.svg" alt="Delete" height="15" />
                                 </button>
                             </div>
@@ -727,7 +727,7 @@
 <Modal @ref="vm.App.DeleteModal" class="half-modal fade">
     <ModalContent Centered="true">
         <ModalBody>
-            <div class="close-button" @onclick="vm.HideSaveModal">
+            <div class="close-button" @onclick="vm.HideDeleteModal">
                 <Icon Name="IconName.Times"></Icon>
             </div>
             <div class="h-100 p-5">
@@ -746,7 +746,7 @@
                     
                     <div class="d-flex justify-content-between w-100 mt-5">
                         <button @onclick="async () => {await deleteDoc(); vm.HideDeleteModal();}" class="btn modalAcceptButton">Delete</button>
-                        <button @onclick="vm.HideSaveModal" class="btn modalCancelButton">Cancel</button>
+                        <button @onclick="vm.HideDeleteModal" class="btn modalCancelButton">Cancel</button>
                     </div>
 
                 </div>
