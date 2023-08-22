@@ -92,7 +92,7 @@ namespace rMakev2.ViewModel
                 Thread.Sleep(300000);
                 //HashMyContent();
                 _communicationService.SaveAsync(App.Portfolio).Wait();
-                this._toastService.ShowSuccess("Project Auto Saved");
+                this._toastService.ShowSuccess("Portfolio Auto Saved");
             }
         }
 
@@ -181,19 +181,19 @@ namespace rMakev2.ViewModel
 
         public void CloneDocument()
         {
-            this._toastService.ShowSuccess("Document cloned");
+            this._toastService.ShowSuccess("Your document has been cloned to a new one");
             SelectDocument(Project.CloneDocument(Project.SelectedDocument));
         }
         public void NewDocument()
         {
             project.AddDocument(project);
-            this._toastService.ShowSuccess("New document created");
+            this._toastService.ShowSuccess("You created a new document");
         }
 
         public void NewDocumentMenu(Project project)
         {
             SelectDocument(project.AddDocument(project));
-            this._toastService.ShowSuccess("New document created");
+            this._toastService.ShowSuccess("You created a new document");
         }
 
         public void UpdateDocumentMenu(Document document)
@@ -249,7 +249,7 @@ namespace rMakev2.ViewModel
         public async Task PublishContentAsync()
         {
             await _communicationService.PublishAsync(Project);
-            this._toastService.ShowSuccess("Project Publish");
+            this._toastService.ShowSuccess("Your Project has been Published");
         }
 
         public void DisplayMenu()

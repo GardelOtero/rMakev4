@@ -4,6 +4,7 @@
 @using Microsoft.JSInterop;
 @inject RmakeViewModel vm;
 @inject ProjectViewModel PVm;
+@inject IToastService toastservice;
 @inject IJSRuntime jsRuntime;
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
@@ -755,19 +756,6 @@
     </ModalContent>
 </Modal>
 
-<BlazoredToasts Position="ToastPosition.TopRight"
-                Timeout="10000"
-                IconType="IconType.FontAwesome"
-                SuccessClass="success-toast-override"
-                SuccessIcon="fa fa-thumbs-up"
-                WarningClass="warning-toast-override"
-                WarningIcon="fa fa-thumbs-up"
-                ErrorClass="error-toast-override"
-                ErrorIcon="fa fa-bug"
-                InfoClass="info-toast-override"
-                InfoIcon="fa fa-bug"
-                ShowProgressBar="true"
-                />
 
 @code {
     string tokenstring;
@@ -1067,13 +1055,13 @@
     {
         vm.Project.RemoveDocument(vm.Project.SelectedDocument);
 
+
         if (vm.Project.Documents.Count() <= 0)
         {
             vm.Project.AddDocument(vm.Project);
 
             vm.SelectDocument(vm.Project.Documents.First());
 
-            await jsRuntime.InvokeAsync<string>("ClearEditor");
 
         }
         else
@@ -1083,7 +1071,7 @@
             await SetDocumentContent(vm.Project.SelectedDocument);
 
         }
-
+        toastservice.ShowSuccess("Your document has been deleted");
     }
 
 
