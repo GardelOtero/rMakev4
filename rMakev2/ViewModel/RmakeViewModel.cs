@@ -91,8 +91,8 @@ namespace rMakev2.ViewModel
 
                 Thread.Sleep(300000);
                 //HashMyContent();
-                //_communicationService.SaveAsync(App).Wait();
-                //this._toastService.ShowSuccess("Project Auto Saved");
+                _communicationService.SaveAsync(App.Portfolio).Wait();
+                this._toastService.ShowSuccess("Project Auto Saved");
             }
         }
 
@@ -173,6 +173,7 @@ namespace rMakev2.ViewModel
         public void SelectDocument(Document document)
         {
             Project.SelectDocuments(document);
+            
 
         }
 
@@ -192,6 +193,7 @@ namespace rMakev2.ViewModel
         public void NewDocumentMenu(Project project)
         {
             SelectDocument(project.AddDocument(project));
+            this._toastService.ShowSuccess("New document created");
         }
 
         public void UpdateDocumentMenu(Document document)
@@ -213,6 +215,8 @@ namespace rMakev2.ViewModel
                 NewDocument();
             }
 
+            this._toastService.ShowSuccess("Document Deleted");
+
         }
 
         public void DeleteDocumentMenu(Document document)
@@ -224,6 +228,7 @@ namespace rMakev2.ViewModel
             {
 
                 project.RemoveDocument(document);
+                this._toastService.ShowSuccess("Document Deleted");
 
                 if (document == Project.SelectedDocument)
                 {
@@ -234,9 +239,10 @@ namespace rMakev2.ViewModel
             else if (project.Documents.Count() == 1)
             {
                 project.RemoveDocument(document);
+                this._toastService.ShowSuccess("Document Deleted");
                 NewDocumentMenu(project);
             }
-
+            
         }
 
 
@@ -317,6 +323,7 @@ namespace rMakev2.ViewModel
             string newContent = JsonSerializer.Serialize(content, options);
 
             return newContent;
+            
         }
 
         public void ElementstoCSharp()
@@ -398,11 +405,6 @@ namespace rMakev2.ViewModel
         private void OnPropertyChanged()
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
-        }
-
-        public void SuccessNotification(string message)
-        {
-            this._toastService.ShowSuccess(message);
         }
 
     }

@@ -74,6 +74,7 @@ namespace rMakev2.ViewModel
             await SaveLocalProject(Portfolio.AddProject());
 
             await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
+            this._toastService.ShowSuccess("New Project Created"); 
             //await OnPropertyChanged();
 
         }
@@ -126,6 +127,9 @@ namespace rMakev2.ViewModel
 
             await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
 
+            this._toastService.ShowSuccess("Project Deleted");
+
+
 
         }
 
@@ -134,6 +138,9 @@ namespace rMakev2.ViewModel
             await SaveLocalProject(Portfolio.ForkProject(project));
 
             await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
+
+            this._toastService.ShowSuccess("New Project Forked");
+
 
         }
 
@@ -161,13 +168,14 @@ namespace rMakev2.ViewModel
         {
             portfolio = await _communicationService.LoadAsync(token, Portfolio);
             await OnPropertyChanged();
+            this._toastService.ShowInfo("Welcome Back!");
         }
 
         public async Task SaveContentAsync()
         {
             // HashMyContent();
             await _communicationService.SaveAsync(Portfolio);
-            this._toastService.ShowSuccess("Project Saved");
+            this._toastService.ShowSuccess("Portfolio Saved");
         }
 
 
