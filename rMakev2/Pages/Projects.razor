@@ -160,12 +160,12 @@
 </div>
 
 <Modal @ref="vm.App.DeleteProjectModal" class="half-modal fade">
-    <ModalContent Centered="true">
+    <ModalContent Style="border-radius: 32px" Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideDeleteProjectModal">
-                <Icon Name="IconName.Times"></Icon>
+                <Icon Style="margin:20px" Name="IconName.Times"></Icon>
             </div>
-            <div class="h-100 p-5">
+            <div class="pt-2 pb-4 pl-10 pr-10">
                 <div class="w-100 h-50 d-flex flex-column align-items-center">
 
                     <div class="p-4 mb-3">
@@ -174,14 +174,14 @@
 
                     <h2>Delete project</h2>
 
-                    <p>
+                    <p class="align-items-center" style="font-size:15px; margin-top: 0rem; margin-bottom: 1rem; padding-left: 25px; padding-right: 20px;">
                         Your about to delete this project, are you sure?
                     </p>
 
 
-                    <div class="d-flex justify-content-between w-100 mt-5">
-                        <button @onclick="async () => {await PVm.DeleteProject(selected); vm.HideDeleteProjectModal();}" class="btn modalAcceptButton">Delete</button>
-                        <button @onclick="vm.HideDeleteProjectModal" class="btn modalCancelButton">Cancel</button>
+                    <div class="d-flex justify-content-around w-100 mt-5">
+                        <button @onclick="async () => {await PVm.DeleteProject(selected); vm.HideDeleteProjectModal();}" class="btn modalAcceptButton" style="padding: .375rem 1.5rem;">Delete</button>
+                        <button @onclick="vm.HideDeleteProjectModal" class="btn modalCancelButton" style="padding: .375rem 1.5rem; margin-left:32px">Cancel</button>
                     </div>
 
                 </div>
@@ -189,6 +189,7 @@
         </ModalBody>
     </ModalContent>
 </Modal>
+
 
 @code {
     [Parameter]

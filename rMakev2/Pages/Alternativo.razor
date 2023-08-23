@@ -24,7 +24,6 @@
         backdrop-filter: blur(5px);
         padding-right: 15px;
         z-index: 3;
-        border-bottom: 1px solid #f3f3f3;
         min-height: 75px;
     }
 
@@ -214,8 +213,8 @@
         /*padding: 50px 50px;*/
         /*box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;*/
         /*box-shadow: rgba(17, 17, 26, 0.25) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;*/ /*71*/
-        box-shadow: rgb(38, 57, 77, 0.5) 0px 1px 13px -3px;
-        border-radius: 5px;
+        box-shadow: rgb(38, 57, 77, 0.15) 0px 1px 13px -3px;
+        border-radius: 8px;
         font-weight: 500;
         color: black;
         width: 50px;
@@ -232,8 +231,8 @@
         /*padding: 50px 50px;*/
         /*box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;*/
         /*box-shadow: rgba(17, 17, 26, 0.25) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;*/ /*71*/
-        box-shadow: rgb(38, 57, 77, 0.5) 0px 1px 13px -3px;
-        border-radius: 5px;
+        box-shadow: rgb(38, 57, 77, 0.2) 0px 1px 13px -3px;
+        border-radius: 4px;
         font-weight: 500;
         color: black;
         width: 50px;
@@ -246,7 +245,7 @@
         margin-bottom: 6px;
         margin-left: 5px;
         margin-right: 5px;
-        opacity: 0.2;
+        opacity: 0.05;
     }
 
     .hrstylemenu {
@@ -254,7 +253,7 @@
         margin-bottom: 1rem;
         margin-left: 3px;
         margin-right: 3px;
-        opacity: 0.2;
+        opacity: 0.05;
     }
 
     .svgProject {
@@ -317,7 +316,7 @@
                 </div>*@
                 <ul class="navbar mr-auto">
                     <li class="nav-item" style="width: 500px">
-                        <input @bind="@vm.Project.Name" @bind:event="oninput" @onchange="() => PVm.SaveLocalProject(vm.Project)" class="form-control-plaintext text-left" style=" font-size:20px; margin-left:10px; margin-right:10px; margin-top: 5px; width:90%;"> <strong>@vm.Project.Name</strong></input>
+                        <input @bind="@vm.Project.Name" @bind:event="oninput" @onchange="() => PVm.SaveLocalProject(vm.Project)" class="form-control-plaintext text-left" style=" font-size:20px; margin-left:10px; margin-right:10px; margin-top: 5px; width:90%; color:#000" placeholder="Untitled Project"> <strong>@vm.Project.Name</strong></input>
                     </li>
                 </ul>
             </div>
@@ -419,11 +418,11 @@
                                         <div class="col-12">
                                             @if (document.Name == "")
                                             {
-                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; background-color:rgb(216,90,208,0.5); padding:4px; border-radius:4px;" class="menuDocumentTitle">Untitled</p>
+                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; background-color:rgb(216,90,208,0.5); padding:8px 8px 8px 20px; border-radius:8px;" class="menuDocumentTitle">Untitled</p>
                                             }
                                             else
                                             {
-                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; background-color:rgb(216,90,208,0.5); padding:4px; border-radius:4px;" class="menuDocumentTitle">@document.Name</p>
+                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; background-color:rgb(216,90,208,0.5); padding:8px 8px 8px 20px; border-radius:8px;" class="menuDocumentTitle">@document.Name</p>
                                             }
                                             <hr class="hrstylemenu" />
                                         </div>
@@ -433,11 +432,11 @@
                                         <div class="col-12">
                                             @if (document.Name == "")
                                             {
-                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; padding:4px;" class="menuDocumentTitle">Untitled</p>
+                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; padding:8px 8px 8px 20px;" class="menuDocumentTitle">Untitled</p>
                                             }
                                             else
                                             {
-                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; padding:4px;" class="menuDocumentTitle">@document.Name</p>
+                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; padding:8px 8px 8px 20px;" class="menuDocumentTitle">@document.Name</p>
                                             }
                                             <hr class="hrstylemenu" />
                                         </div>
@@ -539,28 +538,28 @@
 
 
 <Modal @ref="vm.App.SaveModal" class="half-modal fade">
-    <ModalContent Centered="true">
+    <ModalContent Style="border-radius: 32px" Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideSaveModal">
-                <Icon Name="IconName.Times"></Icon>
+                <Icon Style="margin:20px" Name="IconName.Times"></Icon>
             </div>
-            <div class="h-100 p-5">
+            <div class="pt-2 pb-4 pl-10 pr-10">
                 <div class="w-100 h-50 d-flex flex-column align-items-center">
                     <h2>Save to portfolio</h2>
 
-                    <p>
+                    <p style="font-size:15px; margin-top: 1rem; margin-bottom: 2rem; padding-left: 40px; padding-right:25px;">
                         Your project will bee saved to your portfolio, 
-                        here is your access token to that portfolio
+                        here is your access hash
                     </p>
                     
-                    <p style="border: solid 1px gray; border-radius: 5px;" class="p-2"> @PVm.Portfolio.GUID</p>
+                    <p style="border: solid 1px rgb(226, 226, 226, 1); border-radius: 8px; color:#000; font-weight:500;" class="p-2"> @PVm.Portfolio.GUID</p>
                     
                     <div class="d-flex align-items-start w-100 ">
-                        <button  @onclick="@(() => clipboard(PVm.Portfolio.GUID))" class="text-decoration-underline copy-btn">Copy Hash</button>
+                        <button  @onclick="@(() => clipboard(PVm.Portfolio.GUID))" class="text-decoration-underline copy-btn" style="margin-left:24px;">Copy Hash</button>
                     </div>
 
 
-                    <div class="d-flex justify-content-between w-100 mt-5">
+                    <div class="d-flex justify-content-around w-100 mt-5">
                         <button @onclick="NewSave" class="btn modalAcceptButton">Save</button>
                         <button @onclick="vm.HideSaveModal" class="btn modalCancelButton"> Cancel</button>
                     </div>
@@ -572,41 +571,41 @@
 </Modal>
 
 <Modal @ref="vm.App.AuthorModal" class="half-modal fade">
-    <ModalContent Centered="true">
+    <ModalContent Style="border-radius: 32px" Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideAuthorModal">
-                <Icon Name="IconName.Times"></Icon>
+                <Icon Style="margin:20px" Name="IconName.Times"></Icon>
             </div>
             <div class="h-100 p-3">
                 <div class="w-100 h-50 d-flex flex-column align-items-center">
-                    <h2>Add Project Author</h2>
+                    <h4>Add Project Author</h4>
 
-                    <p>
+                    <p style="font-size:15px; margin-top: 0rem; margin-bottom: 1rem; padding-left: 60px; padding-right: 60px;">
                         Enter the name of this author to add to this project
                     </p>
 
-                    <input Id="authorInput" @bind="authorString" class="form-control-index small" placeholder="Author's Name" autofocus />
+                    <input Id="authorInput" @bind="authorString" class="form-control-index small" style="width:75%" placeholder="Author's Name" autofocus />
                     
                     <div class="w-100 d-flex align-items-start">
-                        <button @onclick="async () => {vm.Project.AddAuthor(authorString); authorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn modalAcceptButton"> Add</button>
+                        <button @onclick="async () => {vm.Project.AddAuthor(authorString); authorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn modalAcceptButton" style="padding: .375rem 1.5rem; margin-left:54px"> Add</button>
                     </div>
                 </div>
             </div>
 
-            <hr class="hrstyle" />
+            <hr class="hrstyle" style="width:75%; margin-left:60px;" />
 
             @if (vm.Project.Authors.Count() > 0)
             {
-                <div class="h-100 p-4 d-flex flex-column align-items-center">
+                <div class="h-100 p-50 d-flex flex-column align-items-center" style="margin-bottom:50px;">
                     <h4>Authors already added</h4>
                     <div class="w-75 h-50 d-flex flex-column align-items-center">
                         @foreach (var author in vm.Project.Authors)
                         {
                             <div class="d-flex flex-col justify-content-between align-content-center w-100 p-1">
-                                <span style="vertical-align: middle; margin-bottom: 0; line-height: normal;">
+                                <p style="vertical-align: middle; margin-bottom: 0; line-height: normal;">
                                    @author 
-                                </span>
-                                
+                                </p>
+
                                 <button @onclick="() => vm.Project.RemoveAuthor(author)" class="btn p-0">
                                     <img src="/svgs/Delete1.svg" alt="Delete" height="15"/>
                                 </button>
@@ -617,9 +616,9 @@
             }
             else
             {
-                <div class="h-100 p-4">
-                    <div class="w-100 h-50 d-flex align-items-center">
-                        <h2 class="text-center">There are no authors</h2>
+                <div class="h-100 p-50 d-flex flex-column align-items-center" style="margin-bottom:50px;">
+                    <div class="h-50 d-flex align-items-center">
+                        <h4 class="text-center">There are no authors</h4>
                     </div>
                 </div>
             }
@@ -628,42 +627,42 @@
 </Modal>
 
 <Modal @ref="vm.App.DocAuthorModal" class="half-modal fade">
-    <ModalContent Centered="true">
+    <ModalContent Style="border-radius: 32px" Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideDocAuthorModal">
-                <Icon Name="IconName.Times"></Icon>
+                <Icon Style="margin:20px" Name="IconName.Times"></Icon>
             </div>
             <div class="h-100 p-3">
                 <div class="w-100 h-50 d-flex flex-column align-items-center">
-                    <h2>Add Document Author</h2>
+                    <h4>Add Document Author</h4>
 
-                    <p>
+                    <p style="font-size:15px; margin-top: 0rem; margin-bottom: 1rem; padding-left: 60px; padding-right: 60px;">
                         Enter the name of this author to add to this document
                     </p>
 
-                    <input Id="authorInput" @bind="authorString" class="form-control-index small" placeholder="Author's Name" autofocus />
+                    <input Id="authorInput" @bind="authorString" class="form-control-index small" style="width:75%" placeholder="Author's Name" autofocus />
 
                     <div class="w-100 d-flex align-items-start">
-                        <button @onclick="async () => {vm.Project.SelectedDocument.AddAuthor(authorString); authorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn modalAcceptButton"> Add</button>
+                        <button @onclick="async () => {vm.Project.SelectedDocument.AddAuthor(authorString); authorString = string.Empty; await PVm.SaveLocalProject(vm.Project);}" class="btn modalAcceptButton" style="padding: .375rem 1.5rem; margin-left:54px"> Add</button>
                     </div>
                 </div>
             </div>
 
-            <hr class="hrstyle" />
+            <hr class="hrstyle" style="width:75%; margin-left:60px;" />
 
             @if (vm.Project.SelectedDocument.Authors.Count() > 0)
             {
-                <div class="h-100 p-4 d-flex flex-column align-items-center">
+                <div class="h-100 p-4 d-flex flex-column align-items-center" style="margin-bottom:50px;">
                     <h4>Authors already added</h4>
                     <div class="w-75 h-50 d-flex flex-column align-items-center">
                         @foreach (var author in vm.Project.SelectedDocument.Authors)
                         {
                             <div class="d-flex flex-col justify-content-between align-content-center w-100 p-1">
-                                <span style="vertical-align: middle; margin-bottom: 0; line-height: normal;">
+                                <p style="vertical-align: middle; margin-bottom: 0; line-height: normal;">
                                     @author
-                                </span>
+                                </p>
 
-                                <button @onclick="() => vm.Project.SelectedDocument.RemoveAuthor(author)" class="btn p-0">
+                                <button @onclick="() => vm.Project.SelectedDocument.RemoveAuthor(author)" class="btn p-0" style="padding: .375rem 1.5rem; margin-left:32px">
                                     <img src="/svgs/Delete1.svg" alt="Delete" height="15" />
                                 </button>
                             </div>
@@ -673,9 +672,9 @@
             }
             else
             {
-                <div class="h-100 p-4">
-                    <div class="w-100 h-50 d-flex align-items-center">
-                        <h2 class="text-center">There are no authors</h2>
+                <div class="h-100 p-50 d-flex flex-column align-items-center" style="margin-bottom:50px;">
+                    <div class="h-50 d-flex align-items-center">
+                        <h4 class="text-center">There are no authors</h4>
                     </div>
                 </div>
             }
@@ -684,14 +683,14 @@
 </Modal>
 
 <Modal @ref="vm.App.PublishModal" class="half-modal fade">
-    <ModalContent Centered="true">
+    <ModalContent Style="border-radius: 32px" Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HidePublishModal">
-                <Icon Name="IconName.Times"></Icon>
+                <Icon Style="margin:20px" Name="IconName.Times"></Icon>
             </div>
             <div class="h-100 p-4">
                 <div class="w-100 h-50">
-                    <h2>Where do you want to publish your content</h2>
+                    <h2>Where do you want to publish your content (Demo Visualization-Only)</h2>
                     <p>rMake is a decentralized solution for creators.</p>
                     <div class="form-check p-3">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
@@ -726,12 +725,12 @@
 </Modal>
 
 <Modal @ref="vm.App.DeleteModal" class="half-modal fade">
-    <ModalContent Centered="true">
+    <ModalContent Style="border-radius: 32px" Centered="true">
         <ModalBody>
             <div class="close-button" @onclick="vm.HideDeleteModal">
-                <Icon Name="IconName.Times"></Icon>
+                <Icon Style="margin:20px" Name="IconName.Times"></Icon>
             </div>
-            <div class="h-100 p-5">
+            <div class="pt-2 pb-4 pl-10 pr-10">
                 <div class="w-100 h-50 d-flex flex-column align-items-center">
 
                     <div class="p-4 mb-3" >
@@ -740,14 +739,14 @@
 
                     <h2>Delete document</h2>
 
-                    <p>
+                    <p class="align-items-center" style="font-size:15px; margin-top: 0rem; margin-bottom: 1rem; padding-left: 25px; padding-right: 20px;">
                         Your about to delete this document, are you sure?
                     </p>
 
                     
-                    <div class="d-flex justify-content-between w-100 mt-5">
-                        <button @onclick="async () => {await deleteDoc(); vm.HideDeleteModal();}" class="btn modalAcceptButton">Delete</button>
-                        <button @onclick="vm.HideDeleteModal" class="btn modalCancelButton">Cancel</button>
+                    <div class="d-flex justify-content-around w-100 mt-5">
+                        <button @onclick="async () => {await deleteDoc(); vm.HideDeleteModal();}" class="btn modalAcceptButton" style="padding: .375rem 1.5rem;">Delete</button>
+                        <button @onclick="vm.HideDeleteModal" class="btn modalCancelButton" style="padding: .375rem 1.5rem; margin-left:32px">Cancel</button>
                     </div>
 
                 </div>

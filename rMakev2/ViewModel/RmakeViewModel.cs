@@ -250,7 +250,7 @@ namespace rMakev2.ViewModel
         public async Task PublishContentAsync()
         {
             await _communicationService.PublishAsync(Project);
-            this._toastService.ShowSuccess("Your Project has been Published");
+            this._toastService.ShowSuccess("Your Project has been saved for next Publish Version");
         }
 
         public void DisplayMenu()
