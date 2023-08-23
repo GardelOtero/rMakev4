@@ -43,6 +43,11 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddBlazoredSessionStorage();
 builder.Services.AddBlazoredLocalStorage();
 
+builder.Services.AddSignalR(hubOptions =>
+{
+    hubOptions.MaximumReceiveMessageSize = 5 * 1024 * 1024; // 5MB
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
