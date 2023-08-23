@@ -193,6 +193,7 @@ namespace rMakev2.ViewModel
         public void NewDocumentMenu(Project project)
         {
             SelectDocument(project.AddDocument(project));
+            
             this._toastService.ShowSuccess("You created a new document");
         }
 

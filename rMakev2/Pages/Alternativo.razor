@@ -717,7 +717,7 @@
                             www.anotherwebsite.org
                         </label>
                     </div>
-                    <button @onclick=" vm.PublishContentAsync" class="btn btn-success"><Icon Name="IconName.Lightbulb" /> Publish</button>
+                    <button @onclick=" vm.PublishContentAsync" class="btn modalAcceptButton">Publish</button>
 
                 </div>
             </div>
@@ -1049,6 +1049,7 @@
 
         vm.NewDocumentMenu(vm.Project);
 
+        PVm.UpdateProject(vm.Project);
     }
 
     public async Task deleteDoc()
@@ -1071,6 +1072,9 @@
             await SetDocumentContent(vm.Project.SelectedDocument);
 
         }
+
+        PVm.UpdateProject(vm.Project);
+
         toastservice.ShowSuccess("Your document has been deleted");
     }
 

@@ -186,18 +186,18 @@
             
         };
 
-        
-
-        
-
         window.saveContent = (dotNetRef, document) => {
+
             editor.save()
                 .then((savedData) => {
 
                     const content = JSON.stringify(savedData);
+
                     dotNetRef.invokeMethodAsync('SaveContent', content, document);
-                    console.log(content)
+                    
                     dotNetRef.invokeMethodAsync('blocks', content);
+
+                    console.log("Editor saved");
 
                 })
                 .catch((error) => {

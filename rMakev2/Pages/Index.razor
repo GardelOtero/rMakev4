@@ -132,7 +132,7 @@
                     </p>
                 </div>
 
-                <svg height="100%" width="100%" style="position: absolute;">
+                <svg height="100%" width="100%" style="position: absolute; z-index:-100;">
                     <line x1="15" y1="190" x2="1" y2="190" style="stroke:rgb(0,0,255);stroke-width:1" />
                     <line x1="1" y1="190" x2="1" y2="305" style="stroke:rgb(0,0,255);stroke-width:1" />
                     <line x1="1" y1="305" x2="20" y2="305" style="stroke:rgb(0,0,255);stroke-width:1" />
@@ -147,7 +147,7 @@
                     <div class="d-flex flex-row justify-content-between align-items-center">
                         <div>
                             <p class="optionTitle">Start writing right away</p>
-                            <p class="optionDesc">Hit "Start writing and let your words flow"</p>
+                            <p class="optionDesc">Hit "Start writing" and let your words flow</p>
                         </div>
                         <div>
                             <a @onclick="toEditor" class="btn option-btn yellow-btn btn-lg">
@@ -238,13 +238,9 @@
     {
         await localStorage.ClearAsync();
 
-
-        if (PVm.Portfolio == null)
-        {
-            await PVm.InitializeProjects(vm.App);
-        }
-
-
+        vm.InitializePortfolio();
+        await PVm.InitializeProjects(vm.App);
+        
         if (PVm.Portfolio.Projects.Count() <= 0)
         {
             PVm.Portfolio.AddProject();
