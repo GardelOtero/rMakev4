@@ -129,7 +129,7 @@
 
                 <div class="projectTitle">
 
-                    <input @bind="@project.Name" @bind:event="oninput" class="projectInput" @onchange="() => PVm.SaveLocalProject(project)"></input>
+                    <input @bind="@project.Name" @bind:event="oninput" class="projectInput" @onchange="() => PVm.SaveName(project)"></input>
                     <button class="dropdown-toggle" style="width: 10%;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="/svgs/3 dots.svg"/>
                     </button>

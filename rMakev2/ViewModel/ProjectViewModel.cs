@@ -107,6 +107,16 @@ namespace rMakev2.ViewModel
             }
         }
 
+        public async Task SaveName(Project project)
+        {
+            LocalProjectDTO dto = await _localStorageService.GetItemAsync<LocalProjectDTO>("Project-" + project.GUID);
+
+            dto.Name = project.Name;
+
+            await _localStorageService.SetItemAsync("Project-" + project.GUID, dto);
+        }
+
+
         public async Task DeleteProject(Project project)
         {
 
@@ -135,7 +145,35 @@ namespace rMakev2.ViewModel
 
         public async Task ForkProject(Project project)
         {
-            await SaveLocalProject(Portfolio.ForkProject(project));
+
+            LocalProjectDTO dto = await _localStorageService.GetItemAsync<LocalProjectDTO>("Project-" + project.GUID);
+
+            LocalProjectDTO localProject = new LocalProjectDTO();
+
+            var DtoProject = new Project(Portfolio, dto);
+
+            //PVm.Portfolio.Projects.Add(DtoProject);
+
+            foreach (var docGUID in dto.DocumentsGUID)
+            {
+                LocalDocumentDTO docDto = await _localStorageService.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
+
+                var newDoc = new Document(DtoProject, docDto);
+
+                DtoProject.Documents.Add(newDoc);
+
+
+                LocalElementDTO eleDto = await _localStorageService.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
+
+                var newEle = new Element(newDoc, eleDto);
+
+                newDoc.Elements = new List<Element>();
+
+                newDoc.Elements.Add(newEle);
+
+            }
+
+            await SaveLocalProject(Portfolio.ForkProject(DtoProject));
 
             await _localStorageService.SetItemAsync("PortfolioLocal", Portfolio.ToLocalStorage());
 
