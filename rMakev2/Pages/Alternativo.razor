@@ -297,6 +297,10 @@
         color: blue;
     }
 
+    .form-control-plaintext:focus::placeholder {
+        color: transparent;
+    }
+
 </style>
 <div class="container-fluid">
     <header>
@@ -560,7 +564,7 @@
 
 
                     <div class="d-flex justify-content-around w-100 mt-5">
-                        <button @onclick="NewSave" class="btn modalAcceptButton">Save</button>
+                        <button @onclick="async () => {await NewSave(); vm.HideSaveModal();}" class="btn modalAcceptButton">Save</button>
                         <button @onclick="vm.HideSaveModal" class="btn modalCancelButton"> Cancel</button>
                     </div>
                     
