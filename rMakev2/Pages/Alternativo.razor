@@ -720,7 +720,7 @@
                             www.anotherwebsite.org
                         </label>
                     </div>
-                    <button @onclick=" vm.PublishContentAsync" class="btn modalAcceptButton">Publish</button>
+                    <button @onclick="async () =>{await vm.PublishContentAsync(); vm.HidePublishModal();}" class="btn modalAcceptButton">Publish</button>
 
                 </div>
             </div>
