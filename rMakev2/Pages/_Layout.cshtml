@@ -91,6 +91,11 @@
  @*   <script src="/tools/headers.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/@@editorjs/header@latest"></script>
     
+    <script src="/tools/Markdown.js"></script>
+    <link href="/tools/Markdown.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js" integrity="sha256-hNyljag6giCsjv/yKmxK8/VeHzvMDvc5u8AzmRvm1BI=" crossorigin="anonymous"></script>
+
+
     <script src="/tools/cheklist.js"></script>
     <script src="/tools/embed.js"></script>
     <script src="/tools/nestedlist.js"></script>
@@ -101,6 +106,7 @@
     <script src="/tools/clone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@@editorjs/embed@latest"></script>
     <link href="/Tools/SimpleImage.css" rel="stylesheet" />
+
     <script>
         let editor;
         let dotnet;
@@ -170,8 +176,11 @@
                             }
                         }
                     },
+                    Markdown: MarkdownBlock
+,
                 },
-                onReady: () => {
+                onReady: async () => {
+
                     dotNetRef.invokeMethodAsync('LoadPortfolio')
                         .then(() => {
                             dotNetRef.invokeMethodAsync('SaveStorage')
