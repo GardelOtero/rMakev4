@@ -301,6 +301,17 @@
         color: transparent;
     }
 
+    .jsonView {
+        color:#0f0; 
+        width:100%; 
+        margin:auto; 
+        font-size:10px; 
+        background-color:#000; 
+        border-radius:0px; 
+        height:100%; 
+        text-align:left;
+    }
+
 </style>
 <div class="container-fluid">
     <header>
@@ -397,99 +408,67 @@
                         <button @onclick="vm.Project.SwitchDisplayJson" class="nav-link iconcard" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" title="Json View" style="font-size: 20px; padding: 2px; color: black!important;">{ i }</button>
                     </div>
                 </div>
-                @if (vm.Project.DisplayMenu == true)
-                {
-                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2 p-1 pl-1 ml-3 position-fixed" style="left: 6rem">
-                        <div class="newcard">
-                            <div class="card-body minH-400 maxH-400 overflow-auto positon-fixed" style="left: 6rem">
-                                @*@foreach (var project in vm.App.Portfolio.Projects)
-                            {
-                            <div class="w-100" style="background-color: rgba(0,0,0,.125)">
-                            @if (project.Name == "")
-                            {
-                            <p @onclick="@(() => ChangeProject(project))" style="cursor:pointer; ">Project Name</p>
-                            }
-                            else
-                            {
-                            <p @onclick="@(() => ChangeProject(project))" style="cursor:pointer; background-color: rgba(0,0,0,.125)">@project.Name</p>
-                            }
-
-                            </div>*@
-                                @foreach (var document in vm.Project.Documents)
-                                {
-                                    @if (document.GUID == vm.Project.SelectedDocument.GUID)
-                                    {
-                                        <div class="col-12">
-                                            @if (document.Name == "")
-                                            {
-                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; background-color:rgb(216,90,208,0.5); padding:8px 8px 8px 20px; border-radius:8px;" class="menuDocumentTitle">Untitled</p>
-                                            }
-                                            else
-                                            {
-                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; background-color:rgb(216,90,208,0.5); padding:8px 8px 8px 20px; border-radius:8px;" class="menuDocumentTitle">@document.Name</p>
-                                            }
-                                            <hr class="hrstylemenu" />
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-12">
-                                            @if (document.Name == "")
-                                            {
-                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; padding:8px 8px 8px 20px;" class="menuDocumentTitle">Untitled</p>
-                                            }
-                                            else
-                                            {
-                                                <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; padding:8px 8px 8px 20px;" class="menuDocumentTitle">@document.Name</p>
-                                            }
-                                            <hr class="hrstylemenu" />
-                                        </div>
-                                    }
-                                }
-
-
-
-                            </div>
-                        </div>
-                    </div>
-                }
+                
             </menu>
 
 
             @*working area*@
-            <div class="col-sm-12 col-md-9 col-lg-9 col-xl-10 mt-5 pl-6 ml-10">
+            <div class=" pl-6 ml-10 container">
                 <div class="row">
-                    <div class="col-4 col-xl-3">
-                        @*@if (vm.Project.DisplayDocumentMenu == true)
-                        {
-                        <div class="spacer">
+                    
+                    @if (vm.Project.DisplayMenu == true)
+                    {
+                        <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2 p-1 pl-1 ml-3">
 
-                        <div class="documentMenu mb-2">
-                        <a @onclick="deleteDoc"><img src="svgs/Delete.svg" title="Delete Document" class="m-1 smallIcon" /></a>
+                            <div class="position-fixed" style="left: 6rem">
+                                <div class="newcard">
+                                    <div class="card-body minH-400 maxH-400 overflow-auto positon-fixed" style="left: 6rem">
 
-                        <a @onclick="vm.CloneDocument"><img src="svgs/Clone.svg" title="Clone Document" class="m-1 smallIcon" /></a>
-                        <a><img src="svgs/Merge.svg" title="Merge Documents comming soon" class="m-1 smallIcon" /></a>
-                        <a @onclick="vm.ShowDocAuthorModal"><img src="/svgs/Arrow up.svg" title="Add Document Authors" class="m-1 smallIcon" /></a>
-                        @*                            <a @onclick="vm.orderElements"><img src="svgs/Elements .svg" title="Sort Elements" Class="smallIcon" /></a>
+                                        @foreach (var document in vm.Project.Documents)
+                                        {
+                                            @if (document.GUID == vm.Project.SelectedDocument.GUID)
+                                            {
+                                                <div class="col-12">
+                                                    @if (document.Name == "")
+                                                    {
+                                                        <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; background-color:rgb(216,90,208,0.5); padding:8px 8px 8px 20px; border-radius:8px;" class="menuDocumentTitle">Untitled</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; background-color:rgb(216,90,208,0.5); padding:8px 8px 8px 20px; border-radius:8px;" class="menuDocumentTitle">@document.Name</p>
+                                                    }
+                                                    <hr class="hrstylemenu" />
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-12">
+                                                    @if (document.Name == "")
+                                                    {
+                                                        <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; padding:8px 8px 8px 20px;" class="menuDocumentTitle">Untitled</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p @onclick="@(() => ChangeContent(document))" style="text-overflow:ellipsis; padding:8px 8px 8px 20px;" class="menuDocumentTitle">@document.Name</p>
+                                                    }
+                                                    <hr class="hrstylemenu" />
+                                                </div>
+                                            }
+                                        }
 
+
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        </div>
-                        }
-                        else
-                        {
-                        <div class="spacer"></div>
+                    }
+                    
+                    
+                    <div class="@(vm.Project.DisplayMenu ? "col-8 col-xl-8" : "col-12 col-xl-12")">
 
-                        }*@
 
-                    </div>
-                    <div class="col-8 col-xl-9">
-                        @*                        <div style="width:20px; float:left; margin-top:15px;">
-                        <a>
-                        <img src="svgs/3 dots.svg" title="Document Menu" class="dots " @onclick="vm.DocumentMenu" />
-                        </a>
-                        </div>*@
-
-                        <div style="width:90%; float:left;">
+                        <div style="width:@((vm.Project.DisplayJson && !vm.Project.DisplayMenu) ? "70%" : "90%"); float:left;">
 
                             <div style="height: 50%; padding: 5px; ">
                                 <textarea @bind="@vm.Project.SelectedDocument.Name"
@@ -513,7 +492,9 @@
 
                                 </div>
                             </div>
+
                             <div class="clearfix"></div>
+
                             <div class="mt-4 ml-6">
                                 <div class="mt-4">
                                     <div class="ce-example">
@@ -526,15 +507,23 @@
                             </div>
                         </div>
                     </div>
+
+                    @if(vm.Project.DisplayJson == true)
+                    {
+                        <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
+
+                            <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class="position-fixed">
+                                <textarea readonly class="jsonView">
+                                    @vm.Project.JsonFn();
+                                </textarea>
+                            </div>
+                        </div>    
+                    }
                 </div>
             </div>
             
 
-            <div style="width:20%; background-color:#f3f3f3; position:fixed; right:0px; top:110px; height:620px; padding:5px;" class=" @(vm.Project.DisplayJson? "d-block" : "d-none" )">
-            <textarea readonly style="color:#0f0; width:100%; margin:auto; font-size:10px; background-color:#000; border-radius:0px; height:100%; text-align:left;">
-            @vm.Project.JsonFn();
-            </textarea>
-            </div>
+
 
         </div>
     </section>
