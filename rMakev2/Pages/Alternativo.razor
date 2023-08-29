@@ -413,7 +413,7 @@
 
 
             @*working area*@
-            <div class=" pl-6 ml-10 container">
+            <div class=" pl-6 ml-10" style="width: 95%">
                 <div class="row">
                     
                     @if (vm.Project.DisplayMenu == true)
@@ -465,7 +465,7 @@
                     }
                     
                     
-                    <div class="@(vm.Project.DisplayMenu ? "col-8 col-xl-8" : "col-12 col-xl-12")">
+                    <div class="@(vm.Project.DisplayMenu ? "col-8 col-xl-8" : "col-12 col-xl-12") pl-10">
 
 
                         <div style="width:@((vm.Project.DisplayJson && !vm.Project.DisplayMenu) ? "70%" : "90%"); float:left;">
