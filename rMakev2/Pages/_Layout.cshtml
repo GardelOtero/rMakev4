@@ -95,6 +95,7 @@
     <link href="/tools/Markdown.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js" integrity="sha256-hNyljag6giCsjv/yKmxK8/VeHzvMDvc5u8AzmRvm1BI=" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/@@editorjs/image@2.8.1/dist/bundle.min.js"></script>
 
     <script src="/tools/cheklist.js"></script>
     <script src="/tools/embed.js"></script>
@@ -142,8 +143,46 @@
                         }
                     },
                     image: {
-                        class: SimpleImage,
-                        inlineToolbar: true,
+                        class: ImageTool,
+                        config: {
+                            endpoints: {
+                                accepts: "image/*",
+                                byFile: "https://localhost:7152/fileservice/save/",
+
+                            }
+                            // uploader: {
+                            //     uploadByFile(file){
+                            //         console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                            //         console.log(file)
+                            //         // $.ajax({
+                            //         //     url: ,
+                            //         //     headers: {
+                            //         //         'Accept': 'imag',
+                            //         //         'Content-Type': 'application/json'
+                            //         //     },
+                            //         //     type: 'POST',
+                            //         //     dataType: 'json',
+                            //         //     data: JSON.stringify({
+                            //         //         ProspectName: name,
+                            //         //         Email: email
+                            //         //     }),
+                            //         //     success: function (data, status, xhr) {
+                            //         //         swal("Exito", "Se guardo tu correo", "success");
+                            //         //     },
+                            //         //     error: function (jqXhr, textStatus, errorMessage) {
+                            //         //         console.log(jqXhr);
+                            //         //         console.log(textStatus);
+                            //         //         swal("Hubo un error", "Algo salio mal :(", "error");
+                            //         //     }
+                            //         // });
+                            //     },
+                            //     uploadByUrl(url) {
+                            //         console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                            //         console.log(url)
+                            //     },
+                            // }
+
+                        }
                     },
                     list: {
                         class: NestedList,
@@ -206,6 +245,7 @@
                     
                     dotNetRef.invokeMethodAsync('blocks', content);
 
+                    console.log(content)
                     console.log("Editor saved");
 
                 })

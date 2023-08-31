@@ -29,6 +29,7 @@ builder.Services
     .AddBootstrapProviders()
     .AddFontAwesomeIcons();
 
+builder.Services.AddScoped<FileService>();
 builder.Services.AddScoped<ICommunicationService, CommunicationService>();
 builder.Services
     .AddBlazoriseRichTextEdit(options => { options.UseBubbleTheme = true; });
@@ -63,6 +64,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    //endpoints.MapBlazorHub();
+});
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
