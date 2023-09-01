@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Models\WebMaker\" />
-    <Folder Include="wwwroot\assets\img\" />
   </ItemGroup>
 
 </Project>

@@ -111,6 +111,12 @@
     <script>
         let editor;
         let dotnet;
+
+        // const headers = {
+        //     "Access-Control-Allow-Origin": "*",
+        //     "Access-Control-Allow-Methods": "POST, GET",
+        //     "Access-Control-Allow-Headers": "Content-Type, x-requested-with"
+        // };
         
 
         window.runEditor = (dotNetRef, existingData) => {
@@ -147,42 +153,10 @@
                         config: {
                             endpoints: {
                                 accepts: "image/*",
-                                byFile: "https://localhost:7152/fileservice/save/",
-
-                            }
-                            // uploader: {
-                            //     uploadByFile(file){
-                            //         console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                            //         console.log(file)
-                            //         // $.ajax({
-                            //         //     url: ,
-                            //         //     headers: {
-                            //         //         'Accept': 'imag',
-                            //         //         'Content-Type': 'application/json'
-                            //         //     },
-                            //         //     type: 'POST',
-                            //         //     dataType: 'json',
-                            //         //     data: JSON.stringify({
-                            //         //         ProspectName: name,
-                            //         //         Email: email
-                            //         //     }),
-                            //         //     success: function (data, status, xhr) {
-                            //         //         swal("Exito", "Se guardo tu correo", "success");
-                            //         //     },
-                            //         //     error: function (jqXhr, textStatus, errorMessage) {
-                            //         //         console.log(jqXhr);
-                            //         //         console.log(textStatus);
-                            //         //         swal("Hubo un error", "Algo salio mal :(", "error");
-                            //         //     }
-                            //         // });
-                            //     },
-                            //     uploadByUrl(url) {
-                            //         console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                            //         console.log(url)
-                            //     },
-                            // }
-
-                        }
+                                byFile: "https://localhost:7267/Assets",
+                            },
+                            // additionalRequestHeaders: headers,
+                        },
                     },
                     list: {
                         class: NestedList,

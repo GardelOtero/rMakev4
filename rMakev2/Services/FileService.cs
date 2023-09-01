@@ -34,61 +34,61 @@ namespace rMakev2.Services
 
         [Consumes("multipart/form-data")]
         [HttpPost("Save")]
-        public string SaveImage()
+        public void SaveImage()
         {
 
            
 
-            IFormFile file = Request.Form.Files.First();
-            SaveDTO newroot = new SaveDTO();
-            DTOs.File newfile = new DTOs.File();
+            //IFormFile file = Request.Form.Files.First();
+            //SaveDTO newroot = new SaveDTO();
+            //DTOs.File newfile = new DTOs.File();
 
-            string objstr = "";
+            //string objstr = "";
 
-            var options = new JsonSerializerOptions()
-            {
-                MaxDepth = 0,
-                IgnoreReadOnlyProperties = true,
-                ReferenceHandler = ReferenceHandler.IgnoreCycles,
+            //var options = new JsonSerializerOptions()
+            //{
+            //    MaxDepth = 0,
+            //    IgnoreReadOnlyProperties = true,
+            //    ReferenceHandler = ReferenceHandler.IgnoreCycles,
 
-            };
+            //};
 
-            if (file == null)
-            {
+            //if (file == null)
+            //{
 
-                newfile.url = "";
+            //    newfile.url = "";
 
-                newroot.success = 0;
-                newroot.file = newfile;
+            //    newroot.success = 0;
+            //    newroot.file = newfile;
 
-                objstr = System.Text.Json.JsonSerializer.Serialize<SaveDTO>(newroot, options);
+            //    objstr = System.Text.Json.JsonSerializer.Serialize<SaveDTO>(newroot, options);
 
-                return objstr;
-            }
+            //    return objstr;
+            //}
 
-            string root = env.WebRootPath;
+            //string root = env.WebRootPath;
 
-            string path = Path.Combine(root, "assets", "img");
+            //string path = Path.Combine(root, "assets", "img");
 
-            string fileName = Path.GetFileName(file.FileName);
+            //string fileName = Path.GetFileName(file.FileName);
 
-            string filePath = Path.Combine(path, fileName);
+            //string filePath = Path.Combine(path, fileName);
 
-            using (FileStream stream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-
-
-            newfile.url = "assets/img/" + fileName;
-
-            newroot.success = 1;
-            newroot.file = newfile;
+            //using (FileStream stream = new FileStream(filePath, FileMode.Create))
+            //{
+            //    file.CopyTo(stream);
+            //}
 
 
-            objstr = System.Text.Json.JsonSerializer.Serialize<SaveDTO>(newroot, options);
+            //newfile.url = "assets/img/" + fileName;
 
-            return objstr;
+            //newroot.success = 1;
+            //newroot.file = newfile;
+
+
+            //objstr = System.Text.Json.JsonSerializer.Serialize<SaveDTO>(newroot, options);
+
+            //return objstr;
         }
 
 
