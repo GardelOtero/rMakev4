@@ -61,7 +61,7 @@ namespace rContentMan.Controllers
             var homePath = env.ContentRootPath + "/Assets/img/";
 
 
-            string fileName = Path.GetFileName(file.FileName);
+            string fileName = Path.GetFileName(Guid.NewGuid() + ".png");
 
             string filePath = Path.Combine(homePath, fileName);
 
