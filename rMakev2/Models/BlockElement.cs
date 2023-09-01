@@ -21,6 +21,7 @@
         public string caption { get; set; }
         public string alignment { get; set; }
         public string url { get; set; }
+        public File file { get; set; }
         public bool? withBorder { get; set; }
         public bool? withBackground { get; set; }
         public bool? stretched { get; set; }
@@ -29,6 +30,12 @@
         public string link { get; set; }
         public Meta meta { get; set; }
         public string code { get; set; }
+    }
+
+    public class File
+    {
+        public string url { get; set; }
+        public string? height { get; set; }
     }
 
     public class Item

@@ -74,7 +74,6 @@ namespace rContentMan.Controllers
             var root = env.IsDevelopment() ? "https://localhost:7267/" : "https://rcontentman.azurewebsites.net/";
 
             newfile.url = root + "Assets/" + fileName;
-            newfile.height = "300px";
 
             newroot.success = 1;
             newroot.file = newfile;
@@ -83,7 +82,7 @@ namespace rContentMan.Controllers
             objstr = System.Text.Json.JsonSerializer.Serialize<SaveDTO>(newroot, options);
 
             return objstr;
-         }
+        }
 
         
         [HttpGet("{name}")]
@@ -95,7 +94,6 @@ namespace rContentMan.Controllers
             var filePath = Path.Combine(homePath, name);
 
             return PhysicalFile(filePath, "image/*");
-
 
 
         }
