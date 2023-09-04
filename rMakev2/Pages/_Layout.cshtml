@@ -108,6 +108,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@@editorjs/embed@latest"></script>
     <link href="/Tools/SimpleImage.css" rel="stylesheet" />
 
+    <script src="https://cdn.jsdelivr.net/npm/@@editorjs/table@latest/dist/table.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/editorjs-undo@1.0.1/dist/bundle.min.js"></script> *@
+
+
     <script>
         let editor;
         let dotnet;
@@ -124,7 +128,7 @@
 
             editor = new EditorJS({
                 holder: 'editorjs',
-                placeholder: 'Let`s write an awesome story!',
+                placeholder: 'Let´s write an awesome story!',
                 tools: {
                     clone: {
                         class: CloneTool,
@@ -133,6 +137,7 @@
                             dotNet: (id) => dotNetRef.invokeMethodAsync('cloneBlock', id)
                         }
                     },
+                    table: Table,
                     header: {
                         class: Header,
                         shortcut: 'CMD+SHIFT+H',
@@ -199,6 +204,10 @@
                         .then(() => {
                             dotNetRef.invokeMethodAsync('SaveStorage')
                         });
+
+
+                    // const undo = new Undo({ editor });
+                    // undo.initialize(editor.blocks);
                 },
                 onChange: (api, event) => {
                     dotNetRef.invokeMethodAsync('SaveStorage');  
