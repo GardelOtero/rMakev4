@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using rMakev2.DTOs;
 using System.Text.Json.Serialization;
@@ -8,6 +9,7 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using System.Net.Http.Headers;
 
 namespace rContentMan.Controllers
 {
@@ -43,6 +45,8 @@ namespace rContentMan.Controllers
                 ReferenceHandler = ReferenceHandler.IgnoreCycles,
 
             };
+            
+
 
             if (file == null)
             {
@@ -58,10 +62,25 @@ namespace rContentMan.Controllers
             }
 
 
+            var type = MediaTypeWithQualityHeaderValue.Parse(file.ContentType).MediaType;
+
+
+
             var homePath = env.ContentRootPath + "/Assets/img/";
 
+            var fileName = "";
 
-            string fileName = Path.GetFileName(Guid.NewGuid() + ".png");
+            if(type == "image/svg+xml")
+            {
+                fileName = Path.GetFileName(Guid.NewGuid() + ".svg");
+
+            }
+            else
+            {
+
+                fileName = Path.GetFileName(Guid.NewGuid() + ".png");
+            }
+
 
             string filePath = Path.Combine(homePath, fileName);
 
@@ -93,7 +112,18 @@ namespace rContentMan.Controllers
 
             var filePath = Path.Combine(homePath, name);
 
-            return PhysicalFile(filePath, "image/*");
+            var type = "";
+
+            if(name.Substring(name.LastIndexOf('.') + 1) == "svg")
+            {
+                type = "image/svg+xml";
+            } 
+            else
+            {
+                type = "image/*";
+            }
+
+            return PhysicalFile(filePath, type);
 
 
         }
