@@ -850,34 +850,39 @@
         localPortfolio = await localStorage.GetItemAsync<LocalPortfolioDTO>("PortfolioLocal");
         PVm.Portfolio.FromLocalDTO(localPortfolio);
 
-        LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + token);
-
-        LocalProjectDTO localProject = new LocalProjectDTO();
-
-        var DtoProject = new Project(PVm.Portfolio, dto);
-
-        PVm.Portfolio.Projects.Add(DtoProject);
-
-        foreach (var docGUID in dto.DocumentsGUID)
+        foreach (var proGUID in localPortfolio.projectsGUID)
         {
-            LocalDocumentDTO docDto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
+            LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + proGUID);
 
-            var newDoc = new Document(DtoProject, docDto);
+            LocalProjectDTO localProject = new LocalProjectDTO();
 
-            DtoProject.Documents.Add(newDoc);
+            var DtoProject = new Project(PVm.Portfolio, dto);
+
+            foreach (var docGUID in dto.DocumentsGUID)
+            {
+                LocalDocumentDTO docDto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
+
+                var newDoc = new Document(DtoProject, docDto);
+
+                DtoProject.Documents.Add(newDoc);
 
 
-            LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
+                LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
 
-            var newEle = new Element(newDoc, eleDto);
+                var newEle = new Element(newDoc, eleDto);
 
-            newDoc.Elements = new List<Element>();
+                newDoc.Elements = new List<Element>();
 
-            newDoc.Elements.Add(newEle);
+                newDoc.Elements.Add(newEle);
 
+            }
+
+            PVm.Portfolio.Projects.Add(DtoProject);
         }
 
-        vm.Project = DtoProject;
+        
+
+        vm.Project = PVm.Portfolio.Projects.Where(x => x.GUID == token).FirstOrDefault();
 
         if (vm.Project.Documents.Count() == 0)
         {
@@ -945,28 +950,40 @@
     public async Task NewSave()
     {
         // await jsRuntime.InvokeAsync<string>("saveContent", objRef, vm.Ui.SelectedDocument);
+        LocalPortfolioDTO localPortfolio = new LocalPortfolioDTO();
+        localPortfolio = await localStorage.GetItemAsync<LocalPortfolioDTO>("PortfolioLocal");
+        PVm.Portfolio.FromLocalDTO(localPortfolio);
 
-        List<Project> projects = new List<Project>();
-        List<Document> docs = new List<Document>();
-
-        foreach (var project in vm.App.Portfolio.Projects)
+        foreach (var proGUID in localPortfolio.projectsGUID)
         {
-            docs.AddRange(project.Documents);
-        }
+            LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + proGUID);
 
-        foreach (var document in docs)
-        {
-            if (!await localStorage.ContainKeyAsync(document.GUID)) { continue; }
+            LocalProjectDTO localProject = new LocalProjectDTO();
 
-            // if(document.Id == vm.Ui.SelectedDocument.Id)
+            var DtoProject = new Project(PVm.Portfolio, dto);
+
+            foreach (var docGUID in dto.DocumentsGUID)
             {
-                //   vm.Ui.SelectedDocument.Name = document.Name;
+                LocalDocumentDTO docDto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
+
+                var newDoc = new Document(DtoProject, docDto);
+
+                DtoProject.Documents.Add(newDoc);
+
+
+                LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
+
+                var newEle = new Element(newDoc, eleDto);
+
+                newDoc.Elements = new List<Element>();
+
+                newDoc.Elements.Add(newEle);
+
             }
 
-            Document newDoc = await localStorage.GetItemAsync<Document>(document.GUID);
-            document.Name = newDoc.Name;
-            document.Content = newDoc.Content;
+            PVm.Portfolio.Projects.Add(DtoProject);
         }
+
 
         await PVm.SaveContentAsync();
     }
