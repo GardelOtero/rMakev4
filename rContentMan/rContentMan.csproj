@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\img\" />
+    <None Include="wwwroot\Assets\img\10b39f9c-15d3-43b7-b37e-dbb96504c684.png" />
   </ItemGroup>
 
 </Project>

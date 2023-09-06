@@ -850,35 +850,34 @@
         localPortfolio = await localStorage.GetItemAsync<LocalPortfolioDTO>("PortfolioLocal");
         PVm.Portfolio.FromLocalDTO(localPortfolio);
 
-        foreach (var proGUID in localPortfolio.projectsGUID)
+        LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + token);
+
+        LocalProjectDTO localProject = new LocalProjectDTO();
+
+        var DtoProject = new Project(PVm.Portfolio, dto);
+
+        PVm.Portfolio.Projects.Add(DtoProject);
+
+        foreach (var docGUID in dto.DocumentsGUID)
         {
-            LocalProjectDTO dto = await localStorage.GetItemAsync<LocalProjectDTO>("Project-" + proGUID);
+            LocalDocumentDTO docDto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
 
-            LocalProjectDTO localProject = new LocalProjectDTO();
+            var newDoc = new Document(DtoProject, docDto);
 
-            var DtoProject = new Project(PVm.Portfolio, dto);
-
-            foreach (var docGUID in dto.DocumentsGUID)
-            {
-                LocalDocumentDTO docDto = await localStorage.GetItemAsync<LocalDocumentDTO>("Document-" + docGUID);
-
-                var newDoc = new Document(DtoProject, docDto);
-
-                DtoProject.Documents.Add(newDoc);
+            DtoProject.Documents.Add(newDoc);
 
 
-                LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
+            LocalElementDTO eleDto = await localStorage.GetItemAsync<LocalElementDTO>("Element-" + docDto.ElementsGUID.First());
 
-                var newEle = new Element(newDoc, eleDto);
+            var newEle = new Element(newDoc, eleDto);
 
-                newDoc.Elements = new List<Element>();
+            newDoc.Elements = new List<Element>();
 
-                newDoc.Elements.Add(newEle);
+            newDoc.Elements.Add(newEle);
 
-            }
-
-            PVm.Portfolio.Projects.Add(DtoProject);
         }
+
+        vm.Project = DtoProject;
 
         
 
