@@ -66,7 +66,7 @@ namespace rContentMan.Controllers
 
 
 
-            var homePath = env.ContentRootPath + "/Assets/img/";
+            var homePath = env.WebRootPath + "/Assets/img/";
 
             var fileName = "";
 
@@ -108,7 +108,7 @@ namespace rContentMan.Controllers
         public IActionResult GetImage(string name)
         {
 
-            var homePath = env.ContentRootPath + "/Assets/img/";
+            var homePath = env.WebRootPath + "/Assets/img/";
 
             var filePath = Path.Combine(homePath, name);
 
