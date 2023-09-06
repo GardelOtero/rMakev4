@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Assets\**" />
+    <Content Remove="wwwroot\Assets\**" />
+    <EmbeddedResource Remove="wwwroot\Assets\**" />
+    <None Remove="wwwroot\Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Controllers\ItemTestController.cs" />
   </ItemGroup>
 
@@ -19,10 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\Assets\img\" />
   </ItemGroup>
 
 </Project>
