@@ -30,6 +30,8 @@
         public string link { get; set; }
         public Meta meta { get; set; }
         public string code { get; set; }
+        public bool? withHeadings { get; set; }
+        public List<List<string>>? content { get; set;}
     }
 
     public class File
