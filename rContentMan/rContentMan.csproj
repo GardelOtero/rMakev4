@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.52" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="8.0.0-preview.6.23329.4" />
     <PackageReference Include="Radzen.Blazor" Version="4.14.2" />

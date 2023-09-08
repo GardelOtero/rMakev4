@@ -108,8 +108,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@@editorjs/embed@latest"></script>
     <link href="/Tools/SimpleImage.css" rel="stylesheet" />
 
+    <script href="/Tools/SimpleLink.js" ></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@@editorjs/table@latest/dist/table.js"></script>
-    @* <script src="https://cdn.jsdelivr.net/npm/editorjs-undo@1.0.1/dist/bundle.min.js"></script> *@
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-undo@2.0.2/dist/bundle.min.js"></script>
 
 
     <script>
@@ -158,8 +160,8 @@
                         config: {
                             endpoints: {
                                 accepts: "image/*",
-                                //byFile: "https://localhost:7267/Assets",
-                                byFile: "https://rcontentman.azurewebsites.net/Assets",
+                                byFile: "https://localhost:7267/Assets",
+                                // byFile: "https://rcontentman.azurewebsites.net/Assets",
                                 // byUrl: "https://localhost:7267/Assets/url"
                             },
                             // additionalRequestHeaders: headers,
@@ -179,7 +181,8 @@
                     linkTool: {
                         class: LinkTool,
                         config: {
-                            //endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching,
+                            endpoint: "https://localhost:7267/Link",
+                            // endpoint: "https://rcontentman.azurewebsites.net/Link",
                         }
                     },
                     Marker: {
@@ -188,7 +191,7 @@
                     },
                     code: CodeTool,
                     embed: {
-                        class: Embed,
+                        class: Embed, 
                         inlineToolbar: true,
                         config: {
                             services: {
@@ -206,8 +209,8 @@
                             dotNetRef.invokeMethodAsync('SaveStorage')
                         });
 
-
-                    // const undo = new Undo({ editor });
+                    const undo = new Undo({ editor });
+                    console.log("Done")
                     // undo.initialize(editor.blocks);
                 },
                 onChange: (api, event) => {
