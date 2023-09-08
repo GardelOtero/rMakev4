@@ -1,4 +1,5 @@
-﻿namespace rMakev2.Models
+﻿
+namespace rMakev2.Models
 {
     public class BlockElement
     {
@@ -27,9 +28,12 @@
         public bool? stretched { get; set; }
         public string style { get; set; }
         public List<Item> items { get; set; }
-        public string link { get; set; }
-        public Meta meta { get; set; }
+
+        public string? link { get; set; }
+        public Meta? meta { get; set; }
+        
         public string code { get; set; }
+        
         public bool? withHeadings { get; set; }
         public List<List<string>>? content { get; set;}
     }
@@ -48,8 +52,16 @@
         public bool? @checked { get; set; }
     }
 
+    public class Image
+    {
+        public string? url { get; set; }
+    }
+
     public class Meta
     {
+        public string? title { get; set; }
+        public string? description { get; set; }
+        public Image? image { get; set; }
     }
 
 
