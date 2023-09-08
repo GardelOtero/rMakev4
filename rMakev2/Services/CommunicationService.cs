@@ -253,6 +253,8 @@ namespace rMakev2.Services
                             dat.style = blo.data.style;
                             dat.link = blo.data.link;
                             dat.code = blo.data.code;
+                            dat.withHeadings = blo.data.withHeadings;
+                            dat.content = blo.data.content;
                             dat.items = new List<Item>();
                             elem.BlockContent.Add(b);
 
