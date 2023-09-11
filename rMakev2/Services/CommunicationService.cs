@@ -98,6 +98,8 @@ namespace rMakev2.Services
                             blockElement.data.style = itemblockElement.data.style;
                             blockElement.data.link = itemblockElement.data.link;
                             blockElement.data.code = itemblockElement.data.code;
+                            blockElement.data.withHeadings = itemblockElement.data.withHeadings;
+                            blockElement.data.content = itemblockElement.data.content;
                             blockElement.data.items = new List<ItemDTO>();
                             var pro1 = save.Projects.Where(x => x.Id == itemDoc.ProjectId).First();
                             var pro2 = pro1.Documents.Where(x => x.Id == itemElement.DocumentId).First();
@@ -251,6 +253,8 @@ namespace rMakev2.Services
                             dat.style = blo.data.style;
                             dat.link = blo.data.link;
                             dat.code = blo.data.code;
+                            dat.withHeadings = blo.data.withHeadings;
+                            dat.content = blo.data.content;
                             dat.items = new List<Item>();
                             elem.BlockContent.Add(b);
 
