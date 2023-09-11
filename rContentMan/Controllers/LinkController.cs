@@ -16,6 +16,15 @@ namespace rContentMan.Controllers
     public class LinkController : ControllerBase
     {
 
+        private readonly IWebHostEnvironment env;
+        private readonly ILogger<LinkController> logger;
+
+        public LinkController(IWebHostEnvironment env, ILogger<LinkController> logger)
+        {
+            this.env = env;
+            this.logger = logger;
+        }
+
 
         [HttpGet]
         public string GetUrlData(string url)
