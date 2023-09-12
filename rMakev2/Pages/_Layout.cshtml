@@ -111,7 +111,7 @@
     <script href="/Tools/SimpleLink.js" ></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@@editorjs/table@latest/dist/table.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-undo@2.0.2/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-undo@1.0.1/dist/bundle.min.js"></script>
 
 
     <script>
@@ -123,10 +123,18 @@
         //     "Access-Control-Allow-Methods": "POST, GET",
         //     "Access-Control-Allow-Headers": "Content-Type, x-requested-with"
         // };
+
+        
+        window.onUpdate = () => {
+            dotnet.invokeMethodAsync('SaveStorage');
+        }
         
 
         window.runEditor = (dotNetRef, existingData) => {
             console.log(dotNetRef)
+            console.log(existingData)
+
+            dotnet = dotNetRef;
 
             editor = new EditorJS({
                 holder: 'editorjs',
@@ -190,15 +198,15 @@
                         shortcut: 'CMD+SHIFT+M',
                     },
                     code: CodeTool,
-                    embed: {
-                        class: Embed, 
-                        inlineToolbar: true,
-                        config: {
-                            services: {
-                                youtube: true,
-                            }
-                        }
-                    },
+                    // embed: {
+                    //     class: Embed, 
+                    //     inlineToolbar: true,
+                    //     config: {
+                    //         services: {
+                    //             youtube: true,
+                    //         }
+                    //     }
+                    // },
                     Markdown: MarkdownBlock
 ,
                 },
@@ -209,7 +217,7 @@
                             dotNetRef.invokeMethodAsync('SaveStorage')
                         });
 
-                    const undo = new Undo({ editor });
+                    const undo = new Undo({ editor, onUpdate });
                     console.log("Done")
                     // undo.initialize(editor.blocks);
                 },
