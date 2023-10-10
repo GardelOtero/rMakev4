@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using rMakev2.DTOs;
 using System.Net.NetworkInformation;
+using Domain.SaveDTO;
 
 namespace rContentMan.Controllers
 {
@@ -36,7 +37,7 @@ namespace rContentMan.Controllers
 
             LinkDTO dto = new LinkDTO();
 
-            Meta metadto = new Meta();
+            Domain.DTOs.Meta metadto = new Domain.DTOs.Meta();
 
             var options = new JsonSerializerOptions()
             {
@@ -137,7 +138,7 @@ namespace rContentMan.Controllers
             metadto.title = title.InnerText;
             metadto.description = metaInfo.Description;
 
-            metadto.image = new Image();
+            metadto.image = new Domain.DTOs.Image();
             metadto.image.url = metaInfo.ImageUrl;
 
             dto.meta = metadto;
