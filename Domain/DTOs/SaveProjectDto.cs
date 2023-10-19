@@ -101,4 +101,5 @@ namespace Domain.DTOs
         public string text { get; set; }
         public bool? @checked { get; set; }
     }
+
 }
