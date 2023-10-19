@@ -54,6 +54,7 @@ namespace Domain.SaveDTO
         public string Id { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
+        public string Content { get; set; }
         public string Author { get; set; }
         public string ProjectId { get; set; }
         public int OrderId { get; set; }
@@ -97,7 +98,7 @@ namespace Domain.SaveDTO
         public bool? withBackground { get; set; }
         public bool? stretched { get; set; }
         public string? style { get; set; }
-        public List<Item>? items { get; set; }
+        public List<ItemDTO>? items { get; set; }
         public string? link { get; set; }
         public Meta? meta { get; set; }
         public string? code { get; set; }
@@ -115,7 +116,7 @@ namespace Domain.SaveDTO
 
 
 
-    public class Item
+    public class ItemDTO
     {
         public string content { get; set; }
         public List<object> items { get; set; }

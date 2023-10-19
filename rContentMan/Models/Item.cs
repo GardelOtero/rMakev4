@@ -1,9 +1,9 @@
 ﻿using Domain.SaveDTO;
-using Domain.DTOs;
+//using Domain.DTOs;
 
 namespace rContentMan.Models
 {
-    public class Item : SaveProjectDto
+    public class Item : SavePortfolioDTO
     {
     }
 }
