@@ -31,7 +31,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("https://rmake.azurewebsites.net",
                                 "https://localhost:7152",
-                                "https://localhost:7061")
+                                "https://localhost:7061",
+                                "https://rmake.co")
                                 .AllowAnyMethod()
                                 .AllowAnyHeader()
                                 .AllowCredentials();
