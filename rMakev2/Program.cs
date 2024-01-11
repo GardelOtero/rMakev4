@@ -11,6 +11,7 @@ using Blazored.SessionStorage;
 using Blazored.LocalStorage;
 using System.Text.Json.Serialization;
 using rMakev2.Services.Interfaces;
+using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +82,7 @@ app.UseCors();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
+    
     //endpoints.MapBlazorHub();
 });
 
