@@ -97,7 +97,7 @@ namespace Domain.DTOs
     public class ItemDTO
     {
         public string content { get; set; }
-        public List<object> items { get; set; }
+        public List<ItemDTO> items { get; set; }
         public string text { get; set; }
         public bool? @checked { get; set; }
     }
