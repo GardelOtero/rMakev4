@@ -44,6 +44,8 @@ namespace Domain.SaveDTO
 
         public List<SaveDocumentDTO> Documents { get; set; }
 
+        public string Author { get; set; }
+
 
 
 
@@ -60,6 +62,10 @@ namespace Domain.SaveDTO
         public int OrderId { get; set; }
         public List<string> ParentId { get; set; }
         public List<SaveElementDTO> Elements { get; set; }
+        public string GitSha { get; set; }
+        public string ImageLink { get; set; }
+        
+        public string Tag { get; set; }
     }
 
     public class SaveElementDTO
@@ -119,7 +125,7 @@ namespace Domain.SaveDTO
     public class ItemDTO
     {
         public string content { get; set; }
-        public List<object> items { get; set; }
+        public List<ItemDTO> items { get; set; }
         public string text { get; set; }
         public bool? @checked { get; set; }
     }
