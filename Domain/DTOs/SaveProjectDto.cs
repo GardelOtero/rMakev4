@@ -12,7 +12,7 @@ namespace Domain.DTOs
         public DateTime CreationDate { get; set; }
         public string rIdSignature { get; set; }
         public DateTime SignatureDate { get; set; }
-        public List<string> Authors { get; set; }
+        public List<AuthorDTO> Authors { get; set; }
         public List<ProjectDTO> Projects { get; set; }
        // public UIDto Ui { get; set; }
 
@@ -23,14 +23,18 @@ namespace Domain.DTOs
         public string IdSelectedProject { get; set; }
         public string IdSelectedDocument { get; set; }
     }*/
-
+    public class AuthorDTO
+    {
+        public string Name { get; set; }
+        public string Id { get; set; }
+    }
     public class ProjectDTO
     {
         
         public string id { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
-        public HashSet<string> Authors { get; set; }
+        public List<AuthorDTO> Authors { get; set; }
         public string PathPreviewImage { get; set; }
         public List<DocumentDTO> Documents { get; set; }
         public string PortfolioId { get; set; }
@@ -43,7 +47,7 @@ namespace Domain.DTOs
         public string id { get; set; }
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
-        public HashSet<string> Authors { get; set; }
+        public List<AuthorDTO> Authors { get; set; }
         public int Order { get; set; }
         public string Content { get; set; }
         public string ProjectId { get; set; }
@@ -61,14 +65,14 @@ namespace Domain.DTOs
         public string Ideary { get; set; }
         public string DocumentId { get; set; }
         public string ParentElementId { get; set; }
-        public HashSet<string> Authors { get; set; }
+        public List<AuthorDTO> Authors { get; set; }
 
         public List<BlockElementDTO> BlockContent { get; set; }
 
     }
     public class BlockElementDTO
     {
-        public HashSet<string> Authors { get; set; }
+        public HashSet<AuthorDTO> Authors { get; set; }
         public string id { get; set; }
         public string type { get; set; }
         public DataDTO data { get; set; }

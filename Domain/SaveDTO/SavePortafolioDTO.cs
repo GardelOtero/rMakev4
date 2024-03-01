@@ -16,7 +16,7 @@ namespace Domain.SaveDTO
 
         public string Name { get; set; }
 
-        public string Author { get; set; }
+        public AuthorDTO Author { get; set; }
 
         public List<SaveProjectDTO> Projects { get; set; }
 
@@ -26,7 +26,11 @@ namespace Domain.SaveDTO
 
 
     }
-
+    public class AuthorDTO
+    {
+        public string Name { get; set; }
+        public string Id { get; set; }
+    }
 
     public class SaveProjectDTO
 
@@ -37,6 +41,8 @@ namespace Domain.SaveDTO
         public string Name { get; set; }
 
         public DateTime CreationDate { get; set; }
+        public int OrderId { get; set; }
+
 
         public string PortfolioId { get; set; }
 
@@ -44,7 +50,7 @@ namespace Domain.SaveDTO
 
         public List<SaveDocumentDTO> Documents { get; set; }
 
-        public string Author { get; set; }
+        public List <AuthorDTO> Author { get; set; }
 
 
 
@@ -57,7 +63,7 @@ namespace Domain.SaveDTO
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }
-        public string Author { get; set; }
+        public List<AuthorDTO> Author { get; set; }
         public string ProjectId { get; set; }
         public int OrderId { get; set; }
         public List<string> ParentId { get; set; }
@@ -73,7 +79,7 @@ namespace Domain.SaveDTO
         public string Id { get; set; }
         public BlockContent Block { get; set; }
         public DateTime CreationDate { get; set; }
-        public string Author { get; set; }
+        public List<AuthorDTO> Author { get; set; }
         public string DocumentId { get; set; }
         public int OrderId { get; set; }
         public string ParentElement { get; set; }
@@ -99,6 +105,11 @@ namespace Domain.SaveDTO
         public string? caption { get; set; }
         public string? alignment { get; set; }
         public string? url { get; set; }
+        public string? service { get; set; }
+        public string? source { get; set; }
+        public string? embed { get; set; }
+        public int? width { get; set; }
+        public int? height { get; set; }
         public File? file { get; set; }
         public bool? withBorder { get; set; }
         public bool? withBackground { get; set; }
