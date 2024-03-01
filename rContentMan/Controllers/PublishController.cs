@@ -28,11 +28,23 @@ namespace rContentMan.Controllers
 
         }
 
-        [HttpGet("{id}")]
-
-        public async Task<string> GetAsync(string id)
+        [HttpGet("{PortfolioId}")]
+        public async Task<string> GetAllByPortfolioAsync(string PortfolioId)
         {
-            var x = await _cosmosDbService.GetItemAsync(id);
+
+
+            var x = await _cosmosDbService.GetItemsByPartitionAsync("SELECT * FROM c", PortfolioId);
+            var z = JsonConvert.SerializeObject(x);
+            return (z);
+
+
+        }
+
+        [HttpGet("{id}/{PortfolioId}")]
+
+        public async Task<string> GetAsync(string id, string PortfolioId)
+        {
+            var x = await _cosmosDbService.GetItemFromPartitionAsync(id, PortfolioId);
             var z = JsonConvert.SerializeObject(x);
             return z;
         }
@@ -46,11 +58,11 @@ namespace rContentMan.Controllers
             {
 
 
-                var validate = await _cosmosDbService.GetItemAsync(item.id);
+                var validate = await _cosmosDbService.GetItemAsync(item.PortfolioId);
                 if (validate != null)
                 {
 
-                    await _cosmosDbService.UpdateItemAsync(item.id, item);
+                    await _cosmosDbService.UpdateItemAsync(item.PortfolioId, item);
 
                 }
                 else
@@ -66,16 +78,17 @@ namespace rContentMan.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task PutAsync(string id, PublishDocument item)
+        [HttpPut]
+        public async Task PutAsync(PublishDocument item)
         {
-            await _cosmosDbService.UpdateItemAsync(id, item);
+            await _cosmosDbService.UpdateItemAsync(item.PortfolioId, item);
         }
+
         
-        [HttpDelete("{id}")]
-        public async Task DeleteAsync(string id)
+        [HttpDelete("{id}/{PortfolioId}")]
+        public async Task DeleteAsync(string id, string PortfolioId)
         {
-            await _cosmosDbService.DeleteItemAsync(id);
+            await _cosmosDbService.DeleteItemFromPartitionAsync(id, PortfolioId);
         }
     }
 }

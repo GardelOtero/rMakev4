@@ -31,7 +31,7 @@ namespace rContentMan.Services
         public async Task<Item> GetItemAsync(string id)
         {
             try
-            {
+             {
                 ItemResponse<Item> response = await this._container.ReadItemAsync<Item>(id, new PartitionKey(id));
                 return response.Resource;
             }

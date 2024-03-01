@@ -13,6 +13,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Azure.Cosmos;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -111,8 +112,12 @@ static async Task<PublishDbService> InitializeCosmosPublishClientInstanceAsync(I
 
     Microsoft.Azure.Cosmos.DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
 
-    await database.Database.CreateContainerIfNotExistsAsync(containerName, "/id");
 
+    //var containertemp = database.Database.GetContainer(containerName);
+
+    //await containertemp.DeleteContainerAsync();
+
+    var container = await database.Database.CreateContainerIfNotExistsAsync(containerName, "/PortfolioId");
     //await database.Database.CreateContainerIfNotExistsAsync(containerName, "/id");
 
     return cosmosDbServicePublish;
