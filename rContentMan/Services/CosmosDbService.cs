@@ -4,7 +4,8 @@ using System.Collections.Concurrent;
 
 namespace rContentMan.Services
 {
-    public class CosmosDbService : ICosmosDbService
+
+    public class CosmosDbService : ICosmosDbService<Item>
     {
         private Microsoft.Azure.Cosmos.Container _container;
 

@@ -2,12 +2,12 @@
 
 namespace rContentMan.Services
 {
-    public interface ICosmosDbService
+    public interface ICosmosDbService<T>
     {
-        Task<IEnumerable<Item>> GetItemsAsync(string query);
-        Task<Item> GetItemAsync(string id);
-        Task AddItemAsync(Item item);
-        Task UpdateItemAsync(string id, Item item);
+        Task<IEnumerable<T>> GetItemsAsync(string query);
+        Task<T> GetItemAsync(string id);
+        Task AddItemAsync(T item);
+        Task UpdateItemAsync(string id, T item);
         Task DeleteItemAsync(string id);
     }
 }

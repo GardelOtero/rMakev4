@@ -1,15 +1,17 @@
-﻿ using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using rContentMan.Models;
 using rContentMan.Services;
 
 namespace rContentMan.Controllers
 {
+
     [Route("api/[controller]")]
-    public class ItemController : ControllerBase
+    public class PublishController : ControllerBase
     {
-        private readonly CosmosDbService _cosmosDbService;
-        public ItemController(CosmosDbService cosmosDbService)
+        private readonly PublishDbService _cosmosDbService;
+        public PublishController(PublishDbService cosmosDbService)
         {
             _cosmosDbService = cosmosDbService;
         }
@@ -36,16 +38,16 @@ namespace rContentMan.Controllers
         }
 
         [HttpPost]
-        public async Task PostAsync([FromBody] Item item)
+        public async Task PostAsync([FromBody] PublishDocument item)
         {
 
 
-            if (item != null)
+             if (item != null)
             {
-                
-                
+
+
                 var validate = await _cosmosDbService.GetItemAsync(item.id);
-                if(validate != null)
+                if (validate != null)
                 {
 
                     await _cosmosDbService.UpdateItemAsync(item.id, item);
@@ -54,25 +56,27 @@ namespace rContentMan.Controllers
                 else
                 {
 
-                
+
                     //item.id = Guid.NewGuid().ToString();
                     await _cosmosDbService.AddItemAsync(item);
                 }
-             
+
 
             }
 
         }
 
         [HttpPut("{id}")]
-        public async Task PutAsync(string id, Item item)
+        public async Task PutAsync(string id, PublishDocument item)
         {
             await _cosmosDbService.UpdateItemAsync(id, item);
         }
-
-
-
-
-
+        
+        [HttpDelete("{id}")]
+        public async Task DeleteAsync(string id)
+        {
+            await _cosmosDbService.DeleteItemAsync(id);
+        }
     }
 }
+  
