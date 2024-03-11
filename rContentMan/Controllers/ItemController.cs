@@ -20,6 +20,7 @@ namespace rContentMan.Controllers
 
 
             var x = await _cosmosDbService.GetItemsAsync("SELECT * FROM c");
+
             var z = JsonConvert.SerializeObject(x);
             return (z);
 
