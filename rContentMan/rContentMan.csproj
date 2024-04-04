@@ -12,7 +12,9 @@
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.52" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.2" />
+    <PackageReference Include="Jwt.Refresh.Token.Cosmos" Version="3.0.0-preview" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.28" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.38.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="8.0.0-preview.6.23329.4" />
     <PackageReference Include="Radzen.Blazor" Version="4.23.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />

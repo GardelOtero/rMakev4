@@ -1,8 +1,11 @@
-﻿namespace rContentMan.Models
+﻿using Newtonsoft.Json;
+
+namespace rContentMan.Models
 {
     public class LoginModel
     {
-        public string PortfolioId { get; set; }
-        public string Token { get; set; }
+        public string id { get; set; }
+        public string userId { get; set; }
+        public string Password { get; set; }
     }
 }
